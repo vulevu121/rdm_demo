@@ -11,7 +11,7 @@ import sys,os
 from can.interface import Bus
 #import relay_ft245r
 
-# system import
+# system imports
 import threading
 import re
 #import visa
