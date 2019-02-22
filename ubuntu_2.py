@@ -4,41 +4,40 @@ Author: Khuong Nguyen, Vu Le
 """
 
 
-
+from PyQt5.QtGui import *
+from PyQt5.QtQml import *
+from PyQt5.QtCore import *
 import sys,os
 from can.interface import Bus
-import relay_ft245r 
+#import relay_ft245r
 
 # system import
 import threading
 import re
-import visa
+#import visa
 import os.path
 from os import path
 from subprocess import call
 
 # GUI files
-from Auto_Show import *
 # RDM class
 from inv_control_demo import *
 # Power Supply Class
-from PS_Control import *
-# EPB class
-from epb_control import *
+#from PS_Control import *
 
 # Flags
 TransmitFlag = True
 ReadFlag     = True
 
 
-# CAN objects 
+# CAN objects
 bus         = None
 listener    = None
 notifier    = None
 send_thread = None
 read_thread = None
 
-PEAK_CAN_connected = 1   # 1 is not connected 
+PEAK_CAN_connected = 1   # 1 is not connected
 
 # Timer
 stg1_duration = 5
@@ -47,8 +46,9 @@ stg3_duration = 3
 stg4_duration = 5
 stg5_duration = 3
 
-class RDMdemo():
+class RDMdemo(QObject):
     def __init__(self):
+        QObject.__init__(self)
 
         print('Demo created!')
         self.tm1_torque_sense = 0
@@ -56,35 +56,102 @@ class RDMdemo():
         self.tm2_torque_sense = 0
         self.tm2_rpm_sense = 0
 
+        self.m_randomValue = 0
+        self.m_leftRPM = 0
+        self.m_rightRPM = 0
+        self.m_leftTorque = 0
+        self.m_rightTorque = 0
+
         # Create RDM object
         self.rdm = RDM()
 
         # Relay control
-        rb = relay_ft245r.FT245R()
-        dev_list = rb.list_dev()
-
-        # list of FT245R devices are returned
-        if len(dev_list) == 0:
-            print('No FT245R devices found')
-            sys.exit()
-            
-        # Show their serial numbers
-        for dev in dev_list:
-            print(dev.serial_number)
-
-        # Pick the first one for simplicity
-        dev = dev_list[0]
-        print('Using device with serial number ' + str(dev.serial_number))
+##        rb = relay_ft245r.FT245R()
+##        dev_list = rb.list_dev()
+##
+##        # list of FT245R devices are returned
+##        if len(dev_list) == 0:
+##            print('No FT245R devices found')
+##            sys.exit()
+##
+##        # Show their serial numbers
+##        for dev in dev_list:
+##            print(dev.serial_number)
+##
+##        # Pick the first one for simplicity
+##        dev = dev_list[0]
+##        print('Using device with serial number ' + str(dev.serial_number))
 
         # Timers
         self.timers = []
-        
+
         # WUP Control
 
         # start CAN
         initCAN()
         self.start_CAN_thread()
 
+    leftRPMSignal = pyqtSignal(int)
+
+    @pyqtProperty(int, notify=leftRPMSignal)
+    def leftRPM(self):
+        return self.m_leftRPM
+
+    @leftRPM.setter
+    def leftRPM(self, v):
+        if self.m_leftRPM == v:
+            return
+        self.m_leftRPM = v
+        self.leftRPMSignal.emit(v)
+
+    rightRPMSignal = pyqtSignal(int)
+
+    @pyqtProperty(int, notify=rightRPMSignal)
+    def rightRPM(self):
+        return self.m_rightRPM
+
+    @rightRPM.setter
+    def rightRPM(self, v):
+        if self.m_rightRPM == v:
+            return
+        self.m_rightRPM = v
+        self.rightRPMSignal.emit(v)
+
+    leftTorqueSignal = pyqtSignal(int)
+
+    @pyqtProperty(int, notify=leftTorqueSignal)
+    def leftTorque(self):
+        return self.m_leftTorque
+
+    @leftTorque.setter
+    def leftTorque(self, v):
+        if self.m_leftTorque == v:
+            return
+        self.m_leftTorque = v
+        self.leftTorqueSignal.emit(v)
+
+    rightTorqueSignal = pyqtSignal(int)
+
+    @pyqtProperty(int, notify=rightTorqueSignal)
+    def rightTorque(self):
+        return self.m_rightTorque
+
+    @rightTorque.setter
+    def rightTorque(self, v):
+        if self.m_rightTorque == v:
+            return
+        self.m_rightTorque = v
+        self.rightTorqueSignal.emit(v)
+
+    def updateStatus(self):
+        self.leftRPM += 100
+        self.leftRPM %= 500
+        self.rightRPM += 50
+        self.rightRPM %= 500
+        self.leftTorque += 1
+        self.leftTorque %= 15
+        self.rightTorque -= 1
+        self.rightTorque %= -15
 
 
     #######################################        
@@ -141,6 +208,15 @@ class RDMdemo():
                 self.tm1_rpm_sense = tm1_feedback['speed sens']
                 self.tm2_torque_sense =  tm2_feedback['torque sens']
                 self.tm2_rpm_sense = tm2_feedback['speed sens']
+
+                self.leftRPM = tm1_feedback['speed sens']
+                # self.leftRPM %= 500
+                self.rightRPM = tm2_feedback['speed sens']
+                # self.rightRPM %= 500
+                self.leftTorque = tm1_feedback['torque sens']
+                # self.leftTorque %= 15
+                self.rightTorque = tm2_feedback['torque sens']
+                # self.rightTorque %= -15
                 
             except Exception as e:
                 print('RDM: Unable to read on CAN bus ' + str(e) )
