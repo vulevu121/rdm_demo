@@ -56,7 +56,6 @@ class RDMdemo(QObject):
         self.tm2_torque_sense = 0
         self.tm2_rpm_sense = 0
 
-        self.m_randomValue = 0
         self.m_leftRPM = 0
         self.m_rightRPM = 0
         self.m_leftTorque = 0
@@ -91,6 +90,7 @@ class RDMdemo(QObject):
         initCAN()
         self.start_CAN_thread()
 
+    # signals and connections to QML
     leftRPMSignal = pyqtSignal(int)
 
     @pyqtProperty(int, notify=leftRPMSignal)

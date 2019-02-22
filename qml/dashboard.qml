@@ -139,7 +139,7 @@ Window {
 
                     // say signal handler, "on" + "[your function name]"
                     onLeftRPMSignal: {
-                        tachometerLeft.value = RDMBench.leftRPM
+                        tachometerLeft.value = Math.abs(RDMBench.leftRPM)
                     }
 
                 }
@@ -186,7 +186,7 @@ Window {
 
                     // say signal handler, "on" + "[your function name]"
                     onRightRPMSignal: {
-                        tachometerRight.value = RDMBench.rightRPM
+                        tachometerRight.value = Math.abs(RDMBench.rightRPM)
                     }
 
                 }
