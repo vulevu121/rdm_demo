@@ -137,7 +137,6 @@ Window {
                 Connections {
                     target: RDMBench
 
-                    // say signal handler, "on" + "[your function name]"
                     onLeftRPMSignal: {
                         tachometerLeft.value = Math.abs(RDMBench.leftRPM)
                     }
@@ -151,7 +150,7 @@ Window {
                     z: 1
                     anchors.centerIn: parent
                     width: height
-                    property real gaugeValue: RDMBench.leftTorque
+                    property real gaugeValue
                     x: 100
                     y: 100
                     maximumValue: 15
@@ -160,6 +159,15 @@ Window {
 
                     Behavior on gaugeValue {
                         NumberAnimation { duration: 300 }
+                    }
+
+                    Connections {
+                        target: RDMBench
+
+                        onLeftRPMSignal: {
+                            leftTorque.gaugeValue = RDMBench.leftTorque
+                        }
+
                     }
                 }
             }
@@ -170,12 +178,11 @@ Window {
                 height: 400
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: tachometerLeft.right
-                anchors.leftMargin: 64
+                anchors.leftMargin: 24
                 maximumValue: 500
                 z: 0
 
                 style: TachometerStyle {}
-
 
                 Behavior on value {
                     NumberAnimation { duration: 300 }
@@ -184,7 +191,6 @@ Window {
                 Connections {
                     target: RDMBench
 
-                    // say signal handler, "on" + "[your function name]"
                     onRightRPMSignal: {
                         tachometerRight.value = Math.abs(RDMBench.rightRPM)
                     }
@@ -197,7 +203,7 @@ Window {
                     z: 1
                     anchors.centerIn: parent
                     width: height
-                    property real gaugeValue: RDMBench.rightTorque
+                    property real gaugeValue
                     x: 100
                     y: 100
                     maximumValue: 15
@@ -206,6 +212,15 @@ Window {
 
                     Behavior on gaugeValue {
                         NumberAnimation { duration: 300 }
+                    }
+
+                    Connections {
+                        target: RDMBench
+
+                        onRightRPMSignal: {
+                            rightTorque.gaugeValue = RDMBench.rightTorque
+                        }
+
                     }
 
                 }

@@ -3,8 +3,8 @@ import QtQuick.Controls.Styles 1.2
 import QtGraphicalEffects 1.0
 
 ProgressBarStyle {
-    property real gaugePercent: control.gaugeValue / control.maximumValue
-
+    // if gaugePercent is positive then we ensure the ending position of the gradient do not exceed 1.0, simiarly for negative
+    property real gaugePercent: control.gaugeValue >= 0 ? Math.min(control.gaugeValue / control.maximumValue, 0.99) : Math.max(control.gaugeValue / control.maximumValue, -1.00)
 
     panel: Rectangle {
         color: "transparent"
@@ -82,10 +82,20 @@ ProgressBarStyle {
 
         Text {
             id: progressLabel
-            anchors.centerIn: parent
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
             color: "white"
+            font.pixelSize: 40
+            text: (control.gaugeValue).toFixed()
+        }
 
-            text: (control.gaugeValue).toFixed() + " Nm"
+
+        Text {
+            anchors.top: progressLabel.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: "white"
+            font.pixelSize: 20
+            text: "Nm"
         }
     }
 }

@@ -1,7 +1,7 @@
 from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
-from ubuntu_2 import *
+# from ubuntu_2 import *
 
 class RDM(QObject):
 	def __init__(self):
@@ -72,9 +72,9 @@ class RDM(QObject):
 		self.rightRPM += 50
 		self.rightRPM %= 500
 		self.leftTorque += 1
-		self.leftTorque %= 15
+		self.leftTorque %= 30
 		self.rightTorque -= 1
-		self.rightTorque %= -15
+		self.rightTorque %= -30
 
 
 if __name__ == "__main__":
