@@ -147,15 +147,15 @@ Window {
             }
 
             DropShadow {
-                    anchors.fill: tachometerLeft
-                    horizontalOffset: 0
-                    verticalOffset: 7
-                    radius: 8.0
-                    samples: 17
-                    color: "#80000000"
-                    cached: true
-                    source: tachometerLeft
-             }
+                anchors.fill: tachometerLeft
+                horizontalOffset: 0
+                verticalOffset: 7
+                radius: 8.0
+                samples: 17
+                color: "#80000000"
+                cached: true
+                source: tachometerLeft
+            }
 
 
 
@@ -215,14 +215,14 @@ Window {
             }
 
             DropShadow {
-                    anchors.fill: tachometerRight
-                    horizontalOffset: 0
-                    verticalOffset: 7
-                    radius: 8.0
-                    samples: 17
-                    cached: true
-                    color: "#80000000"
-                    source: tachometerRight
+                anchors.fill: tachometerRight
+                horizontalOffset: 0
+                verticalOffset: 7
+                radius: 8.0
+                samples: 17
+                cached: true
+                color: "#80000000"
+                source: tachometerRight
             }
 
 
@@ -232,7 +232,9 @@ Window {
         Item {
             id: infoContainer
             x: 906
-            width: 1014
+            width: 936
+            anchors.right: parent.right
+            anchors.rightMargin: 72
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             anchors.top: parent.top
@@ -245,7 +247,7 @@ Window {
                 width: 64
                 height: 64
                 anchors.right: parent.right
-                anchors.rightMargin: 49
+                anchors.rightMargin: 50
                 fillMode: Image.PreserveAspectCrop
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 49
@@ -337,8 +339,11 @@ Window {
 
             }
 
+
+
+
             RoundButton {
-                id: roundButton
+                id: scrollUpButton
                 x: 905
                 width: 64
                 height: 64
@@ -347,16 +352,21 @@ Window {
                 anchors.rightMargin: 48
                 anchors.top: parent.top
                 anchors.topMargin: 48
-                opacity: 0.2
                 visible: true
                 focusPolicy: Qt.NoFocus
                 display: AbstractButton.IconOnly
                 spacing: 5
+
+                background: Rectangle {
+                    radius: parent.width/2
+                    color: parent.down ? "#262626" : "#161616"
+                }
+
                 onClicked: swipeView.setCurrentIndex(swipeView.currentIndex > 0 ? swipeView.currentIndex-1 : 0)
             }
 
             RoundButton {
-                id: roundButton1
+                id: scrollDownButton
                 x: 911
                 y: 974
                 width: 64
@@ -370,7 +380,34 @@ Window {
                 focusPolicy: Qt.NoFocus
                 display: AbstractButton.IconOnly
                 spacing: 5
+
+                background: Rectangle {
+                    radius: parent.width/2
+                    color: parent.down ? "#262626" : "#161616"
+                }
                 onClicked: swipeView.setCurrentIndex(swipeView.currentIndex < 3 ? swipeView.currentIndex+1 : 3)
+            }
+
+            DropShadow {
+                anchors.fill: scrollUpButton
+                horizontalOffset: 0
+                verticalOffset: 7
+                radius: 8.0
+                cached: false
+                samples: 17
+                color: "#80000000"
+                source: scrollUpButton
+            }
+
+            DropShadow {
+                anchors.fill: scrollDownButton
+                horizontalOffset: 0
+                verticalOffset: 7
+                radius: 8.0
+                cached: false
+                samples: 17
+                color: "#80000000"
+                source: scrollDownButton
             }
 
 
@@ -432,59 +469,82 @@ Window {
             }
 
             DropShadow {
-                    anchors.fill: logoImage
-                    horizontalOffset: 0
-                    verticalOffset: 7
-                    radius: 8.0
-                    cached: true
-                    samples: 17
-                    color: "#80000000"
-                    source: logoImage
-             }
+                anchors.fill: logoImage
+                horizontalOffset: 0
+                verticalOffset: 7
+                radius: 8.0
+                cached: true
+                samples: 17
+                color: "#80000000"
+                source: logoImage
+            }
 
-            ToggleButton {
-                id: toggleButton
-                y: 40
-                text: qsTr("Start")
-                z: 2
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+            RoundButton {
+                id: startButton
+                x: 204
+                y: 48
                 width: 114
                 height: 114
+                text: "S T A R T"
+                font.pointSize: 15
+                font.strikeout: false
+                flat: false
+                highlighted: true
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                z: 2
 
-
-                style: ToggleButtonStyle {
-                    checkedGradient: Gradient {
-                        //                        GradientStop { position: 0.0; color: "red" }
-                        GradientStop { position: 0.33; color: "yellow" }
-                        GradientStop { position: 1.0; color: "green" }
-                    }
-
-                    uncheckedGradient: Gradient {
-                        //                        GradientStop { position: 0.0; color: "red" }
-                        GradientStop { position: 0.33; color: "yellow" }
-                        GradientStop { position: 1.0; color: "red" }
-                    }
+                background: Rectangle {
+                    radius: startButton.width/2
+                    color: startButton.down ? "#262626" : "#161616"
                 }
 
-                Connections {
-                    target: RDMBench
-                    onStartSignal: {
-                        checked: setStart
-                    }
-                }
+
             }
+
+            //            ToggleButton {
+            //                id: toggleButton
+            //                y: 40
+            //                text: qsTr("Start")
+            //                z: 2
+            //                anchors.verticalCenter: parent.verticalCenter
+            //                anchors.horizontalCenter: parent.horizontalCenter
+            //                width: 114
+            //                height: 114
+
+
+            //                style: ToggleButtonStyle {
+            //                    checkedGradient: Gradient {
+            //                        //                        GradientStop { position: 0.0; color: "red" }
+            //                        GradientStop { position: 0.33; color: "yellow" }
+            //                        GradientStop { position: 1.0; color: "green" }
+            //                    }
+
+            //                    uncheckedGradient: Gradient {
+            //                        //                        GradientStop { position: 0.0; color: "red" }
+            //                        GradientStop { position: 0.33; color: "yellow" }
+            //                        GradientStop { position: 1.0; color: "red" }
+            //                    }
+            //                }
+
+            //                Connections {
+            //                    target: RDMBench
+            //                    onStartSignal: {
+            //                        checked: setStart
+            //                    }
+            //                }
+            //            }
         }
 
         Image {
             id: image
-            x: 94
-            y: 142
-            width: 800
-            height: 450
-            z: -4
+            x: 8
+            y: 54
+            width: 1020
+            height: 582
+            z: -5
             fillMode: Image.Tile
-            source: "../images/2017-karma-revero_1000.jpg"
+            source: "../images/karma-revero-infortainment-system-1.png"
         }
 
     }
@@ -539,128 +599,7 @@ Window {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*##^## Designer {
-    D{i:19;anchors_height:100;anchors_y:934}D{i:20;anchors_y:24}D{i:31;anchors_y:45}D{i:18;anchors_height:724;anchors_y:188}
+    D{i:19;anchors_height:100;anchors_y:934}D{i:20;anchors_y:24}D{i:18;anchors_height:724;anchors_y:188}
 }
  ##^##*/
