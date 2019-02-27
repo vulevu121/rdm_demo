@@ -129,7 +129,7 @@ Window {
                     y: 100
                     maximumValue: 15
                     minimumValue: -15
-                    style: CircularProgressBarStyle {}
+                    style: CircularProgressBarStyle { }
 
                     Behavior on gaugeValue {
                         NumberAnimation { duration: 300 }
@@ -359,7 +359,7 @@ Window {
 
                 background: Rectangle {
                     radius: parent.width/2
-                    color: parent.down ? "#262626" : "#161616"
+                    color: parent.down ? "#161616" : "#262626"
                 }
 
                 onClicked: swipeView.setCurrentIndex(swipeView.currentIndex > 0 ? swipeView.currentIndex-1 : 0)
@@ -383,7 +383,7 @@ Window {
 
                 background: Rectangle {
                     radius: parent.width/2
-                    color: parent.down ? "#262626" : "#161616"
+                    color: parent.down ? "#161616" : "#262626"
                 }
                 onClicked: swipeView.setCurrentIndex(swipeView.currentIndex < 3 ? swipeView.currentIndex+1 : 3)
             }
@@ -427,7 +427,7 @@ Window {
             z: 2
 
             ProgressBar {
-                id: routineStage
+                id: stateProgressBar
                 height: 124
                 anchors.verticalCenterOffset: 0
                 anchors.horizontalCenterOffset: 0
@@ -442,6 +442,7 @@ Window {
                 style: CircularProgressBarStyle {
                     startColorPos: "red"
                     endColorPos: "red"
+                    displayValue: false
                 }
 
                 Behavior on gaugeValue {
@@ -452,7 +453,7 @@ Window {
                     target: RDMBench
 
                     onLeftRPMSignal: {
-                        routineStage.gaugeValue = RDMBench.leftTorque
+                        stateProgressBar.gaugeValue = RDMBench.leftTorque
                     }
 
                 }
@@ -496,7 +497,7 @@ Window {
 
                 background: Rectangle {
                     radius: startButton.width/2
-                    color: startButton.down ? "#262626" : "#161616"
+                    color: startButton.down ? "#161616" : "#262626"
                 }
 
 
@@ -549,6 +550,20 @@ Window {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
