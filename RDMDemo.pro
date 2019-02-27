@@ -21,5 +21,10 @@ target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols/extras/dashboard
 INSTALLS += target
 
 DISTFILES += \
-    qml/CircularProgressBarStyle.qml
+    qml/CircularProgressBarStyle.qml \
+    qml/Page1.qml \
+    qml/Gearbox.qml \
+    qml/Inverter.qml \
+    qml/Motor.qml \
+    qml/RDM.qml
 

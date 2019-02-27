@@ -10,6 +10,7 @@ class RDM(QObject):
 		self.m_rightRPM = 0
 		self.m_leftTorque = 0
 		self.m_rightTorque = 0
+		self.m_start = 0
 
 
 	leftRPMSignal = pyqtSignal(int)
@@ -65,6 +66,16 @@ class RDM(QObject):
 			return
 		self.m_rightTorque = v
 		self.rightTorqueSignal.emit(v)
+
+	startSignal = pyqtSignal(bool, arguments=['setStart'])
+
+	@pyqtSlot(bool)
+	def setStart(self, start):
+		self.start = start
+		self.startSignal.emit(True)
+		print(True)
+		return start
+
 
 	def updateStatus(self):
 		self.leftRPM += 100

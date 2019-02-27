@@ -50,13 +50,13 @@
 
 import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
 
 import QtQuick 2.3
 import QtGraphicalEffects 1.0
-
 
 
 Window {
@@ -90,32 +90,6 @@ Window {
             anchors.bottomMargin: 64
             anchors.left: parent.left
             anchors.leftMargin: 64
-
-
-
-
-            //            CircularGauge {
-            //                id: speedometer
-            //                value: valueSource.kph
-            //                anchors.verticalCenter: parent.verticalCenter
-            //                maximumValue: 280
-            //                // We set the width to the height, because the height will always be
-            //                // the more limited factor. Also, all circular controls letterbox
-            //                // their contents to ensure that they remain circular. However, we
-            //                // don't want to extra space on the left and right of our gauges,
-            //                // because they're laid out horizontally, and that would create
-            //                // large horizontal gaps between gauges on wide screens.
-            //                width: height
-            //                height: container.height * 0.5
-
-            //                style: DashboardGaugeStyle {}
-            //            }
-
-            //            Button {
-            //                id: button
-            //                text: qsTr("Button")
-            //                onClicked: RDMBench.random_value()
-            //            }
 
 
             CircularGauge {
@@ -172,6 +146,20 @@ Window {
                 }
             }
 
+            DropShadow {
+                    anchors.fill: tachometerLeft
+                    horizontalOffset: 0
+                    verticalOffset: 7
+                    radius: 8.0
+                    samples: 17
+                    color: "#80000000"
+                    cached: true
+                    source: tachometerLeft
+             }
+
+
+
+
             CircularGauge {
                 id: tachometerRight
                 width: height
@@ -226,42 +214,243 @@ Window {
                 }
             }
 
+            DropShadow {
+                    anchors.fill: tachometerRight
+                    horizontalOffset: 0
+                    verticalOffset: 7
+                    radius: 8.0
+                    samples: 17
+                    cached: true
+                    color: "#80000000"
+                    source: tachometerRight
+            }
+
+
         }
+
 
         Item {
             id: infoContainer
-            x: 648
-            y: 190
-            width: 352
-            height: 295
+            x: 906
+            width: 1014
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            AnimatedImage {
+                id: scrollDownImage
+                x: 872
+                y: 961
+                width: 64
+                height: 64
+                anchors.right: parent.right
+                anchors.rightMargin: 49
+                fillMode: Image.PreserveAspectCrop
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 49
+                rotation: 180
+                z: 1
+                source: "../images/scroll_up.gif"
+            }
+
+            AnimatedImage {
+                id: scrollUpImage
+                x: 872
+                width: 64
+                height: 64
+                anchors.right: parent.right
+                anchors.rightMargin: 46
+                fillMode: Image.PreserveAspectCrop
+                anchors.top: parent.top
+                anchors.topMargin: 46
+                z: 1
+                source: "../images/scroll_up.gif"
+
+            }
+
+            SwipeView {
+                id: swipeView
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.top: parent.top
+                orientation: Qt.Vertical
+                wheelEnabled: true
+                anchors.rightMargin: 128
+                anchors.bottomMargin: 24
+                anchors.leftMargin: 72
+                anchors.topMargin: 24
+
+                currentIndex: 0
+
+                Item {
+                    id: firstPage
+                    Loader {
+                        id: pageLoader1
+                        source: "RDM.qml"
+                        width: parent.width
+                        height: parent.height
+                    }
+
+                }
+                Item {
+                    Loader {
+                        id: pageLoader2
+                        source: "Gearbox.qml"
+                        width: parent.width
+                        height: parent.height
+                    }
+                }
+                Item {
+                    id: thirdPage
+                    Loader {
+                        id: pageLoader3
+                        source: "Motor.qml"
+                        width: parent.width
+                        height: parent.height
+                    }
+                }
+                Item {
+                    id: fourthPage
+                    Loader {
+                        id: pageLoader4
+                        source: "Inverter.qml"
+                        width: parent.width
+                        height: parent.height
+                    }
+                }
+            }
+
+            PageIndicator {
+                id: pageIndicator
+                y: 342
+                wheelEnabled: true
+                anchors.right: parent.right
+                anchors.rightMargin: 48
+                anchors.verticalCenter: parent.verticalCenter
+                scale: 3
+                rotation: 90
+
+                count: swipeView.count
+                currentIndex: swipeView.currentIndex
+
+            }
+
+            RoundButton {
+                id: roundButton
+                x: 905
+                width: 64
+                height: 64
+                text: ""
+                anchors.right: parent.right
+                anchors.rightMargin: 48
+                anchors.top: parent.top
+                anchors.topMargin: 48
+                opacity: 0.2
+                visible: true
+                focusPolicy: Qt.NoFocus
+                display: AbstractButton.IconOnly
+                spacing: 5
+                onClicked: swipeView.setCurrentIndex(swipeView.currentIndex > 0 ? swipeView.currentIndex-1 : 0)
+            }
+
+            RoundButton {
+                id: roundButton1
+                x: 911
+                y: 974
+                width: 64
+                height: 64
+                text: ""
+                anchors.right: parent.right
+                anchors.rightMargin: 48
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 48
+                opacity: 0.2
+                focusPolicy: Qt.NoFocus
+                display: AbstractButton.IconOnly
+                spacing: 5
+                onClicked: swipeView.setCurrentIndex(swipeView.currentIndex < 3 ? swipeView.currentIndex+1 : 3)
+            }
+
+
+
+
 
         }
 
         Item {
             id: logoContainer
+            width: 300
+            height: 200
             anchors.top: parent.top
-            anchors.topMargin: 64
+            anchors.topMargin: 48
             anchors.left: parent.left
-            anchors.leftMargin: 64
-            width: 278
-            height: 203
+            anchors.leftMargin: 48
+            z: 2
+
+            ProgressBar {
+                id: routineStage
+                height: 124
+                anchors.verticalCenterOffset: 0
+                anchors.horizontalCenterOffset: 0
+                z: 1
+                anchors.centerIn: parent
+                property real gaugeValue
+                x: 100
+                y: 100
+                width: 124
+                maximumValue: 15
+                minimumValue: -15
+                style: CircularProgressBarStyle {
+                    startColorPos: "red"
+                    endColorPos: "red"
+                }
+
+                Behavior on gaugeValue {
+                    NumberAnimation { duration: 300 }
+                }
+
+                Connections {
+                    target: RDMBench
+
+                    onLeftRPMSignal: {
+                        routineStage.gaugeValue = RDMBench.leftTorque
+                    }
+
+                }
+            }
 
             Image {
                 id: logoImage
                 width: 240
                 height: 180
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
                 fillMode: Image.PreserveAspectCrop
                 source: "../images/Karma-logo.png"
             }
+
+            DropShadow {
+                    anchors.fill: logoImage
+                    horizontalOffset: 0
+                    verticalOffset: 7
+                    radius: 8.0
+                    cached: true
+                    samples: 17
+                    color: "#80000000"
+                    source: logoImage
+             }
 
             ToggleButton {
                 id: toggleButton
                 y: 40
                 text: qsTr("Start")
-                anchors.left: logoImage.right
-                anchors.leftMargin: -170
-                width: 100
-                height: 100
+                z: 2
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 114
+                height: 114
 
 
                 style: ToggleButtonStyle {
@@ -276,10 +465,202 @@ Window {
                         GradientStop { position: 0.33; color: "yellow" }
                         GradientStop { position: 1.0; color: "red" }
                     }
+                }
 
-
+                Connections {
+                    target: RDMBench
+                    onStartSignal: {
+                        checked: setStart
+                    }
                 }
             }
         }
+
+        Image {
+            id: image
+            x: 94
+            y: 142
+            width: 800
+            height: 450
+            z: -4
+            fillMode: Image.Tile
+            source: "../images/2017-karma-revero_1000.jpg"
+        }
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:19;anchors_height:100;anchors_y:934}D{i:20;anchors_y:24}D{i:31;anchors_y:45}D{i:18;anchors_height:724;anchors_y:188}
+}
+ ##^##*/
