@@ -5,7 +5,7 @@ from PyQt5.QtCore import *
 guiTesting = False
 
 if not guiTesting:
-	from ubuntu_2 import *
+	from ubuntu_main import *
 
 class RDM(QObject):
 	def __init__(self):

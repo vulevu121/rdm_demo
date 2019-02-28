@@ -62,7 +62,7 @@ class RDMdemo(QObject):
 
         # Star Stop Flag
         self.isStarted  = False
-        self.demoStage = 1    # 1 to 5
+        self.demoStage = 0    # 1 to 5
         # Create RDM object
         self.rdm = RDM()
 
