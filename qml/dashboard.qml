@@ -427,7 +427,7 @@ Window {
             z: 2
 
             ProgressBar {
-                id: stateProgressBar
+                id: stageProgressBar
                 height: 124
                 anchors.verticalCenterOffset: 0
                 anchors.horizontalCenterOffset: 0
@@ -437,8 +437,8 @@ Window {
                 x: 100
                 y: 100
                 width: 124
-                maximumValue: 15
-                minimumValue: -15
+                maximumValue: 5
+                minimumValue: 0
                 style: CircularProgressBarStyle {
                     startColorPos: "red"
                     endColorPos: "red"
@@ -452,8 +452,8 @@ Window {
                 Connections {
                     target: RDMBench
 
-                    onLeftRPMSignal: {
-                        stateProgressBar.gaugeValue = RDMBench.leftTorque
+                    onDemoStageSignal: {
+                        stageProgressBar.gaugeValue = RDMBench.demoStage
                     }
 
                 }

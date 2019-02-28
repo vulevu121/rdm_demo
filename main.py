@@ -10,15 +10,17 @@ class RDM(QObject):
 		self.m_rightRPM = 0
 		self.m_leftTorque = 0
 		self.m_rightTorque = 0
-		self.m_start = 0
+		self.m_demoStage = 0
 
-
+	# signal to send to qml to update gauges
 	leftRPMSignal = pyqtSignal(int)
 
+	# function returns as a qml property
 	@pyqtProperty(int, notify=leftRPMSignal)
 	def leftRPM(self):
 		return self.m_leftRPM
 
+	# setter function to change/store rpm values within the class
 	@leftRPM.setter
 	def leftRPM(self, v):
 		if self.m_leftRPM == v:
@@ -74,8 +76,27 @@ class RDM(QObject):
 	@pyqtSlot(bool)
 	def startButtonPressed(self, enable):
 		if enable:
-			print("start is {}!".format(enable))
+			print("Start Button Pressed!")
 			self.startButtonPressedSignal.emit(True)
+
+
+	# signal to send to qml to update gauges
+	demoStageSignal = pyqtSignal(int)
+
+	# function returns as a qml property
+	@pyqtProperty(int, notify=demoStageSignal)
+	def demoStage(self):
+		return self.m_demoStage
+
+	# setter function to change/store rpm values within the class
+	@demoStage.setter
+	def demoStage(self, v):
+		if self.m_demoStage == v:
+			return
+		self.m_demoStage = v
+		self.demoStageSignal.emit(v)
+
+
 
 
 	def updateStatus(self):
@@ -87,6 +108,19 @@ class RDM(QObject):
 		self.leftTorque %= 30
 		self.rightTorque -= 1
 		self.rightTorque %= -30
+
+		if self.rightRPM < 100:
+			self.demoStage = 0
+		elif self.rightRPM < 150:
+			self.demoStage = 1
+		elif self.rightRPM < 200:
+			self.demoStage = 2
+		elif self.rightRPM < 350:
+			self.demoStage = 3
+		elif self.rightRPM < 400:
+			self.demoStage = 4
+		elif self.rightRPM < 500:
+			self.demoStage = 5
 
 
 if __name__ == "__main__":
