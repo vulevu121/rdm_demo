@@ -500,6 +500,15 @@ Window {
                     color: startButton.down ? "#161616" : "#262626"
                 }
 
+                onClicked: RDMBench.startButtonPressed(true)
+
+                Connections {
+                    target: RDMBench
+                    onStartButtonPressedSignal: {
+                        startButton.text = "OK!"
+                    }
+                }
+
 
             }
 

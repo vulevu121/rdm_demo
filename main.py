@@ -67,14 +67,15 @@ class RDM(QObject):
 		self.m_rightTorque = v
 		self.rightTorqueSignal.emit(v)
 
-	startSignal = pyqtSignal(bool, arguments=['setStart'])
+	# the signal that comes from qml to python, incoming type, and slot function
+	startButtonPressedSignal = pyqtSignal(bool, arguments=['startButtonPressed'])
 
+	# slot and the connected function
 	@pyqtSlot(bool)
-	def setStart(self, start):
-		self.start = start
-		self.startSignal.emit(True)
-		print(True)
-		return start
+	def startButtonPressed(self, enable):
+		if enable:
+			print("start is {}!".format(enable))
+			self.startButtonPressedSignal.emit(True)
 
 
 	def updateStatus(self):
