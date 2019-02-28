@@ -137,13 +137,13 @@ class RDMdemo(QObject):
 
     # slot and the connected function
     @pyqtSlot(bool)
-    def startButtonPressed(self, enable):
-        if enable:
+    def startButtonPressed(self, pressed):
+        if pressed:
             if self.isStarted:
+                print("Start button pressed... stopping!")
                 self.pause()
                 self.isStarted = False
-                print("Start button pressed... stopping!")
-                self.startButtonPressedSignal.emit(True)
+                self.startButtonPressedSignal.emit(False)
             elif self.isStarted == False:
                 print("Start button pressed... starting!")
                 self.start_CAN_thread()

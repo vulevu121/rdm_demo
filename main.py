@@ -15,6 +15,7 @@ class RDM(QObject):
 		self.m_leftTorque = 0
 		self.m_rightTorque = 0
 		self.m_demoStage = 0
+		self.isStarted = False
 
 	# signal to send to qml to update gauges
 	leftRPMSignal = pyqtSignal(int)
@@ -78,10 +79,19 @@ class RDM(QObject):
 
 	# slot and the connected function
 	@pyqtSlot(bool)
-	def startButtonPressed(self, enable):
-		if enable:
-			print("Start Button Pressed!")
-			self.startButtonPressedSignal.emit(True)
+	def startButtonPressed(self, pressed):
+		if pressed:
+			if self.isStarted:
+				print("Start button pressed... stopping!")
+				# self.pause()
+				self.isStarted = False
+				self.startButtonPressedSignal.emit(False)
+			elif not self.isStarted:
+				print("Start button pressed... starting!")
+				# self.start_CAN_thread()
+				self.isStarted = True
+				self.startButtonPressedSignal.emit(True)
+			return self.isStarted
 
 
 	# signal to send to qml to update gauges
