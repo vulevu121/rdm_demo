@@ -1,7 +1,7 @@
 from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
-# from ubuntu_2 import *
+from ubuntu_2 import *
 
 class RDM(QObject):
 	def __init__(self):
@@ -96,9 +96,6 @@ class RDM(QObject):
 		self.m_demoStage = v
 		self.demoStageSignal.emit(v)
 
-
-
-
 	def updateStatus(self):
 		self.leftRPM += 100
 		self.leftRPM %= 500
@@ -130,16 +127,16 @@ if __name__ == "__main__":
 	# Create QML engine
 	engine = QQmlApplicationEngine()
 	# Instantiate the class
-	RDMBench = RDM()
-	# RDMBench = RDMdemo()
+	# RDMBench = RDM()
+	RDMBench = RDMdemo()
 	# And register it in the context of QML
 	engine.rootContext().setContextProperty("RDMBench", RDMBench)
 	# Load the qml file into the engine
 	engine.load("qml/dashboard.qml")
 
-	timer = QTimer()
-	timer.timeout.connect(RDMBench.updateStatus)
-	timer.start(200)
+	# timer = QTimer()
+	# timer.timeout.connect(RDMBench.updateStatus)
+	# timer.start(200)
  
 	engine.quit.connect(app.quit)
 	sys.exit(app.exec_())
