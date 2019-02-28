@@ -505,7 +505,7 @@ Window {
                 Connections {
                     target: RDMBench
                     onStartButtonPressedSignal: {
-                        startButton.text = "OK!"
+                        startButton.text = startButton.text == "S T A R T" ? "S T O P" : "S T A R T"
                     }
                 }
 
@@ -559,6 +559,10 @@ Window {
 
     }
 }
+
+
+
+
 
 
 

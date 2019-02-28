@@ -1,7 +1,11 @@
 from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
-from ubuntu_2 import *
+
+guiTesting = False
+
+if not guiTesting:
+	from ubuntu_2 import *
 
 class RDM(QObject):
 	def __init__(self):
@@ -126,17 +130,25 @@ if __name__ == "__main__":
 	app = QGuiApplication(sys.argv)
 	# Create QML engine
 	engine = QQmlApplicationEngine()
-	# Instantiate the class
-	# RDMBench = RDM()
-	RDMBench = RDMdemo()
-	# And register it in the context of QML
-	engine.rootContext().setContextProperty("RDMBench", RDMBench)
-	# Load the qml file into the engine
-	engine.load("qml/dashboard.qml")
 
-	# timer = QTimer()
-	# timer.timeout.connect(RDMBench.updateStatus)
-	# timer.start(200)
+	if guiTesting:
+		# Instantiate the class
+		RDMBench = RDM()
+		# And register it in the context of QML
+		engine.rootContext().setContextProperty("RDMBench", RDMBench)
+		# Load the qml file into the engine
+		engine.load("qml/dashboard.qml")
+
+		timer = QTimer()
+		timer.timeout.connect(RDMBench.updateStatus)
+		timer.start(200)
+	else:
+		# Instantiate the class
+		RDMBench = RDMdemo()
+		# And register it in the context of QML
+		engine.rootContext().setContextProperty("RDMBench", RDMBench)
+		# Load the qml file into the engine
+		engine.load("qml/dashboard.qml")
  
 	engine.quit.connect(app.quit)
 	sys.exit(app.exec_())
