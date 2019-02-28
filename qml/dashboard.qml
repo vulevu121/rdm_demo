@@ -48,16 +48,14 @@
 **
 ****************************************************************************/
 
-import QtQuick.Window 2.2
-import QtQuick.Controls.Styles 1.4
+import QtQuick 2.3
+import QtQuick.Window 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Controls 1.4
-import QtQuick.Layouts 1.3
 import QtQuick.Extras 1.4
-
-import QtQuick 2.3
+import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-
+import QtQuick.Controls.Styles 1.4
 
 Window {
     id: root
@@ -68,12 +66,6 @@ Window {
     color: "#161616"
     title: "RDM Demo"
 
-    ValueSource {
-        id: valueSource
-    }
-
-    // Dashboards are typically in a landscape orientation, so we need to ensure
-    // our height is never greater than our width.
     Item {
         id: container
         width: root.width
@@ -487,6 +479,7 @@ Window {
                 width: 114
                 height: 114
                 text: "S T A R T"
+                checkable: true
                 font.pointSize: 15
                 font.strikeout: false
                 flat: false
@@ -495,55 +488,62 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 z: 2
 
+
+
                 background: Rectangle {
                     radius: startButton.width/2
-                    color: startButton.down ? "#161616" : "#262626"
+
+                    gradient: Gradient {
+                        GradientStop {
+                            position: 0.0
+                            SequentialAnimation on color {
+                                loops: 1
+                                ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
+                                alwaysRunToEnd: true
+                            }
+                            SequentialAnimation on color {
+                                running: startButton.pressed
+                                loops: 1
+                                ColorAnimation { to: "#14148c"; duration: 200; easing.type: Easing.InOutQuad }
+                                ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
+                                alwaysRunToEnd: true
+                            }
+
+                        }
+
+                        GradientStop {
+                            position: 1.0
+                            SequentialAnimation on color {
+                                loops: 1
+                                ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
+                                alwaysRunToEnd: true
+                            }
+                            SequentialAnimation on color {
+                                running: startButton.pressed
+                                loops: 1
+                                ColorAnimation { to: "#14aaff"; duration: 200; easing.type: Easing.InOutQuad }
+                                ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
+                                alwaysRunToEnd: true
+                            }
+                        }
+                    }
+
                 }
 
-                onClicked: RDMBench.startButtonPressed(true)
+                onClicked: {
+                    RDMBench.startButtonPressed(true)
+                }
 
                 Connections {
                     target: RDMBench
                     onStartButtonPressedSignal: {
                         startButton.text = startButtonPressed ? "S T O P" : "S T A R T"
+                        startButton.checked = startButtonPressed
                     }
                 }
 
 
             }
-
-            //            ToggleButton {
-            //                id: toggleButton
-            //                y: 40
-            //                text: qsTr("Start")
-            //                z: 2
-            //                anchors.verticalCenter: parent.verticalCenter
-            //                anchors.horizontalCenter: parent.horizontalCenter
-            //                width: 114
-            //                height: 114
-
-
-            //                style: ToggleButtonStyle {
-            //                    checkedGradient: Gradient {
-            //                        //                        GradientStop { position: 0.0; color: "red" }
-            //                        GradientStop { position: 0.33; color: "yellow" }
-            //                        GradientStop { position: 1.0; color: "green" }
-            //                    }
-
-            //                    uncheckedGradient: Gradient {
-            //                        //                        GradientStop { position: 0.0; color: "red" }
-            //                        GradientStop { position: 0.33; color: "yellow" }
-            //                        GradientStop { position: 1.0; color: "red" }
-            //                    }
-            //                }
-
-            //                Connections {
-            //                    target: RDMBench
-            //                    onStartSignal: {
-            //                        checked: setStart
-            //                    }
-            //                }
-            //            }
         }
 
         Image {
@@ -557,77 +557,10 @@ Window {
             source: "../images/karma-revero-infortainment-system-1.png"
         }
 
+
+
     }
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*##^## Designer {
-    D{i:19;anchors_height:100;anchors_y:934}D{i:20;anchors_y:24}D{i:18;anchors_height:724;anchors_y:188}
-}
- ##^##*/

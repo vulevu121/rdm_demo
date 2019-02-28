@@ -2,7 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
 
-guiTesting = False
+guiTesting = True
 
 if not guiTesting:
 	from ubuntu_2 import *
