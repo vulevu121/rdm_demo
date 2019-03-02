@@ -85,7 +85,7 @@ Window {
                     }
 
                     Behavior on value {
-                        NumberAnimation { duration: 300 }
+                        NumberAnimation { duration: 500 }
                     }
 
                     Connections {
@@ -112,7 +112,7 @@ Window {
                         }
 
                         Behavior on gaugeValue {
-                            NumberAnimation { duration: 300 }
+                            NumberAnimation { duration: 500 }
                         }
 
                         Connections {
@@ -468,7 +468,8 @@ Window {
 
             ProgressBar {
                 id: stageProgressBar
-                height: 124
+                width: height
+                height: startButtonContainer.height-40
                 anchors.verticalCenterOffset: 0
                 anchors.horizontalCenterOffset: 0
                 z: 1
@@ -476,7 +477,6 @@ Window {
                 property real gaugeValue
                 x: 100
                 y: 100
-                width: 124
                 maximumValue: 5
                 minimumValue: 0
                 style: CircularProgressBarStyle {
@@ -501,8 +501,8 @@ Window {
 
             Image {
                 id: logoImage
-                width: 240
-                height: 180
+                width: height*240/180
+                height: startButtonContainer.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 fillMode: Image.PreserveAspectCrop
@@ -524,8 +524,8 @@ Window {
                 id: startButton
                 x: 204
                 y: 48
-                width: 114
-                height: 114
+                width: height
+                height: startButtonContainer.height-60
                 text: "S T A R T"
                 checkable: true
                 font.strikeout: false
@@ -595,8 +595,8 @@ Window {
 
         Image {
             id: image
-            width: 568
-            height: 118
+            width: root.width * 0.40
+            height: width * 109/695
             anchors.top: parent.top
             anchors.topMargin: 87
             anchors.left: parent.left
