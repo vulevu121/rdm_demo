@@ -1,10 +1,11 @@
 TEMPLATE = app
 TARGET = dashboard
 INCLUDEPATH += .
-QT += quick
+QT += \
+    quick \
+    multimedia \
 
 SOURCES += \
-    main.cpp \
     main.cpp
 
 RESOURCES += \
@@ -24,3 +25,6 @@ DISTFILES += \
     qml/Inverter.qml \
     qml/Motor.qml \
     qml/RDM.qml \
+    videos/IMG_4581.mp4 \
+    qml/VideoTest.qml
+
