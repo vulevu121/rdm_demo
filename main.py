@@ -2,7 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
 
-guiTesting = False
+guiTesting = True
 
 if not guiTesting:
 	from ubuntu_main import *
@@ -159,6 +159,7 @@ if __name__ == "__main__":
 		engine.rootContext().setContextProperty("RDMBench", RDMBench)
 		# Load the qml file into the engine
 		engine.load("qml/dashboard.qml")
- 
+
+
 	engine.quit.connect(app.quit)
 	sys.exit(app.exec_())

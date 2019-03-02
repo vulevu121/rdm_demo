@@ -1,13 +1,20 @@
 <RCC>
     <qresource prefix="/">
-        <file>fonts/DejaVuSans.ttf</file>
-        <file>images/fuel-icon.png</file>
-        <file>images/temperature-icon.png</file>
         <file>qml/dashboard.qml</file>
         <file>qml/DashboardGaugeStyle.qml</file>
-        <file>qml/IconGaugeStyle.qml</file>
         <file>qml/TachometerStyle.qml</file>
-        <file>qml/TurnIndicator.qml</file>
-        <file>qml/ValueSource.qml</file>
+        <file>fonts/DejaVuSans.ttf</file>
+        <file>qml/Gearbox.qml</file>
+        <file>qml/Inverter.qml</file>
+        <file>qml/Motor.qml</file>
+        <file>qml/RDM.qml</file>
+        <file>qml/CircularProgressBarStyle.qml</file>
+        <file>images/Gearbox.jpg</file>
+        <file>images/Inverter.jpg</file>
+        <file>images/Karma-logo.png</file>
+        <file>images/karma-revero-infortainment-system-1.png</file>
+        <file>images/Motor.jpg</file>
+        <file>images/RDM.jpg</file>
+        <file>images/scroll_up.gif</file>
     </qresource>
 </RCC>

@@ -72,13 +72,13 @@ DashboardGaugeStyle {
         implicitWidth: toPixels(0.03)
         antialiasing: true
         implicitHeight: toPixels(0.08)
-        color: styleData.value >= 450 ? Qt.rgba(0.5, 0, 0, 1) : "#c8c8c8"
+        color: "#c8c8c8"
     }
 
     tickmarkLabel: Text {
         font.pixelSize: Math.max(6, toPixels(0.12))
         text: styleData.value
-        color: styleData.value >= 450 ? Qt.rgba(0.5, 0, 0, 1) : "#c8c8c8"
+        color: "#c8c8c8"
         antialiasing: true
     }
 
@@ -92,7 +92,7 @@ DashboardGaugeStyle {
 
             ctx.beginPath()
             ctx.lineWidth = tachometerStyle.toPixels(0.08)
-            ctx.strokeStyle = Qt.rgba(0.5, 0, 0, 1)
+            ctx.strokeStyle = Qt.rgba(1, 1, 1, 0.5)
             var warningCircumference = maximumValueAngle - minimumValueAngle * 0.1
             var startAngle = maximumValueAngle - 90
             ctx.arc(outerRadius, outerRadius,
