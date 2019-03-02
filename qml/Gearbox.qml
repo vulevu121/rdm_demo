@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.12
-import QtQuick.Controls 2.5
+import QtGraphicalEffects 1.0
+import QtQuick.Controls 2.0
 
 Item {
     id: element
@@ -32,7 +32,7 @@ Item {
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 font.bold: true
-                font.pointSize: 26
+                font.pointSize: 18
             }
 
             Image {
@@ -51,6 +51,7 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
+                font.pointSize: 12
 
             }
 
@@ -63,7 +64,7 @@ Item {
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 font.bold: true
-                font.pointSize: 26
+                font.pointSize: 18
 
             }
 
@@ -75,6 +76,7 @@ Item {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
+                font.pointSize: 12
 
             }
         }
@@ -94,6 +96,10 @@ Item {
 
 
 }
+
+
+
+
 
 
 

@@ -31,8 +31,8 @@ Window {
         Item {
             id: clusterContainer
             y: 348
-            width: 945
-            height: 385
+            width: root.width*0.48
+            height: width*0.375
             anchors.left: parent.left
             anchors.leftMargin: 40
             anchors.verticalCenter: parent.verticalCenter
@@ -61,8 +61,8 @@ Window {
                 id: gaugeContainer
                 x: 121
                 y: 84
-                width: 791
-                height: 268
+                width: clusterContainer.width * 0.8
+                height: clusterContainer.height * 0.7
                 anchors.verticalCenterOffset: 10
                 anchors.horizontalCenterOffset: 0
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -213,28 +213,22 @@ Window {
 
             Rectangle {
                 id: videoHolder
-                x: 237
-                y: 89
-                width: 566
-                height: 176
+                width: clusterContainer.width * 0.45
+                height: width * 430 / 1370
                 color: "#121212"
-                radius: 1
                 anchors.verticalCenterOffset: 0
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
 
                 Video {
                     id: video
-                    source: "../videos/IMG_4581.mp4"
-                    anchors.left: parent.left
-                    autoPlay: true
-                    anchors.right: parent.right
-                    anchors.topMargin: 5
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 5
                     anchors.rightMargin: 5
-                    anchors.top: parent.top
+                    anchors.leftMargin: 5
                     anchors.bottomMargin: 5
+                    anchors.topMargin: 5
+                    anchors.fill: parent
+                    source: "../videos/IMG_4581.mp4"
+                    autoPlay: true
                     loops: Animation.Infinite
 
 
@@ -248,7 +242,7 @@ Window {
         Item {
             id: infoContainer
             x: 906
-            width: 936
+            width: root.width * 0.48
             anchors.right: parent.right
             anchors.rightMargin: 24
             anchors.bottom: parent.bottom
@@ -266,7 +260,7 @@ Window {
                 wheelEnabled: true
                 anchors.rightMargin: 128
                 anchors.bottomMargin: 24
-                anchors.leftMargin: 72
+                anchors.leftMargin: 24
                 anchors.topMargin: 24
 
                 currentIndex: 0
@@ -534,12 +528,12 @@ Window {
                 height: 114
                 text: "S T A R T"
                 checkable: true
-                font.pointSize: 15
                 font.strikeout: false
                 flat: false
                 highlighted: true
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: startButtonContainer.height*0.1
                 z: 2
 
                 background: Rectangle {
@@ -617,6 +611,40 @@ Window {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -16,5 +16,7 @@
         <file>images/Motor.jpg</file>
         <file>images/RDM.jpg</file>
         <file>images/scroll_up.gif</file>
+        <file>images/DIS_stealth_turn_np.png</file>
+        <file>images/karma-logo-header.png</file>
     </qresource>
 </RCC>
