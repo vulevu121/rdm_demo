@@ -32,15 +32,20 @@ Item {
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 font.bold: true
-                font.pointSize: 26
+                font.pointSize: 18
             }
 
             Image {
                 id: image
-                sourceSize.height: 360
-                fillMode: Image.PreserveAspectCrop
+                Layout.maximumHeight: parent.height * 0.3
+                Layout.fillHeight: true
+                Layout.maximumWidth: 1280
+                Layout.fillWidth: true
+                sourceSize.height: 960
+                sourceSize.width: 1280
+                fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                source: "../images/Motor.jpg"
+                source: "../images/Motor.png"
             }
 
             Text {
@@ -51,7 +56,7 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-
+                font.pointSize: 12
             }
 
             Text {
@@ -63,8 +68,7 @@ Item {
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 font.bold: true
-                font.pointSize: 26
-
+                font.pointSize: 18
             }
 
             Text {
@@ -75,7 +79,7 @@ Item {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-
+                font.pointSize: 12
             }
         }
 

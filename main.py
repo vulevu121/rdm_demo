@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
 		timer = QTimer()
 		timer.timeout.connect(RDMBench.updateStatus)
-		timer.start(500)
+		timer.start(200)
 	else:
 		# Instantiate the class
 		RDMBench = RDMdemo()

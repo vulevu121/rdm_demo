@@ -37,10 +37,15 @@ Item {
 
             Image {
                 id: image
-                sourceSize.height: 360
+                Layout.maximumHeight: parent.height * 0.3
+                Layout.fillHeight: true
+                Layout.maximumWidth: 1280
+                Layout.fillWidth: true
+                sourceSize.height: 960
+                sourceSize.width: 1280
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                source: "../images/Gearbox.jpg"
+                source: "../images/Gearbox.png"
             }
 
             Text {

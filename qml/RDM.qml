@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.0
 
 Item {
-    id: element
+    id: root
     width: 800
     height: 1080
     anchors.fill: parent
@@ -28,7 +28,7 @@ Item {
             Text {
                 id: heading
                 color: "#d3d7cf"
-                text: qsTr("后驱动电机 (Rear Drive Motor)")
+                text: qsTr("Rear Drive Motor")
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 font.bold: false
@@ -38,12 +38,15 @@ Item {
 
             Image {
                 id: image
-                sourceSize.width: 556
-                sourceSize.height: 360
-                Layout.fillHeight: false
-                fillMode: Image.PreserveAspectCrop
+                Layout.maximumHeight: parent.height * 0.3
+                Layout.fillHeight: true
+                Layout.maximumWidth: 1280
+                Layout.fillWidth: true
+                sourceSize.height: 960
+                sourceSize.width: 1280
+                fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                source: "../images/RDM.jpg"
+                source: "../images/RDM.png"
             }
 
             Text {
@@ -97,6 +100,14 @@ Item {
 
 
 }
+
+
+
+
+
+
+
+
 
 
 

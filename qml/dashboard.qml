@@ -1,5 +1,5 @@
-import QtQuick 2.3
-import QtQuick.Window 2.1
+import QtQuick 2.0
+import QtQuick.Window 2.0
 import QtQuick.Controls 2.1
 import QtQuick.Controls 1.4
 import QtQuick.Extras 1.4
@@ -13,7 +13,7 @@ Window {
     visible: true
     width: 1920
     height: 1080
-//    visibility: Window.FullScreen
+    //    visibility: Window.FullScreen
 
     color: "#161616"
     title: "RDM Demo"
@@ -27,6 +27,174 @@ Window {
         z: 2
         anchors.centerIn: parent
 
+
+        Item {
+            id: karmaContainer
+            width: root.width * 0.48
+            height: root.height * 0.2
+            anchors.left: parent.left
+            anchors.leftMargin: 48
+            anchors.top: parent.top
+            anchors.topMargin: 24
+
+            Image {
+                id: karma
+                y: 97
+                width: parent.width * 0.6
+                height: width * 109/695
+                anchors.left: startButtonContainer.right
+                anchors.leftMargin: 24
+                anchors.verticalCenter: parent.verticalCenter
+                source: "../images/karma-logo-header.png"
+                fillMode: Image.PreserveAspectFit
+            }
+
+            Item {
+                id: startButtonContainer
+                x: 24
+                width: 196
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 24
+                z: 2
+
+
+
+                Image {
+                    id: logoImage
+                    width: height
+                    height: startButtonContainer.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    fillMode: Image.PreserveAspectCrop
+                    source: "../images/Karma-logo.png"
+
+                    ProgressBar {
+                        id: stageProgressBar
+                        width: height
+                        height: parent.height * 0.7
+                        anchors.verticalCenterOffset: 0
+                        anchors.horizontalCenterOffset: 0
+                        z: 1
+                        anchors.centerIn: parent
+                        property real gaugeValue
+                        x: 100
+                        y: 100
+                        maximumValue: 5
+                        minimumValue: 0
+                        style: CircularProgressBarStyle {
+                            startColorPos: "red"
+                            endColorPos: "red"
+                            displayValue: false
+                            borderWidth: 10
+                        }
+
+                        Behavior on gaugeValue {
+                            NumberAnimation { duration: 300 }
+                        }
+
+                        Connections {
+                            target: RDMBench
+
+                            onDemoStageSignal: {
+                                stageProgressBar.gaugeValue = RDMBench.demoStage
+                            }
+
+                        }
+
+                        RoundButton {
+                            id: startButton
+                            x: 204
+                            y: 48
+                            width: height
+                            height: parent.height - 10
+                            text: "S T A R T"
+                            checkable: true
+                            font.strikeout: false
+                            flat: false
+                            highlighted: true
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            font.pixelSize: startButtonContainer.height*0.1
+                            z: 3
+
+                            background: Rectangle {
+                                radius: startButton.width/2
+                                gradient: Gradient {
+                                    GradientStop {
+                                        position: 0.0
+                                        SequentialAnimation on color {
+                                            loops: 1
+                                            ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
+                                            alwaysRunToEnd: true
+                                        }
+                                        SequentialAnimation on color {
+                                            running: startButton.pressed
+                                            loops: 1
+                                            ColorAnimation { to: "#14148c"; duration: 200; easing.type: Easing.InOutQuad }
+                                            ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
+                                            alwaysRunToEnd: true
+                                        }
+
+                                    }
+
+                                    GradientStop {
+                                        position: 1.0
+                                        SequentialAnimation on color {
+                                            loops: 1
+                                            ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
+                                            alwaysRunToEnd: true
+                                        }
+                                        SequentialAnimation on color {
+                                            running: startButton.pressed
+                                            loops: 1
+                                            ColorAnimation { to: "#14aaff"; duration: 200; easing.type: Easing.InOutQuad }
+                                            ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
+                                            alwaysRunToEnd: true
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            onClicked: {
+                                RDMBench.startButtonPressed(true)
+                                startButton.checked ? video.pause() : video.play()
+                            }
+
+                            Connections {
+                                target: RDMBench
+                                onStartButtonPressedSignal: {
+                                    startButton.text = startButtonPressed ? "S T O P" : "S T A R T"
+                                    startButton.checked = startButtonPressed
+                                }
+                            }
+
+
+                        }
+                    }
+
+
+                }
+
+                DropShadow {
+                    anchors.fill: logoImage
+                    horizontalOffset: 0
+                    verticalOffset: 7
+                    radius: 8.0
+                    cached: true
+                    samples: 17
+                    color: "#80000000"
+                    source: logoImage
+                }
+
+
+
+            }
+        }
 
         Item {
             id: clusterContainer
@@ -109,6 +277,7 @@ Window {
                         maximumValue: 15
                         minimumValue: -15
                         style: CircularProgressBarStyle {
+                            borderWidth: 6
                         }
 
                         Behavior on gaugeValue {
@@ -179,6 +348,7 @@ Window {
                         maximumValue: 15
                         minimumValue: -15
                         style: CircularProgressBarStyle {
+                            borderWidth: 6
                         }
 
                         Behavior on gaugeValue {
@@ -211,12 +381,12 @@ Window {
 
             }
 
-            Rectangle {
-                id: videoHolder
+            Image {
+                id: videoBackground
                 width: clusterContainer.width * 0.45
-                height: width * 430 / 1370
-                color: "#121212"
-                anchors.verticalCenterOffset: 0
+                height: width * 700 / 1400
+                source: "../images/VideoBackground.png"
+                anchors.verticalCenterOffset: 10
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
 
@@ -224,16 +394,42 @@ Window {
                     id: video
                     anchors.rightMargin: 5
                     anchors.leftMargin: 5
-                    anchors.bottomMargin: 5
-                    anchors.topMargin: 5
+                    anchors.bottomMargin: 30
+                    anchors.topMargin: 30
                     anchors.fill: parent
                     source: "../videos/IMG_4581.mp4"
                     autoPlay: true
                     loops: Animation.Infinite
-
+                    muted: true
 
                 }
+
             }
+
+//            Rectangle {
+//                id: videoHolder
+//                width: clusterContainer.width * 0.45
+//                height: width * 430 / 1370
+//                color: "#121212"
+//                anchors.verticalCenterOffset: 0
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                anchors.verticalCenter: parent.verticalCenter
+
+
+//                Video {
+//                    id: video
+//                    anchors.rightMargin: 5
+//                    anchors.leftMargin: 5
+//                    anchors.bottomMargin: 5
+//                    anchors.topMargin: 5
+//                    anchors.fill: parent
+//                    source: "../videos/IMG_4581.mp4"
+//                    autoPlay: true
+//                    loops: Animation.Infinite
+
+
+//                }
+//            }
         }
 
 
@@ -324,8 +520,8 @@ Window {
             Button {
                 id: scrollUpButton
                 x: 905
-                width: 64
-                height: 64
+                width: root.width * 0.035
+                height: width
                 text: "^"
                 anchors.right: parent.right
                 anchors.rightMargin: 24
@@ -380,8 +576,8 @@ Window {
                 id: scrollDownButton
                 x: 911
                 y: 974
-                width: 64
-                height: 64
+                width: root.width * 0.035
+                height: width
                 text: "^"
                 z: 0
                 anchors.right: parent.right
@@ -437,6 +633,7 @@ Window {
                 horizontalOffset: 0
                 verticalOffset: 7
                 radius: 8.0
+                z: -2
                 cached: false
                 samples: 17
                 color: "#80000000"
@@ -448,6 +645,7 @@ Window {
                 horizontalOffset: 0
                 verticalOffset: 7
                 radius: 8.0
+                z: -2
                 cached: false
                 samples: 17
                 color: "#80000000"
@@ -456,154 +654,6 @@ Window {
 
         }
 
-        Item {
-            id: startButtonContainer
-            width: 196
-            height: 192
-            anchors.top: parent.top
-            anchors.topMargin: 50
-            anchors.left: parent.left
-            anchors.leftMargin: 86
-            z: 2
-
-            ProgressBar {
-                id: stageProgressBar
-                width: height
-                height: startButtonContainer.height-40
-                anchors.verticalCenterOffset: 0
-                anchors.horizontalCenterOffset: 0
-                z: 1
-                anchors.centerIn: parent
-                property real gaugeValue
-                x: 100
-                y: 100
-                maximumValue: 5
-                minimumValue: 0
-                style: CircularProgressBarStyle {
-                    startColorPos: "red"
-                    endColorPos: "red"
-                    displayValue: false
-                }
-
-                Behavior on gaugeValue {
-                    NumberAnimation { duration: 300 }
-                }
-
-                Connections {
-                    target: RDMBench
-
-                    onDemoStageSignal: {
-                        stageProgressBar.gaugeValue = RDMBench.demoStage
-                    }
-
-                }
-            }
-
-            Image {
-                id: logoImage
-                width: height*240/180
-                height: startButtonContainer.height
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                fillMode: Image.PreserveAspectCrop
-                source: "../images/Karma-logo.png"
-            }
-
-            DropShadow {
-                anchors.fill: logoImage
-                horizontalOffset: 0
-                verticalOffset: 7
-                radius: 8.0
-                cached: true
-                samples: 17
-                color: "#80000000"
-                source: logoImage
-            }
-
-            RoundButton {
-                id: startButton
-                x: 204
-                y: 48
-                width: height
-                height: startButtonContainer.height-60
-                text: "S T A R T"
-                checkable: true
-                font.strikeout: false
-                flat: false
-                highlighted: true
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: startButtonContainer.height*0.1
-                z: 2
-
-                background: Rectangle {
-                    radius: startButton.width/2
-                    gradient: Gradient {
-                        GradientStop {
-                            position: 0.0
-                            SequentialAnimation on color {
-                                loops: 1
-                                ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
-                                alwaysRunToEnd: true
-                            }
-                            SequentialAnimation on color {
-                                running: startButton.pressed
-                                loops: 1
-                                ColorAnimation { to: "#14148c"; duration: 200; easing.type: Easing.InOutQuad }
-                                ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
-                                alwaysRunToEnd: true
-                            }
-
-                        }
-
-                        GradientStop {
-                            position: 1.0
-                            SequentialAnimation on color {
-                                loops: 1
-                                ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
-                                alwaysRunToEnd: true
-                            }
-                            SequentialAnimation on color {
-                                running: startButton.pressed
-                                loops: 1
-                                ColorAnimation { to: "#14aaff"; duration: 200; easing.type: Easing.InOutQuad }
-                                ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
-                                alwaysRunToEnd: true
-                            }
-                        }
-                    }
-
-                }
-
-                onClicked: {
-                    RDMBench.startButtonPressed(true)
-                    startButton.checked ? video.pause() : video.play()
-                }
-
-                Connections {
-                    target: RDMBench
-                    onStartButtonPressedSignal: {
-                        startButton.text = startButtonPressed ? "S T O P" : "S T A R T"
-                        startButton.checked = startButtonPressed
-                    }
-                }
-
-
-            }
-
-        }
-
-        Image {
-            id: image
-            width: root.width * 0.40
-            height: width * 109/695
-            anchors.top: parent.top
-            anchors.topMargin: 87
-            anchors.left: parent.left
-            anchors.leftMargin: 340
-            source: "../images/karma-logo-header.png"
-            fillMode: Image.PreserveAspectFit
-        }
 
 
 
@@ -652,8 +702,80 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:3;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}D{i:2;anchors_x:40}
-D{i:57;anchors_x:320;anchors_y:97}
+    D{i:3;anchors_x:320;anchors_y:97}D{i:4;anchors_height:192;anchors_y:"-213"}D{i:2;anchors_x:"-19";anchors_y:"-15"}
+D{i:17;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}D{i:16;anchors_x:40}
 }
  ##^##*/

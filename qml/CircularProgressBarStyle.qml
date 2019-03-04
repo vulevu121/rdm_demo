@@ -10,6 +10,7 @@ ProgressBarStyle {
     property string endColorPos: "#1f81d7"
     property string startColorNeg: "#eeb374"
     property string endColorNeg: "#f28600"
+    property real borderWidth: 10
 
     panel: Rectangle {
         color: "transparent"
@@ -34,7 +35,7 @@ ProgressBarStyle {
             radius: outerRing.radius
             color: "transparent"
             border.color: "#101010"
-            border.width: 12
+            border.width: borderWidth
 
             ConicalGradient {
                 source: innerRing

@@ -9,14 +9,13 @@
         <file>qml/Motor.qml</file>
         <file>qml/RDM.qml</file>
         <file>qml/CircularProgressBarStyle.qml</file>
-        <file>images/Gearbox.jpg</file>
-        <file>images/Inverter.jpg</file>
         <file>images/Karma-logo.png</file>
         <file>images/karma-revero-infortainment-system-1.png</file>
-        <file>images/Motor.jpg</file>
-        <file>images/RDM.jpg</file>
-        <file>images/scroll_up.gif</file>
         <file>images/DIS_stealth_turn_np.png</file>
         <file>images/karma-logo-header.png</file>
+        <file>images/Inverter.png</file>
+        <file>images/Gearbox.png</file>
+        <file>images/Motor.png</file>
+        <file>images/RDM.png</file>
     </qresource>
 </RCC>

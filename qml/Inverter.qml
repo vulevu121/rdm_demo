@@ -4,10 +4,10 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.0
 
 Item {
-    id: element
+    id: root
+    anchors.fill: parent
     width: 800
     height: 1080
-    anchors.fill: parent
     Rectangle {
         id: frameOuter
         color: "#262626"
@@ -29,18 +29,25 @@ Item {
                 id: heading
                 color: "#d3d7cf"
                 text: qsTr("Inverter")
+                Layout.fillWidth: true
+                Layout.fillHeight: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 font.bold: true
-                font.pointSize: 26
+                font.pointSize: 18
             }
 
             Image {
                 id: image
-                sourceSize.height: 360
-                fillMode: Image.PreserveAspectCrop
+                Layout.maximumHeight: parent.height * 0.3
+                Layout.fillHeight: true
+                Layout.maximumWidth: 1280
+                Layout.fillWidth: true
+                sourceSize.height: 960
+                sourceSize.width: 1280
+                fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                source: "../images/Inverter.jpg"
+                source: "../images/Inverter.png"
             }
 
             Text {
@@ -51,7 +58,7 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-
+                font.pointSize: 12
             }
 
             Text {
@@ -59,12 +66,11 @@ Item {
                 color: "#d3d7cf"
                 text: qsTr("Specifications")
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 font.bold: true
-                font.pointSize: 26
-
+                font.pointSize: 18
             }
 
             Text {
@@ -75,7 +81,7 @@ Item {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-
+                font.pointSize: 12
             }
         }
 
@@ -94,6 +100,34 @@ Item {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

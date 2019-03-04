@@ -717,13 +717,14 @@ qrc_dashboard.cpp: ../dashboard.qrc \
 		../qml/DashboardGaugeStyle.qml \
 		../qml/Motor.qml \
 		../qml/TachometerStyle.qml \
-		../images/scroll_up.gif \
-		../images/Motor.jpg \
-		../images/RDM.jpg \
+		../images/DIS_stealth_turn_np.png \
+		../images/RDM.png \
+		../images/Inverter.png \
+		../images/Gearbox.png \
 		../images/Karma-logo.png \
-		../images/Inverter.jpg \
-		../images/Gearbox.jpg \
+		../images/Motor.png \
 		../images/karma-revero-infortainment-system-1.png \
+		../images/karma-logo-header.png \
 		../fonts/DejaVuSans.ttf
 	/home/eelab10/Qt/5.12.1/gcc_64/bin/rcc -name dashboard ../dashboard.qrc -o qrc_dashboard.cpp
 

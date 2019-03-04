@@ -60,19 +60,28 @@ DashboardGaugeStyle {
     needleLength: toPixels(0.85)
     needleBaseWidth: toPixels(0.08)
     needleTipWidth: toPixels(0.03)
+    labelInset: toPixels(0.3)
 
     minorTickmark: Rectangle {
         implicitWidth: toPixels(0.01)
         antialiasing: true
-        implicitHeight: toPixels(0.04)
-        color: "#c8c8c8"
+        implicitHeight: toPixels(0.1)
+//        color: "#c8c8c8"
+        gradient: Gradient {
+            GradientStop{ position: 0.0; color: "#c8c8c8" }
+            GradientStop{ position: 1.0; color: "black" }
+        }
     }
 
     tickmark: Rectangle {
-        implicitWidth: toPixels(0.03)
+        implicitWidth: toPixels(0.02)
         antialiasing: true
-        implicitHeight: toPixels(0.08)
-        color: "#c8c8c8"
+        implicitHeight: toPixels(0.2)
+//        color: "#c8c8c8"
+        gradient: Gradient {
+            GradientStop{ position: 0.0; color: "#83bbde" }
+            GradientStop{ position: 1.0; color: "black" }
+        }
     }
 
     tickmarkLabel: Text {
@@ -90,9 +99,10 @@ DashboardGaugeStyle {
             ctx.reset()
             paintBackground(ctx)
 
+            // the redline warning strip
             ctx.beginPath()
             ctx.lineWidth = tachometerStyle.toPixels(0.08)
-            ctx.strokeStyle = Qt.rgba(1, 1, 1, 0.5)
+            ctx.strokeStyle = Qt.rgba(1, 1, 1, 0.3)
             var warningCircumference = maximumValueAngle - minimumValueAngle * 0.1
             var startAngle = maximumValueAngle - 90
             ctx.arc(outerRadius, outerRadius,
@@ -108,7 +118,7 @@ DashboardGaugeStyle {
             color: "white"
             font.pixelSize: tachometerStyle.toPixels(0.1)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 50
+            anchors.bottomMargin: 40
             anchors.horizontalCenter: parent.horizontalCenter
         }
     }
