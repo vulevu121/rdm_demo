@@ -62,6 +62,8 @@ DashboardGaugeStyle {
     needleTipWidth: toPixels(0.03)
     labelInset: toPixels(0.3)
 
+    property string gaugeName: ""
+
     minorTickmark: Rectangle {
         implicitWidth: toPixels(0.01)
         antialiasing: true
@@ -117,8 +119,18 @@ DashboardGaugeStyle {
             text: "RPM"
             color: "white"
             font.pixelSize: tachometerStyle.toPixels(0.1)
+            anchors.bottom: gaugeNameText.top
+            anchors.bottomMargin: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Text {
+            id: gaugeNameText
+            text: gaugeName
+            color: "white"
+            font.pixelSize: tachometerStyle.toPixels(0.1)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 40
+            anchors.bottomMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
         }
     }

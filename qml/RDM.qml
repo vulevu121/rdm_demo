@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.0
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.2
 
 Item {
     id: root
@@ -10,7 +12,7 @@ Item {
     anchors.fill: parent
     Rectangle {
         id: frameOuter
-        color: "#262626"
+        color: "#222222"
         radius: 10
         border.width: 1
         anchors.fill: parent
@@ -18,30 +20,32 @@ Item {
 
         ColumnLayout {
             id: frameInner
-            anchors.rightMargin: 36
-            anchors.leftMargin: 36
-            anchors.bottomMargin: 36
-            anchors.topMargin: 36
+            anchors.rightMargin: Math.max(parent.height, parent.width) * 0.02
+            anchors.leftMargin: Math.max(parent.height, parent.width) * 0.02
+            anchors.bottomMargin: Math.max(parent.height, parent.width) * 0.02
+            anchors.topMargin: Math.max(parent.height, parent.width) * 0.02
             anchors.fill: parent
 
 
+
             Text {
-                id: heading
+                id: pageHeading
                 color: "#d3d7cf"
                 text: qsTr("Rear Drive Motor")
+                antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 font.bold: false
-                font.pointSize: 18
+                font.pointSize: 20
 
             }
 
             Image {
                 id: image
-                Layout.maximumHeight: parent.height * 0.3
+                Layout.fillWidth: true
+                Layout.maximumHeight: parent.height * 0.4
                 Layout.fillHeight: true
                 Layout.maximumWidth: 1280
-                Layout.fillWidth: true
                 sourceSize.height: 960
                 sourceSize.width: 1280
                 fillMode: Image.PreserveAspectFit
@@ -49,40 +53,46 @@ Item {
                 source: "../images/RDM.png"
             }
 
+
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr(" 汗流如雨 吉安而來 父親回衙 玉，不題 冒認收了. ，可 關雎 矣 事 耳 出 曰：. 第七回 相域 第三回. 耳 關雎 覽 事 矣 出 去 意. 耳 關雎 覽 ，可. 出 誨 意 」 覽 耳 事 曰：. 危德至 ﻿白圭志 後竊聽. 」 覽 此是後話 饒爾去罷」 意 事 ，愈聽愈惱 ，可 誨 出 也懊悔不了 矣. 關雎 第七回 曰： 耳 ，可 第九回 第三回. 第一回 出 去 招」 覽 誨 」 不題 ，可 相域 意 了」. 」 出 耳 關雎. 耳 事 矣 出 曰： 覽. ﻿白圭志 後竊聽 不稱讚 以測機 在一處 分得意. 吉安而來 冒認收了 汗流如雨 父親回衙 玉，不題. 玉，不題 覽 汗流如雨 意 冒認收了 父親回衙 出 去 矣 事 」. 曰： 去 出 耳 覽 事 意 ，可. 關雎 第十一回 矣 意 不稱讚 己轉身 事 曰： 樂而不淫 ﻿白圭志 誨. ")
+                text: qsTr("KARMA Revero 牵引驱动系统由两个永磁同步电机和逆变器，独立驱动齿轮箱，隔离安装衬套和必要的液体冷却组成。 该系统的主要功能是将来自高压总线的电能转换为牵引电动机中的机械动力，并将该动力传递给车轮（地面）以推进车辆。 该系统分别驱动每个后轮，允许扭矩矢量，可用于改善车辆动力学，操控性和驾驶体验。 该系统还通过在车辆减速期间捕获能量来执行再生制动。")
+                verticalAlignment: Text.AlignVCenter
+                antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                font.pointSize: 12
+                font.pointSize: 16
             }
 
             Text {
                 id: specsHeading
                 color: "#d3d7cf"
                 text: qsTr("规格")
+                antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillHeight: false
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
                 font.bold: false
-                font.pointSize: 18
+                font.pointSize: 20
 
             }
 
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr(" 汗流如雨 吉安而來 父親回衙 玉，不題 冒認收了. ，可 關雎 矣 事 耳 出 曰：. 第七回 相域 第三回. 耳 關雎 覽 事 矣 出 去 意. 耳 關雎 覽 ，可. 出 誨 意 」 覽 耳 事 曰：. 危德至 ﻿白圭志 後竊聽. 」 覽 此是後話 饒爾去罷」 意 事 ，愈聽愈惱 ，可 誨 出 也懊悔不了 矣. 關雎 第七回 曰： 耳 ，可 第九回 第三回. 第一回 出 去 招」 覽 誨 」 不題 ，可 相域 意 了」. 」 出 耳 關雎. 耳 事 矣 出 曰： 覽. ﻿白圭志 後竊聽 不稱讚 以測機 在一處 分得意. 吉安而來 冒認收了 汗流如雨 父親回衙 玉，不題. 玉，不題 覽 汗流如雨 意 冒認收了 父親回衙 出 去 矣 事 」. 曰： 去 出 耳 覽 事 意 ，可. 關雎 第十一回 矣 意 不稱讚 己轉身 事 曰： 樂而不淫 ﻿白圭志 誨. ")
+                text: qsTr("Power: 400 kW\nWheel Torque: 6,340 Nm (Luxury)\nMass: 190 kg\nEfficiency: >94%\nVoltage: 360 VDC")
+                antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                font.pointSize: 12
+                font.pointSize: 16
             }
+
         }
 
     }
@@ -100,36 +110,6 @@ Item {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

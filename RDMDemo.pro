@@ -26,5 +26,6 @@ DISTFILES += \
     qml/Motor.qml \
     qml/RDM.qml \
     videos/IMG_4581.mp4 \
-    qml/VideoTest.qml
+    qml/VideoTest.qml \
+    qml/Wheel.qml
 

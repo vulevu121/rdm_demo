@@ -138,6 +138,8 @@ if __name__ == "__main__":
 	import sys
 	# Create an instance of the application
 	app = QGuiApplication(sys.argv)
+	# app.setAttribute(Qt.AA_EnableHighDpiScaling)
+	# app.setAttribute(Qt.AA_DisableHighDpiScaling)
 	# Create QML engine
 	engine = QQmlApplicationEngine()
 
@@ -160,6 +162,6 @@ if __name__ == "__main__":
 		# Load the qml file into the engine
 		engine.load("qml/dashboard.qml")
 
-
+	
 	engine.quit.connect(app.quit)
 	sys.exit(app.exec_())

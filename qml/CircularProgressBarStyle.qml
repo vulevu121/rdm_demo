@@ -6,9 +6,11 @@ ProgressBarStyle {
     // if gaugePercent is positive then we ensure the ending position of the gradient do not exceed 1.0, simiarly for negative
     property real gaugePercent: control.gaugeValue >= 0 ? Math.min(control.gaugeValue / control.maximumValue, 0.99) : Math.max(control.gaugeValue / control.maximumValue, -1.00)
     property bool displayValue: true
-    property string startColorPos: "#c4feff"
+//    property string startColorPos: "#c4feff"
+    property string startColorPos: "#000000"
     property string endColorPos: "#1f81d7"
-    property string startColorNeg: "#eeb374"
+//    property string startColorNeg: "#eeb374"
+    property string startColorNeg: "#000000"
     property string endColorNeg: "#f28600"
     property real borderWidth: 10
 

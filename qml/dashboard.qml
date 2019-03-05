@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick.Window 2.1
 import QtQuick.Controls 2.1
 import QtQuick.Controls 1.4
 import QtQuick.Extras 1.4
@@ -13,16 +13,14 @@ Window {
     visible: true
     width: 1920
     height: 1080
-    //    visibility: Window.FullScreen
 
+    //    visibility: Window.FullScreen
     color: "#161616"
     title: "RDM Demo"
 
-
-
     Item {
         id: controlContainer
-        width: root.width * 0.5
+        width: root.width * 0.6
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         anchors.top: parent.top
@@ -31,21 +29,19 @@ Window {
         anchors.leftMargin: 0
         z: 2
 
-
         Item {
             id: karmaContainer
-            height: parent.height * 0.2
-            anchors.rightMargin: parent.width *0.02
-            anchors.leftMargin: parent.width * 0.02
+            width: 900
+            height: parent.height * 0.18
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.topMargin: parent.height * 0.04
-            anchors.right: parent.right
-            anchors.left: parent.left
             anchors.top: parent.top
 
             Image {
                 id: karmaHeader
-                anchors.leftMargin: 24
-                anchors.rightMargin: 0
+                height: width * 109 / 695
+                anchors.leftMargin: parent.width * 0.04
+                anchors.rightMargin: parent.width * 0.04
                 anchors.bottomMargin: 0
                 anchors.topMargin: 0
                 sourceSize.height: 109
@@ -58,6 +54,18 @@ Window {
                 fillMode: Image.PreserveAspectFit
             }
 
+            DropShadow {
+                anchors.fill: karmaHeader
+                horizontalOffset: 0
+                verticalOffset: 7
+                radius: 8.0
+                cached: true
+                samples: 17
+                color: "#80000000"
+                source: karmaHeader
+            }
+
+
             Item {
                 id: startButtonContainer
                 width: height
@@ -66,8 +74,6 @@ Window {
                 anchors.leftMargin: parent.width * 0.02
                 anchors.left: parent.left
                 z: 2
-
-
 
                 Image {
                     id: logoImage
@@ -92,14 +98,16 @@ Window {
                         maximumValue: 5
                         minimumValue: 0
                         style: CircularProgressBarStyle {
-                            startColorPos: "red"
+                            startColorPos: "black"
                             endColorPos: "red"
                             displayValue: false
                             borderWidth: 10
                         }
 
                         Behavior on gaugeValue {
-                            NumberAnimation { duration: 300 }
+                            NumberAnimation {
+                                duration: 300
+                            }
                         }
 
                         Connections {
@@ -108,7 +116,6 @@ Window {
                             onDemoStageSignal: {
                                 stageProgressBar.gaugeValue = RDMBench.demoStage
                             }
-
                         }
 
                         RoundButton {
@@ -120,55 +127,79 @@ Window {
                             text: "S T A R T"
                             checkable: true
                             font.strikeout: false
-                            flat: false
                             highlighted: true
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: startButtonContainer.height*0.1
+                            font.pixelSize: startButtonContainer.height * 0.1
                             z: 3
 
                             background: Rectangle {
-                                radius: startButton.width/2
+                                radius: startButton.width / 2
+                                rotation: -30
                                 gradient: Gradient {
                                     GradientStop {
                                         position: 0.0
+
                                         SequentialAnimation on color {
                                             loops: 1
-                                            ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
+                                            ColorAnimation {
+                                                to: "#262626"
+                                                duration: 200
+                                                easing.type: Easing.InOutQuad
+                                            }
                                             alwaysRunToEnd: true
                                         }
                                         SequentialAnimation on color {
                                             running: startButton.pressed
                                             loops: 1
-                                            ColorAnimation { to: "#14148c"; duration: 200; easing.type: Easing.InOutQuad }
-                                            ColorAnimation { to: "#666666"; duration: 200; easing.type: Easing.InOutQuad }
+                                            ColorAnimation {
+                                                to: "#0504a9"
+                                                duration: 200
+                                                easing.type: Easing.InOutQuad
+                                            }
+                                            ColorAnimation {
+                                                to: startButton.checked ? "#262626" : "#0504a9"
+                                                duration: 200
+                                                easing.type: Easing.InOutQuad
+                                            }
                                             alwaysRunToEnd: true
                                         }
-
                                     }
 
                                     GradientStop {
                                         position: 1.0
                                         SequentialAnimation on color {
                                             loops: 1
-                                            ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
+                                            ColorAnimation {
+                                                to: "#000000"
+                                                duration: 200
+                                                easing.type: Easing.InOutQuad
+                                            }
                                             alwaysRunToEnd: true
                                         }
                                         SequentialAnimation on color {
                                             running: startButton.pressed
                                             loops: 1
-                                            ColorAnimation { to: "#14aaff"; duration: 200; easing.type: Easing.InOutQuad }
-                                            ColorAnimation { to: "#262626"; duration: 200; easing.type: Easing.InOutQuad }
+                                            ColorAnimation {
+                                                to: "black"
+                                                duration: 200
+                                                easing.type: Easing.InOutQuad
+                                            }
+                                            ColorAnimation {
+                                                to: startButton.checked ? "#000000" : "#black"
+                                                duration: 200
+                                                easing.type: Easing.InOutQuad
+                                            }
                                             alwaysRunToEnd: true
                                         }
                                     }
                                 }
-
                             }
 
                             onClicked: {
                                 RDMBench.startButtonPressed(true)
-                                startButton.checked ? video.pause() : video.play()
+                                startButton.checked ? video.pause(
+                                                          ) : video.play()
                             }
 
                             Connections {
@@ -178,12 +209,8 @@ Window {
                                     startButton.checked = startButtonPressed
                                 }
                             }
-
-
                         }
                     }
-
-
                 }
 
                 DropShadow {
@@ -196,16 +223,13 @@ Window {
                     color: "#80000000"
                     source: logoImage
                 }
-
-
-
             }
         }
 
         Item {
             id: clusterContainer
             y: 348
-            height: width*0.375
+            height: width * 0.375
             anchors.rightMargin: parent.width * 0.02
             anchors.right: parent.right
             anchors.leftMargin: parent.width * 0.02
@@ -225,25 +249,24 @@ Window {
                 horizontalOffset: 0
                 verticalOffset: 7
                 radius: 8.0
+                z: -2
                 samples: 17
                 color: "#80000000"
                 cached: true
                 source: clusterBackground
             }
 
-
             Item {
                 id: gaugeContainer
                 x: 121
                 y: 84
                 width: clusterContainer.width * 0.8
-                height: clusterContainer.height * 0.7
+                height: clusterContainer.height * 0.75
                 anchors.verticalCenterOffset: 10
                 anchors.horizontalCenterOffset: 0
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 z: 5
-
 
                 CircularGauge {
                     id: tachometerLeft
@@ -257,10 +280,13 @@ Window {
 
                     style: TachometerStyle {
                         showValue: false
+                        gaugeName: "LEFT WHEEL"
                     }
 
                     Behavior on value {
-                        NumberAnimation { duration: 500 }
+                        NumberAnimation {
+                            duration: 500
+                        }
                     }
 
                     Connections {
@@ -269,9 +295,7 @@ Window {
                         onLeftRPMSignal: {
                             tachometerLeft.value = Math.abs(RDMBench.leftRPM)
                         }
-
                     }
-
 
                     ProgressBar {
                         id: leftTorque
@@ -288,7 +312,9 @@ Window {
                         }
 
                         Behavior on gaugeValue {
-                            NumberAnimation { duration: 500 }
+                            NumberAnimation {
+                                duration: 500
+                            }
                         }
 
                         Connections {
@@ -297,7 +323,6 @@ Window {
                             onLeftRPMSignal: {
                                 leftTorque.gaugeValue = RDMBench.leftTorque
                             }
-
                         }
                     }
                 }
@@ -307,14 +332,12 @@ Window {
                     horizontalOffset: 0
                     verticalOffset: 7
                     radius: 8.0
+                    z: -2
                     samples: 17
                     color: "#80000000"
                     cached: true
                     source: tachometerLeft
                 }
-
-
-
 
                 CircularGauge {
                     id: tachometerRight
@@ -328,10 +351,13 @@ Window {
 
                     style: TachometerStyle {
                         showValue: false
+                        gaugeName: "RIGHT WHEEL"
                     }
 
                     Behavior on value {
-                        NumberAnimation { duration: 300 }
+                        NumberAnimation {
+                            duration: 300
+                        }
                     }
 
                     Connections {
@@ -340,7 +366,6 @@ Window {
                         onRightRPMSignal: {
                             tachometerRight.value = Math.abs(RDMBench.rightRPM)
                         }
-
                     }
 
                     ProgressBar {
@@ -359,7 +384,9 @@ Window {
                         }
 
                         Behavior on gaugeValue {
-                            NumberAnimation { duration: 300 }
+                            NumberAnimation {
+                                duration: 300
+                            }
                         }
 
                         Connections {
@@ -368,9 +395,7 @@ Window {
                             onRightRPMSignal: {
                                 rightTorque.gaugeValue = RDMBench.rightTorque
                             }
-
                         }
-
                     }
                 }
 
@@ -379,13 +404,12 @@ Window {
                     horizontalOffset: 0
                     verticalOffset: 7
                     radius: 8.0
+                    z: -2
                     samples: 17
                     cached: true
                     color: "#80000000"
                     source: tachometerRight
                 }
-
-
             }
 
             Image {
@@ -408,52 +432,114 @@ Window {
                     autoPlay: true
                     loops: Animation.Infinite
                     muted: true
-
                 }
-
             }
-
-            //            Rectangle {
-            //                id: videoHolder
-            //                width: clusterContainer.width * 0.45
-            //                height: width * 430 / 1370
-            //                color: "#121212"
-            //                anchors.verticalCenterOffset: 0
-            //                anchors.horizontalCenter: parent.horizontalCenter
-            //                anchors.verticalCenter: parent.verticalCenter
-
-
-            //                Video {
-            //                    id: video
-            //                    anchors.rightMargin: 5
-            //                    anchors.leftMargin: 5
-            //                    anchors.bottomMargin: 5
-            //                    anchors.topMargin: 5
-            //                    anchors.fill: parent
-            //                    source: "../videos/IMG_4581.mp4"
-            //                    autoPlay: true
-            //                    loops: Animation.Infinite
-
-
-            //                }
-            //            }
         }
 
+        Item {
+            id: element
+            y: 798
+            height: 200
+            anchors.rightMargin: parent.width * 0.2
+            anchors.leftMargin: parent.width*0.2
+            anchors.right: parent.right
+            anchors.left: parent.left
 
+            Row {
+                id: leftWheel
+                width: 54
+                height: 150
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                spacing: 1
+                property bool forwardDirection: true
 
+                Repeater {
+                    model: 5
 
+                    Rectangle {
+                        width: 10
+                        height: 150
+                        border.width: 1
 
+                        gradient: Gradient {
+                            GradientStop {position: 0.0 ; color: "black"}
+                            GradientStop {position: 0.5 ; color: "#262626"}
+                            GradientStop {position: 1.0 ; color: "black"}
+                        }
 
+                        Rectangle {
+                            width: 10
+                            height: 6
+                            opacity: 0.05
+                            z: 2
 
+                            SequentialAnimation on y {
+                                loops: Animation.Infinite
+                                PropertyAnimation {
+                                    property bool forwardDirection: leftWheel.forwardDirection
+                                    from: forwardDirection ? 150 - 6 : 0
+                                    to: forwardDirection ? 0 : 150 - 6
+                                    duration: 400
+                                    easing.type: Easing.InOutQuad
+                                }
+                            }
+                        }
 
+                    }
+                }
+            }
 
+            Row {
+                id: rightWheel
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+                spacing: 1
+                property bool forwardDirection: false
+
+                Repeater {
+                    model: 5
+
+                    Rectangle {
+                        width: 10
+                        height: 150
+                        border.width: 1
+
+                        gradient: Gradient {
+                            GradientStop {position: 0.0 ; color: "black"}
+                            GradientStop {position: 0.5 ; color: "#262626"}
+                            GradientStop {position: 1.0 ; color: "black"}
+                        }
+
+                        Rectangle {
+                            width: 10
+                            height: 6
+                            opacity: 0.05
+                            z: 2
+
+                            SequentialAnimation on y {
+                                loops: Animation.Infinite
+                                PropertyAnimation {
+                                    property bool forwardDirection: rightWheel.forwardDirection
+                                    from: forwardDirection ? 150 - 6 : 0
+                                    to: forwardDirection ? 0 : 150 - 6
+                                    duration: 400
+                                    easing.type: Easing.InOutQuad
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
     }
 
     Item {
         id: infoContainer
         x: 974
         y: 0
-        width: root.width * 0.5
+        width: root.width * 0.4
         anchors.right: parent.right
         anchors.rightMargin: 0
         anchors.bottom: parent.bottom
@@ -477,25 +563,25 @@ Window {
             currentIndex: 0
 
             Item {
-                id: firstPage
+                id: page1
                 Loader {
                     id: pageLoader1
                     source: "RDM.qml"
                     width: parent.width
                     height: parent.height
                 }
-
             }
             Item {
+                id: page2
                 Loader {
                     id: pageLoader2
-                    source: "Gearbox.qml"
+                    source: "Inverter.qml"
                     width: parent.width
                     height: parent.height
                 }
             }
             Item {
-                id: thirdPage
+                id: page3
                 Loader {
                     id: pageLoader3
                     source: "Motor.qml"
@@ -504,10 +590,20 @@ Window {
                 }
             }
             Item {
-                id: fourthPage
+                id: page4
                 Loader {
                     id: pageLoader4
-                    source: "Inverter.qml"
+                    source: "Gearbox.qml"
+                    width: parent.width
+                    height: parent.height
+                }
+            }
+
+            Item {
+                id: page5
+                Loader {
+                    id: pageLoader5
+                    source: "Wheel.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -526,11 +622,16 @@ Window {
 
             count: swipeView.count
             currentIndex: swipeView.currentIndex
-
         }
 
-
-
+        Timer {
+            interval: slider.value * 1000
+            running: true
+            repeat: true
+            onTriggered: swipeView.setCurrentIndex(
+                             swipeView.currentIndex < swipeView.count
+                             - 1 ? swipeView.currentIndex + 1 : 0)
+        }
 
         Button {
             id: scrollUpButton
@@ -538,43 +639,34 @@ Window {
             width: root.width * 0.035
             height: width
             text: "^"
-            anchors.rightMargin: parent.width * 0.02
-            anchors.topMargin: parent.height * 0.1
-            anchors.right: parent.right
+            anchors.horizontalCenter: pageIndicator.horizontalCenter
+            anchors.topMargin: parent.height * 0.05
             anchors.top: parent.top
             visible: true
-            //                focusPolicy: Qt.NoFocus
-            //                display: AbstractButton.IconOnly
-            //                spacing: 5
-
-            //                background: Rectangle {
-
-            //                    radius: parent.width/2
-            //                    color: parent.down ? "#161616" : "#262626"
-            //                }
 
             style: ButtonStyle {
                 background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 25
                     //                            border.color: "#888"
-                    radius: control.width/2
+                    radius: control.width / 2
                     color: control.pressed ? "#161616" : "#262626"
-                    //                            gradient: Gradient {
-                    //                                GradientStop { position: 0 ; color: control.pressed ? "#161616" : "#262626" }
-                    //                                GradientStop { position: 1 ; color: control.pressed ? "#262626" : "#aaa" }
-                    //                            }
                 }
 
                 label: Component {
+                    id: component
                     Text {
                         text: control.text
-                        font.pixelSize: 28
+                        font.pointSize: 28
                         color: "#d3d7cf"
                         SequentialAnimation on anchors.topMargin {
                             loops: Animation.Infinite
-                            PropertyAnimation { to: 10 }
-                            PropertyAnimation { to: 0 }
+                            PropertyAnimation {
+                                to: 0
+                            }
+                            PropertyAnimation {
+                                to: 10
+                            }
                         }
 
                         verticalAlignment: Text.AlignVCenter
@@ -584,7 +676,8 @@ Window {
                 }
             }
 
-            onClicked: swipeView.setCurrentIndex(swipeView.currentIndex > 0 ? swipeView.currentIndex-1 : 0)
+            onClicked: swipeView.setCurrentIndex(
+                           swipeView.currentIndex > 0 ? swipeView.currentIndex - 1 : 0)
         }
 
         Button {
@@ -594,44 +687,35 @@ Window {
             width: root.width * 0.035
             height: width
             text: "^"
-            anchors.rightMargin: parent.width * 0.02
-            anchors.bottomMargin: parent.height * 0.1
+            anchors.horizontalCenter: pageIndicator.horizontalCenter
+            anchors.bottomMargin: parent.height * 0.05
             z: 0
-            anchors.right: parent.right
             anchors.bottom: parent.bottom
             opacity: 1
-            //                focusPolicy: Qt.NoFocus
-            //                display: AbstractButton.IconOnly
-            //                spacing: 5
-
-            //                background: Rectangle {
-            //                    radius: parent.width/2
-            //                    color: parent.down ? "#161616" : "#262626"
-            //                }
 
             style: ButtonStyle {
                 background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 25
                     //                            border.color: "#888"
-                    radius: control.width/2
+                    radius: control.width / 2
                     color: control.pressed ? "#161616" : "#262626"
-                    //                            gradient: Gradient {
-                    //                                GradientStop { position: 0 ; color: control.pressed ? "#161616" : "#262626" }
-                    //                                GradientStop { position: 1 ; color: control.pressed ? "#262626" : "#aaa" }
-                    //                            }
                 }
 
                 label: Component {
                     Text {
                         rotation: 180
                         text: control.text
-                        font.pixelSize: 22
+                        font.pointSize: 28
                         color: "#d3d7cf"
                         SequentialAnimation on anchors.bottomMargin {
                             loops: Animation.Infinite
-                            PropertyAnimation { to: 10 }
-                            PropertyAnimation { to: 0 }
+                            PropertyAnimation {
+                                to: 10
+                            }
+                            PropertyAnimation {
+                                to: 0
+                            }
                         }
 
                         verticalAlignment: Text.AlignVCenter
@@ -640,7 +724,9 @@ Window {
                     }
                 }
             }
-            onClicked: swipeView.setCurrentIndex(swipeView.currentIndex < 3 ? swipeView.currentIndex+1 : 3)
+            onClicked: swipeView.setCurrentIndex(
+                           swipeView.currentIndex < swipeView.count
+                           - 1 ? swipeView.currentIndex + 1 : swipeView.count - 1)
         }
 
         DropShadow {
@@ -667,6 +753,59 @@ Window {
             source: scrollDownButton
         }
 
+        Slider {
+            id: slider
+            height: parent.height * 0.2
+            updateValueWhileDragging: true
+            stepSize: 1
+            anchors.topMargin: parent.height * 0.15
+            anchors.top: pageIndicator.bottom
+            anchors.horizontalCenter: pageIndicator.horizontalCenter
+            minimumValue: 3
+            value: 5
+            maximumValue: 20
+            orientation: Qt.Vertical
+            z: 2
+
+            style: SliderStyle {
+                handle: Item {
+                    Rectangle {
+                        implicitWidth: control.width * 3
+                        implicitHeight: implicitWidth
+                        radius: implicitWidth / 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: "#fff"
+                    }
+
+                    Text {
+                        rotation: 90
+                        color: "white"
+                        text: control.value
+                        anchors.horizontalCenterOffset: 40
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.pointSize: 14
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+                }
+                groove: Rectangle {
+                    implicitHeight: 10
+                    implicitWidth: 100
+                    radius: height / 2
+                    border.color: "#333"
+                    color: "#222"
+                    Rectangle {
+                        height: parent.height
+                        width: styleData.handlePosition
+                        implicitHeight: 6
+                        implicitWidth: 100
+                        radius: height / 2
+                        color: "#555"
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -848,10 +987,159 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
     D{i:3;anchors_height:105.99999999999997;anchors_width:552.9599999999999;anchors_x:320;anchors_y:97}
-D{i:4;anchors_height:192;anchors_y:"-213"}D{i:2;anchors_width:900;anchors_x:"-19";anchors_y:"-15"}
-D{i:17;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}D{i:16;anchors_width:961;anchors_x:40}
-D{i:1;anchors_height:1080}
+D{i:2;anchors_width:900;anchors_x:"-19";anchors_y:"-15"}D{i:18;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}
+D{i:17;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}D{i:37;anchors_width:949;anchors_x:102}
+D{i:1;anchors_height:1080}D{i:78;anchors_y:688}D{i:80;anchors_y:688}
 }
  ##^##*/

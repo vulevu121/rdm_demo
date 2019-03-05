@@ -31,7 +31,7 @@ Item {
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
-                text: qsTr("Gearbox")
+                text: qsTr("Wheel")
                 antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -43,21 +43,21 @@ Item {
             Image {
                 id: image
                 Layout.fillWidth: true
-                Layout.maximumHeight: parent.height * 0.4
+                Layout.maximumHeight: parent.height * 0.3
                 Layout.fillHeight: true
                 Layout.maximumWidth: 1280
                 sourceSize.height: 960
                 sourceSize.width: 1280
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                source: "../images/Gearbox.png"
+                source: "../images/Wheel.png"
             }
 
 
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr("变速箱的主要功能是有效地将扭矩传递给车轮。 变速箱由独立的驱动装置组成，可以对每个车轮进行单独控制。 每个牵引电机驱动其各自的车轮100％机械地与另一个车轮分离，并且通过轴向对齐的轴彼此对称。 这允许全扭矩矢量化能力，辅助车辆动力学和驾驶体验。 变速箱采用飞溅润滑，无需主动冷却。")
+                text: qsTr("Karma Automotive推出的22英寸碳纤维轮。 22英寸的碳纤维车轮平衡了大型设计比例，复杂的造型和低滚动惯性。 带来极致奢华的性能体验。 低滚动惯性是通过两件式车轮策略实现的：中心铝制轮辐部分固定在碳纤维箍上。 两件式铝/碳策略降低了车辆的非簧载质量，从而改善了转向/操纵特性，增加了车辆加速度，无与伦比的造型复杂性以及超出结构耐久性能要求。 22英寸碳影反映了Karma Automotive 的高性能奢华愿景。")
                 verticalAlignment: Text.AlignVCenter
                 antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -84,7 +84,7 @@ Item {
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr("Peak Input speed: 13,000 rpm\nPeak Input torque: 375 Nm\nPeak E-Motor Power: 175 kW\nArchitecture: Independent Drive – Completely Decoupled\nMass: 43 kg (dry)\nLubrication: Oil Splash Lubrication (No active cooling)")
+                text: qsTr("Hoop Material: Carbon Fiber\nSpokes Material: HPC Aluminum A356-T6\nFront Wheel: 22x8.5J (11.7 kg - 34% reduction*)\nRear Wheel: 22x9.5J (12.9 kg - 35% reduction*)\nFront Rolling Inertia: 0.320 kg-m2 (43% reduction*)\nRear Rolling Inertia: 0.383 kg-m2 (38% reduction*)\n0-100 kph Improvement: Δ0.1s\n\n*As compared to a cast wheel with same size, same loading requirements, and similar styling complexity.")
                 antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
