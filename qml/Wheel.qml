@@ -40,18 +40,34 @@ Item {
 
             }
 
-            Image {
-                id: image
-                Layout.fillWidth: true
-                Layout.maximumHeight: parent.height * 0.3
-                Layout.fillHeight: true
+            Rectangle {
+                id: imageHolder
+                color: "black"
+                Layout.minimumHeight: 480
+                Layout.minimumWidth: 640
+
+                Layout.fillWidth: false
+                Layout.fillHeight: false
+                Layout.maximumHeight: 960
                 Layout.maximumWidth: 1280
-                sourceSize.height: 960
-                sourceSize.width: 1280
-                fillMode: Image.PreserveAspectFit
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                source: "../images/Wheel.png"
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                Image {
+                    id: image
+                    anchors.rightMargin: 10
+                    anchors.leftMargin: 10
+                    anchors.bottomMargin: 10
+                    anchors.topMargin: 10
+                    anchors.fill: parent
+                    sourceSize.height: 960
+                    sourceSize.width: 1280
+                    fillMode: Image.PreserveAspectFit
+                    source: "../images/Wheel.png"
+
+                }
             }
+
+
 
 
             Text {

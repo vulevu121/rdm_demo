@@ -19,5 +19,6 @@
         <file>images/RDM.png</file>
         <file>qml/Wheel.qml</file>
         <file>images/Wheel.png</file>
+        <file>qml/WheelDisplay.qml</file>
     </qresource>
 </RCC>

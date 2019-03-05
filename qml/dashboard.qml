@@ -14,7 +14,7 @@ Window {
     width: 1920
     height: 1080
 
-    //    visibility: Window.FullScreen
+    visibility: Window.FullScreen
     color: "#161616"
     title: "RDM Demo"
 
@@ -31,17 +31,18 @@ Window {
 
         Item {
             id: karmaContainer
-            width: 900
+            width: parent.width * 0.6
             height: parent.height * 0.18
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.topMargin: parent.height * 0.04
+            anchors.topMargin: 43
             anchors.top: parent.top
 
             Image {
                 id: karmaHeader
-                height: width * 109 / 695
-                anchors.leftMargin: parent.width * 0.04
-                anchors.rightMargin: parent.width * 0.04
+                height: logoImage.height * 0.3
+                anchors.leftMargin: parent.width * 0.02
+                anchors.rightMargin: parent.width * 0.02
+                anchors.right: parent.right
                 anchors.bottomMargin: 0
                 anchors.topMargin: 0
                 sourceSize.height: 109
@@ -49,7 +50,6 @@ Window {
                 anchors.bottom: parent.bottom
                 anchors.top: parent.top
                 anchors.left: startButtonContainer.right
-                anchors.right: parent.right
                 source: "../images/karma-logo-header.png"
                 fillMode: Image.PreserveAspectFit
             }
@@ -437,100 +437,30 @@ Window {
         }
 
         Item {
-            id: element
-            y: 798
-            height: 200
+            id: wheelContainer
+            y: 800
+            height: 250
+            anchors.bottomMargin: parent.height * 0.1
+            anchors.bottom: parent.bottom
             anchors.rightMargin: parent.width * 0.2
             anchors.leftMargin: parent.width*0.2
             anchors.right: parent.right
             anchors.left: parent.left
 
-            Row {
-                id: leftWheel
-                width: 54
-                height: 150
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                spacing: 1
-                property bool forwardDirection: true
-
-                Repeater {
-                    model: 5
-
-                    Rectangle {
-                        width: 10
-                        height: 150
-                        border.width: 1
-
-                        gradient: Gradient {
-                            GradientStop {position: 0.0 ; color: "black"}
-                            GradientStop {position: 0.5 ; color: "#262626"}
-                            GradientStop {position: 1.0 ; color: "black"}
-                        }
-
-                        Rectangle {
-                            width: 10
-                            height: 6
-                            opacity: 0.05
-                            z: 2
-
-                            SequentialAnimation on y {
-                                loops: Animation.Infinite
-                                PropertyAnimation {
-                                    property bool forwardDirection: leftWheel.forwardDirection
-                                    from: forwardDirection ? 150 - 6 : 0
-                                    to: forwardDirection ? 0 : 150 - 6
-                                    duration: 400
-                                    easing.type: Easing.InOutQuad
-                                }
-                            }
-                        }
-
-                    }
-                }
+            WheelDisplay {
+                id: wheelLeft
+                forwardDirection: true
+                width: 100
+                height: parent.height
             }
 
-            Row {
-                id: rightWheel
+            WheelDisplay {
+                id: wheelRight
                 anchors.right: parent.right
                 anchors.rightMargin: 0
-                spacing: 1
-                property bool forwardDirection: false
-
-                Repeater {
-                    model: 5
-
-                    Rectangle {
-                        width: 10
-                        height: 150
-                        border.width: 1
-
-                        gradient: Gradient {
-                            GradientStop {position: 0.0 ; color: "black"}
-                            GradientStop {position: 0.5 ; color: "#262626"}
-                            GradientStop {position: 1.0 ; color: "black"}
-                        }
-
-                        Rectangle {
-                            width: 10
-                            height: 6
-                            opacity: 0.05
-                            z: 2
-
-                            SequentialAnimation on y {
-                                loops: Animation.Infinite
-                                PropertyAnimation {
-                                    property bool forwardDirection: rightWheel.forwardDirection
-                                    from: forwardDirection ? 150 - 6 : 0
-                                    to: forwardDirection ? 0 : 150 - 6
-                                    duration: 400
-                                    easing.type: Easing.InOutQuad
-                                }
-                            }
-                        }
-
-                    }
-                }
+                forwardDirection: false
+                width: 100
+                height: parent.height
             }
         }
     }
@@ -763,26 +693,29 @@ Window {
             anchors.horizontalCenter: pageIndicator.horizontalCenter
             minimumValue: 3
             value: 5
-            maximumValue: 20
+            maximumValue: 60
             orientation: Qt.Vertical
             z: 2
 
             style: SliderStyle {
                 handle: Item {
+                    width: 100
+                    height: 100
                     Rectangle {
-                        implicitWidth: control.width * 3
-                        implicitHeight: implicitWidth
+                        id: sliderHandle
+                        implicitWidth: 100
+                        implicitHeight: 100
                         radius: implicitWidth / 2
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        color: "#fff"
+                        color: "#555"
                     }
 
                     Text {
                         rotation: 90
                         color: "white"
-                        text: control.value
-                        anchors.horizontalCenterOffset: 40
+                        text: control.value + "s"
+                        anchors.horizontalCenterOffset: sliderHandle.width
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         font.pointSize: 14
@@ -1136,10 +1069,96 @@ Window {
 
 
 
-/*##^## Designer {
-    D{i:3;anchors_height:105.99999999999997;anchors_width:552.9599999999999;anchors_x:320;anchors_y:97}
-D{i:2;anchors_width:900;anchors_x:"-19";anchors_y:"-15"}D{i:18;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}
-D{i:17;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}D{i:37;anchors_width:949;anchors_x:102}
-D{i:1;anchors_height:1080}D{i:78;anchors_y:688}D{i:80;anchors_y:688}
-}
- ##^##*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
