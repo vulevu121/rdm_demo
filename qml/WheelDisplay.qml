@@ -12,9 +12,11 @@ Row {
         model: 5
 
         Rectangle {
+            id: singleTread
             width: wheelRow.width / 5
             height: wheelRow.height
             border.width: 1
+            radius: width / 4
 
             gradient: Gradient {
                 GradientStop {position: 0.0 ; color: "#666666"}
@@ -36,7 +38,7 @@ Row {
                         from: wheelRow.forwardDirection ? wheelRow.height - wheelStripe.height : 0
                         to: wheelRow.forwardDirection ? 0 : wheelRow.height - wheelStripe.height
                         duration: wheelRow.duration
-                        easing.type: Easing.InOutQuad
+                        easing.type: Easing.InOutSine
                     }
                 }
             }

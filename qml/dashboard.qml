@@ -439,7 +439,7 @@ Window {
         Item {
             id: wheelContainer
             y: 800
-            height: parent.height * 0.3
+            height: parent.height * 0.20
             anchors.bottomMargin: parent.height * 0.1
             anchors.bottom: parent.bottom
             anchors.rightMargin: parent.width * 0.2
@@ -451,7 +451,9 @@ Window {
                 id: wheelLeft
                 forwardDirection: true
                 width: 100
-                height: parent.height
+                height: 300
+                anchors.left: parent.left
+                anchors.leftMargin: 0
             }
 
             WheelDisplay {
@@ -460,18 +462,18 @@ Window {
                 anchors.rightMargin: 0
                 forwardDirection: false
                 width: 100
-                height: parent.height
+                height: 300
             }
 
             Image {
                 id: image
-                x: 296
-                width: 561
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.horizontalCenter: parent.horizontalCenter
+                y: 75
+                height: 360
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 0
                 fillMode: Image.PreserveAspectFit
                 source: "../images/rdm_front_view.png"
             }
@@ -1178,7 +1180,21 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:40;anchors_height:360;anchors_y:75}
+    D{i:40;anchors_height:360;anchors_width:578;anchors_x:296;anchors_y:75}
 }
  ##^##*/
