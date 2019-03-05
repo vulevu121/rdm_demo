@@ -439,7 +439,7 @@ Window {
         Item {
             id: wheelContainer
             y: 800
-            height: 250
+            height: parent.height * 0.3
             anchors.bottomMargin: parent.height * 0.1
             anchors.bottom: parent.bottom
             anchors.rightMargin: parent.width * 0.2
@@ -461,6 +461,19 @@ Window {
                 forwardDirection: false
                 width: 100
                 height: parent.height
+            }
+
+            Image {
+                id: image
+                x: 296
+                width: 561
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                fillMode: Image.PreserveAspectFit
+                source: "../images/rdm_front_view.png"
             }
         }
     }
@@ -1162,3 +1175,10 @@ Window {
 
 
 
+
+
+
+/*##^## Designer {
+    D{i:40;anchors_height:360;anchors_y:75}
+}
+ ##^##*/
