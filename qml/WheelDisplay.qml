@@ -3,7 +3,7 @@ import QtQuick 2.0
 Row {
     id: wheelRow
     width: 100
-    height: parent.height
+    height: 300
     spacing: 1
     property bool forwardDirection: true
     property real duration: 400

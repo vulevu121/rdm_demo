@@ -228,13 +228,13 @@ Window {
 
         Item {
             id: clusterContainer
-            y: 348
             height: width * 0.375
+            anchors.topMargin: parent.height * 0.05
+            anchors.top: karmaContainer.bottom
             anchors.rightMargin: parent.width * 0.02
             anchors.right: parent.right
             anchors.leftMargin: parent.width * 0.02
             anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
 
             Image {
                 id: clusterBackground
@@ -438,8 +438,8 @@ Window {
 
         Item {
             id: wheelContainer
-            y: 800
-            height: parent.height * 0.20
+            anchors.topMargin: parent.height * 0.1
+            anchors.top: clusterContainer.bottom
             anchors.bottomMargin: parent.height * 0.1
             anchors.bottom: parent.bottom
             anchors.rightMargin: parent.width * 0.2
@@ -449,31 +449,30 @@ Window {
 
             WheelDisplay {
                 id: wheelLeft
+                height: 400
+                width: 200
                 forwardDirection: true
-                width: 100
-                height: 300
-                anchors.left: parent.left
-                anchors.leftMargin: 0
+                anchors.rightMargin: parent.width * 0.01
+                anchors.right: image.left
             }
 
             WheelDisplay {
                 id: wheelRight
-                anchors.right: parent.right
-                anchors.rightMargin: 0
+                width: 200
+                height: 400
                 forwardDirection: false
-                width: 100
-                height: 300
+                anchors.leftMargin: parent.width * 0.01
+                anchors.left: image.right
             }
 
             Image {
                 id: image
+                x: 296
                 y: 75
-                height: 360
+                width: parent.width * 0.8
+                height: width * 960 / 1280
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 0
                 fillMode: Image.PreserveAspectFit
                 source: "../images/rdm_front_view.png"
             }
@@ -1194,7 +1193,38 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:40;anchors_height:360;anchors_width:578;anchors_x:296;anchors_y:75}
+    D{i:3;anchors_height:105.99999999999997;anchors_width:552.9599999999999;anchors_x:320;anchors_y:97}
+D{i:2;anchors_width:900;anchors_x:"-19";anchors_y:"-15"}D{i:18;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}
+D{i:17;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:348}D{i:40;anchors_height:360;anchors_width:578;anchors_x:296;anchors_y:75}
+D{i:37;anchors_height:216}D{i:1;anchors_height:1080}D{i:41;anchors_width:949;anchors_x:102}
 }
  ##^##*/
