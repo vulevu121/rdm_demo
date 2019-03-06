@@ -41,6 +41,25 @@ Row {
                         easing.type: Easing.InOutSine
                     }
                 }
+                
+                SequentialAnimation on opacity {
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        to: 0
+                        duration: wheelRow.duration / 3
+                        easing.type: Easing.InOutSine
+                    }
+                    PropertyAnimation {
+                        to: wheelStripe.opacity
+                        duration: wheelRow.duration / 3
+                        easing.type: Easing.InOutSine
+                    }
+                    PropertyAnimation {
+                        to: 0
+                        duration: wheelRow.duration / 3
+                        easing.type: Easing.InOutSine
+                    }
+                }
             }
 
         }

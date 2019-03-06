@@ -28,5 +28,6 @@ DISTFILES += \
     videos/IMG_4581.mp4 \
     qml/VideoTest.qml \
     qml/Wheel.qml \
-    qml/WheelDisplay.qml
+    qml/WheelDisplay.qml \
+    qml/CustomSlider.qml
 

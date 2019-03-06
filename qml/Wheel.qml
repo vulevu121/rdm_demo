@@ -13,17 +13,17 @@ Item {
     Rectangle {
         id: frameOuter
         color: "#222222"
-        radius: 10
+        radius: parent.height * 0.02
         border.width: 1
         anchors.fill: parent
         anchors.margins: 16
 
         ColumnLayout {
             id: frameInner
-            anchors.rightMargin: Math.max(parent.height, parent.width) * 0.02
-            anchors.leftMargin: Math.max(parent.height, parent.width) * 0.02
-            anchors.bottomMargin: Math.max(parent.height, parent.width) * 0.02
-            anchors.topMargin: Math.max(parent.height, parent.width) * 0.02
+            anchors.rightMargin: Math.max(parent.height, parent.width) * 0.04
+            anchors.leftMargin: Math.max(parent.height, parent.width) * 0.04
+            anchors.bottomMargin: Math.max(parent.height, parent.width) * 0.04
+            anchors.topMargin: Math.max(parent.height, parent.width) * 0.04
             anchors.fill: parent
 
 
@@ -32,6 +32,7 @@ Item {
                 id: pageHeading
                 color: "#d3d7cf"
                 text: qsTr("Wheel")
+                Layout.fillHeight: false
                 antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -40,30 +41,25 @@ Item {
 
             }
 
-            Rectangle {
-                id: imageHolder
-                color: "black"
-                Layout.minimumHeight: 480
-                Layout.minimumWidth: 640
-
-                Layout.fillWidth: false
-                Layout.fillHeight: false
-                Layout.maximumHeight: 960
+            Image {
+                id: image
+                Layout.fillWidth: true
+                Layout.maximumHeight: parent.height * 0.4
+                Layout.fillHeight: true
                 Layout.maximumWidth: 1280
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-
-                Image {
-                    id: image
-                    anchors.rightMargin: 10
-                    anchors.leftMargin: 10
-                    anchors.bottomMargin: 10
-                    anchors.topMargin: 10
-                    anchors.fill: parent
-                    sourceSize.height: 960
-                    sourceSize.width: 1280
-                    fillMode: Image.PreserveAspectFit
-                    source: "../images/Wheel.png"
-
+                fillMode: Image.PreserveAspectFit
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                source: "../images/Wheel.png"
+                
+                Rectangle {
+                    color: "transparent"
+                    radius: 10
+                    border.width: 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    border.color: "black"
+                    width: parent.paintedWidth + border.width
+                    height: parent.paintedHeight + border.width
                 }
             }
 

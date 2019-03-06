@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Window 2.1
+import QtQuick.Window 2.2
 import QtQuick.Controls 2.1
 import QtQuick.Controls 1.4
 import QtQuick.Extras 1.4
@@ -11,12 +11,27 @@ import QtMultimedia 5.0
 Window {
     id: root
     visible: true
-    width: 1920
-    height: 1080
-
     visibility: Window.FullScreen
     color: "#161616"
     title: "RDM Demo"
+    width: 3840
+    height: 2160
+
+    function widthPixels(percentage) {
+        return percentage * root.width
+    }
+    
+    function heightPixels(percentage) {
+        return percentage * root.height
+    }
+
+    Text {
+        id: name
+        width: 33
+        height: 25
+        color: "#ffffff"
+        text: "Pixel Ratio: " + Screen.devicePixelRatio + "\nPixel Density: " + Screen.pixelDensity
+    }
 
     Item {
         id: controlContainer
@@ -33,8 +48,8 @@ Window {
             id: karmaContainer
             width: parent.width * 0.6
             height: parent.height * 0.18
+            anchors.topMargin: parent.height * 0.02
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.topMargin: 43
             anchors.top: parent.top
 
             Image {
@@ -229,7 +244,7 @@ Window {
         Item {
             id: clusterContainer
             height: width * 0.375
-            anchors.topMargin: parent.height * 0.05
+            anchors.topMargin: parent.height * 0.02
             anchors.top: karmaContainer.bottom
             anchors.rightMargin: parent.width * 0.02
             anchors.right: parent.right
@@ -435,42 +450,41 @@ Window {
                 }
             }
         }
-
+        
         Item {
             id: wheelContainer
-            anchors.topMargin: parent.height * 0.1
-            anchors.top: clusterContainer.bottom
-            anchors.bottomMargin: parent.height * 0.1
+            width: parent.width * 0.8
+            height: parent.height * 0.35
+            anchors.bottomMargin: parent.height * 0.02
             anchors.bottom: parent.bottom
-            anchors.rightMargin: parent.width * 0.2
-            anchors.leftMargin: parent.width*0.2
-            anchors.right: parent.right
-            anchors.left: parent.left
+            anchors.horizontalCenter: parent.horizontalCenter
 
             WheelDisplay {
                 id: wheelLeft
-                height: 400
-                width: 200
+                width: height / 2
+                height: 220
+                anchors.verticalCenter: parent.verticalCenter
                 forwardDirection: true
                 anchors.rightMargin: parent.width * 0.01
-                anchors.right: image.left
+                anchors.right: rdmFront.left
             }
 
             WheelDisplay {
                 id: wheelRight
-                width: 200
-                height: 400
+                width: height / 2
+                height: 200
+                anchors.verticalCenter: parent.verticalCenter
                 forwardDirection: false
                 anchors.leftMargin: parent.width * 0.01
-                anchors.left: image.right
+                anchors.left: rdmFront.right
             }
 
             Image {
-                id: image
+                id: rdmFront
                 x: 296
                 y: 75
-                width: parent.width * 0.8
-                height: width * 960 / 1280
+                width: height * 1280 / 960
+                height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 fillMode: Image.PreserveAspectFit
@@ -504,7 +518,7 @@ Window {
             orientation: Qt.Vertical
             wheelEnabled: true
 
-            currentIndex: 0
+            currentIndex: 4
 
             Item {
                 id: page1
@@ -697,9 +711,12 @@ Window {
             source: scrollDownButton
         }
 
-        Slider {
+        CustomSlider {
             id: slider
             height: parent.height * 0.2
+            grooveThickness: 10
+            tickmarksEnabled: false
+            handleSize: parent.width * 0.05
             updateValueWhileDragging: true
             stepSize: 1
             anchors.topMargin: parent.height * 0.15
@@ -710,48 +727,6 @@ Window {
             maximumValue: 60
             orientation: Qt.Vertical
             z: 2
-
-            style: SliderStyle {
-                handle: Item {
-                    width: 100
-                    height: 100
-                    Rectangle {
-                        id: sliderHandle
-                        implicitWidth: 100
-                        implicitHeight: 100
-                        radius: implicitWidth / 2
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: "#555"
-                    }
-
-                    Text {
-                        rotation: 90
-                        color: "white"
-                        text: control.value + "s"
-                        anchors.horizontalCenterOffset: sliderHandle.width
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font.pointSize: 14
-                        horizontalAlignment: Text.AlignHCenter
-                    }
-                }
-                groove: Rectangle {
-                    implicitHeight: 10
-                    implicitWidth: 100
-                    radius: height / 2
-                    border.color: "#333"
-                    color: "#222"
-                    Rectangle {
-                        height: parent.height
-                        width: styleData.handlePosition
-                        implicitHeight: 6
-                        implicitWidth: 100
-                        radius: height / 2
-                        color: "#555"
-                    }
-                }
-            }
         }
     }
 }
@@ -819,412 +794,7 @@ Window {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*##^## Designer {
-    D{i:3;anchors_height:105.99999999999997;anchors_width:552.9599999999999;anchors_x:320;anchors_y:97}
-D{i:2;anchors_width:900;anchors_x:"-19";anchors_y:"-15"}D{i:18;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:"-8"}
-D{i:17;anchors_height:529;anchors_width:1014;anchors_x:"-9";anchors_y:348}D{i:40;anchors_height:360;anchors_width:578;anchors_x:296;anchors_y:75}
-D{i:37;anchors_height:216}D{i:1;anchors_height:1080}D{i:41;anchors_width:949;anchors_x:102}
+    D{i:0;height:1080;width:2560}D{i:2;anchors_width:949;anchors_x:102}
 }
  ##^##*/

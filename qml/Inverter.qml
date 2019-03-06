@@ -13,17 +13,17 @@ Item {
     Rectangle {
         id: frameOuter
         color: "#222222"
-        radius: 10
+        radius: parent.height * 0.02
         border.width: 1
         anchors.fill: parent
         anchors.margins: 16
 
         ColumnLayout {
             id: frameInner
-            anchors.rightMargin: Math.max(parent.height, parent.width) * 0.02
-            anchors.leftMargin: Math.max(parent.height, parent.width) * 0.02
-            anchors.bottomMargin: Math.max(parent.height, parent.width) * 0.02
-            anchors.topMargin: Math.max(parent.height, parent.width) * 0.02
+            anchors.rightMargin: Math.max(parent.height, parent.width) * 0.04
+            anchors.leftMargin: Math.max(parent.height, parent.width) * 0.04
+            anchors.bottomMargin: Math.max(parent.height, parent.width) * 0.04
+            anchors.topMargin: Math.max(parent.height, parent.width) * 0.04
             anchors.fill: parent
 
 
