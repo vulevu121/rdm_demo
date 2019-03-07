@@ -21,5 +21,13 @@
         <file>images/Wheel.png</file>
         <file>qml/WheelDisplay.qml</file>
         <file>qml/CustomSlider.qml</file>
+        <file>qml/RDMDisplay.qml</file>
+        <file>images/RDMFrontViewAll.png</file>
+        <file>images/RDMFrontViewGearBoxClear.png</file>
+        <file>images/RDMFrontViewGearBoxRed.png</file>
+        <file>images/RDMFrontViewInverterClear.png</file>
+        <file>images/RDMFrontViewInverterRed.png</file>
+        <file>images/RDMFrontViewMotorClear.png</file>
+        <file>images/RDMFrontViewMotorRed.png</file>
     </qresource>
 </RCC>

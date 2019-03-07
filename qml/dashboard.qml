@@ -213,8 +213,7 @@ Window {
 
                             onClicked: {
                                 RDMBench.startButtonPressed(true)
-                                startButton.checked ? video.pause(
-                                                          ) : video.play()
+                                startButton.checked ? video.play() : video.pause()
                             }
 
                             Connections {
@@ -483,16 +482,12 @@ Window {
                 anchors.left: rdmFront.right
             }
 
-            Image {
+            RDMDisplay {
                 id: rdmFront
-                x: 296
-                y: 75
                 width: height * 1280 / 960
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                fillMode: Image.PreserveAspectFit
-                source: "../images/rdm_front_view.png"
             }
         }
     }
@@ -734,6 +729,10 @@ Window {
         }
     }
 }
+
+
+
+
 
 
 
