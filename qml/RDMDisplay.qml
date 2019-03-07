@@ -17,8 +17,16 @@ Item {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         source: "../images/RDMFrontViewAllClear.png"
-        visible: imageIndex == 0
+        opacity: imageIndex == 0 ? 1.0 : 0.0
+        
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 300
+            }
+        }
         z: 1
+        
+        
     }
     
     Image {
@@ -26,7 +34,13 @@ Item {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         source: "../images/RDMFrontViewInverterClear.png"
-        visible: imageIndex == 1
+        opacity: imageIndex == 1 ? 1.0 : 0.0
+        
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 300
+            }
+        }
         z: 1
     }
     
@@ -35,7 +49,13 @@ Item {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         source: "../images/RDMFrontViewMotorClear.png"
-        visible: imageIndex == 2
+        opacity: imageIndex == 2 ? 1.0 : 0.0
+        
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 300
+            }
+        }
         z: 1
     }
     
@@ -44,7 +64,13 @@ Item {
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         source: "../images/RDMFrontViewGearBoxClear.png"
-        visible: imageIndex == 3
+        opacity: imageIndex == 3 ? 1.0 : 0.0
+        
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 300
+            }
+        }
         z: 1
     }
     
