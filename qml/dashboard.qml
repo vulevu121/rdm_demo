@@ -443,7 +443,7 @@ Window {
                     anchors.bottomMargin: 30
                     anchors.topMargin: 30
                     anchors.fill: parent
-                    source: "../videos/IMG_4581.mp4"
+                    source: "../videos/IMG_4597.m4v"
                     autoPlay: true
                     loops: Animation.Infinite
                     muted: true
@@ -822,7 +822,11 @@ Window {
 
 
 
+
+
+
+
 /*##^## Designer {
-    D{i:0;height:2160;width:3840}D{i:2;anchors_width:949;anchors_x:102}
+    D{i:0;height:2160;width:3840}D{i:1;invisible:true}D{i:2;anchors_width:949;anchors_x:102}
 }
  ##^##*/
