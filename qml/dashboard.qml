@@ -488,6 +488,7 @@ Window {
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
+                imageIndex: swipeView.currentIndex
             }
         }
     }
@@ -517,7 +518,7 @@ Window {
             orientation: Qt.Vertical
             wheelEnabled: true
 
-            currentIndex: 4
+            currentIndex: 3
 
             Item {
                 id: page1
@@ -729,6 +730,18 @@ Window {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
