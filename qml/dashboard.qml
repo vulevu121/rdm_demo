@@ -429,7 +429,7 @@ Window {
             Image {
                 id: videoBackground
                 width: clusterContainer.width * 0.45
-                height: width * 450 / 1570
+                height: width * 700 / 1400
                 source: "../images/VideoBackground.png"
                 anchors.verticalCenterOffset: 10
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -729,6 +729,8 @@ Window {
         }
     }
 }
+
+
 
 
 
