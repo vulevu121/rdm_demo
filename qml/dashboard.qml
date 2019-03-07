@@ -334,7 +334,7 @@ Window {
                         Connections {
                             target: RDMBench
 
-                            onLeftRPMSignal: {
+                            onLeftTorqueSignal: {
                                 leftTorque.gaugeValue = RDMBench.leftTorque
                             }
                         }
@@ -406,7 +406,7 @@ Window {
                         Connections {
                             target: RDMBench
 
-                            onRightRPMSignal: {
+                            onRightTorqueSignal: {
                                 rightTorque.gaugeValue = RDMBench.rightTorque
                             }
                         }
@@ -729,6 +729,8 @@ Window {
         }
     }
 }
+
+
 
 
 
