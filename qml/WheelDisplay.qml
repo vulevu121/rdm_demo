@@ -6,7 +6,7 @@ Row {
     height: 300
     spacing: 1
     property bool forwardDirection: true
-    property real duration: 400
+    property real duration: 600
 
     Repeater {
         model: 5
@@ -40,24 +40,25 @@ Row {
                         duration: wheelRow.duration
                         easing.type: Easing.InOutSine
                     }
+
                 }
-                
+
                 SequentialAnimation on opacity {
                     loops: Animation.Infinite
                     PropertyAnimation {
                         to: 0
                         duration: wheelRow.duration / 3
-                        easing.type: Easing.InOutSine
+//                        easing.type: Easing.InOutSine
                     }
                     PropertyAnimation {
                         to: wheelStripe.opacity
                         duration: wheelRow.duration / 3
-                        easing.type: Easing.InOutSine
+//                        easing.type: Easing.InOutSine
                     }
                     PropertyAnimation {
                         to: 0
                         duration: wheelRow.duration / 3
-                        easing.type: Easing.InOutSine
+//                        easing.type: Easing.InOutSine
                     }
                 }
             }

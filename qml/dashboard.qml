@@ -17,11 +17,11 @@ Window {
     width: 3840
     height: 2160
 
-    function widthPixels(percentage) {
+    function widthPercent(percentage) {
         return percentage * root.width
     }
-    
-    function heightPixels(percentage) {
+
+    function heightPercent(percentage) {
         return percentage * root.height
     }
 
@@ -450,7 +450,7 @@ Window {
                 }
             }
         }
-        
+
         Item {
             id: wheelContainer
             width: parent.width * 0.8
@@ -459,10 +459,14 @@ Window {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
+            function getPixels(percent) {
+                return height * percent
+            }
+
             WheelDisplay {
                 id: wheelLeft
                 width: height / 2
-                height: 220
+                height: 400
                 anchors.verticalCenter: parent.verticalCenter
                 forwardDirection: true
                 anchors.rightMargin: parent.width * 0.01
@@ -472,7 +476,7 @@ Window {
             WheelDisplay {
                 id: wheelRight
                 width: height / 2
-                height: 200
+                height: 400
                 anchors.verticalCenter: parent.verticalCenter
                 forwardDirection: false
                 anchors.leftMargin: parent.width * 0.01
@@ -794,7 +798,31 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:0;height:1080;width:2560}D{i:2;anchors_width:949;anchors_x:102}
+    D{i:0;height:2160;width:3840}D{i:2;anchors_width:949;anchors_x:102}
 }
  ##^##*/
