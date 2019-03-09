@@ -1,68 +1,198 @@
 import QtQuick 2.0
-
-Row {
-    id: wheelRow
+Item {
+    id: wheelContainer
     width: 100
     height: 300
-    spacing: 1
     property bool forwardDirection: true
     property real duration: 600
+    property real wheelChevronOpacity: 0.5
+    property bool running: false
+    
+//    Column {
+//        id: chevronColumn
+//        width: parent.width
+//        spacing: -80
+//        z: 2
+//        property real opacityMain: 1.0
+        
+//        SequentialAnimation on opacityMain {
+//            loops: Animation.Infinite
+//            PropertyAnimation {
+//                to: 0.0
+//                duration: 200
+//                easing.type: Easing.InOutSine
+//            }
+//            PropertyAnimation {
+//                to: 0.8
+//                duration: 200
+//                easing.type: Easing.InOutSine
+//            }
+//            PropertyAnimation {
+//                to: 0.0
+//                duration: 200
+//                easing.type: Easing.InOutSine
+//            }
+            
+//        }
+        
+//        Image {
+//            width: parent.width
+//            source: "../images/chevronup.png"
+//            opacity: chevronColumn.opacityMain
+//        }
+        
+//        Image {
+//            width: parent.width
+//            source: "../images/chevronup.png"
+//            opacity: chevronColumn.opacityMain+0.3
+//        }
+        
+//        Image {
+//            width: parent.width
+//            source: "../images/chevronup.png"
+//            opacity: chevronColumn.opacityMain+0.5
+//        }
+//    }
 
-    Repeater {
-        model: 5
-
-        Rectangle {
-            id: singleTread
-            width: wheelRow.width / 5
-            height: wheelRow.height
-            border.width: 1
-            radius: width / 4
-
-            gradient: Gradient {
-                GradientStop {position: 0.0 ; color: "#666666"}
-                GradientStop {position: 0.1 ; color: "black"}
-                GradientStop {position: 0.5 ; color: "#666666"}
-                GradientStop {position: 1.0 ; color: "black"}
-            }
-
+    Row {
+        id: wheelRow
+        width: parent.width
+        height: parent.height
+        spacing: 1
+    
+        Repeater {
+            model: 5
+            x: 0
+            y: 0
+    
             Rectangle {
-                id: wheelStripe
-                width: wheelRow.width / 5
-                height: width / 2
-                opacity: 0.2
-                z: 2
-
-                SequentialAnimation on y {
-                    loops: Animation.Infinite
-                    PropertyAnimation {
-                        from: wheelRow.forwardDirection ? wheelRow.height - wheelStripe.height : 0
-                        to: wheelRow.forwardDirection ? 0 : wheelRow.height - wheelStripe.height
-                        duration: wheelRow.duration
-                        easing.type: Easing.InOutSine
-                    }
-
+                id: singleTread
+                width: wheelContainer.width / 5
+                height: wheelContainer.height
+                border.width: 1
+                radius: width / 4
+    
+                gradient: Gradient {
+                    GradientStop {position: 0.0 ; color: "#666666"}
+                    GradientStop {position: 0.1 ; color: "black"}
+                    GradientStop {position: 0.5 ; color: "#666666"}
+                    GradientStop {position: 1.0 ; color: "black"}
                 }
+                
+                Image {
+                    id: wheelStripe
+                    width: wheelContainer.width / 5
+                    height: width / 2
+                    opacity: 0.5
+                    source: "../images/chevronup.png"
+                    rotation: wheelContainer.forwardDirection? 0 : 180
+                    z: 2
+                    
+                    ParallelAnimation {
+                        loops: Animation.Infinite
+                        running: wheelContainer.running
+                        PropertyAnimation {
+                            target: wheelStripe
+                            property: "y"
+                            from: wheelContainer.forwardDirection ? wheelContainer.height - wheelStripe.height : 0
+                            to: wheelContainer.forwardDirection ? 0 : wheelContainer.height - wheelStripe.height
+                            duration: wheelContainer.duration
+                            easing.type: Easing.InOutSine
+                        }
+                        
+                        PropertyAnimation {
+                            target: wheelStripe
+                            property: "opacity"
+                            from: 0
+                            to: wheelContainer.wheelChevronOpacity
+                            duration: wheelContainer.duration
+                            easing.type: Easing.InOutSine
+                        }
+                        
+                    }
+                   
 
-                SequentialAnimation on opacity {
-                    loops: Animation.Infinite
-                    PropertyAnimation {
-                        to: 0
-                        duration: wheelRow.duration / 3
-//                        easing.type: Easing.InOutSine
-                    }
-                    PropertyAnimation {
-                        to: wheelStripe.opacity
-                        duration: wheelRow.duration / 3
-//                        easing.type: Easing.InOutSine
-                    }
-                    PropertyAnimation {
-                        to: 0
-                        duration: wheelRow.duration / 3
-//                        easing.type: Easing.InOutSine
-                    }
                 }
             }
-
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:0;height:300;width:100}
+}
+ ##^##*/

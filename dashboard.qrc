@@ -30,5 +30,8 @@
         <file>images/RDMFrontViewMotorRed.png</file>
         <file>images/RDMFrontViewAllClear.png</file>
         <file>images/RDMFrontViewAllDark.png</file>
+        <file>images/chevronup.png</file>
+        <file>images/chevronupBlue.png</file>
+        <file>images/chevronupOrange.png</file>
     </qresource>
 </RCC>

@@ -12,7 +12,7 @@ Window {
     id: root
     visible: true
     visibility: Window.FullScreen
-    color: "#161616"
+    color: "#262626"
     title: "RDM Demo"
     width: 3840
     height: 2160
@@ -465,21 +465,23 @@ Window {
             WheelDisplay {
                 id: wheelLeft
                 width: height / 2
-                height: 400
+                height: Screen.height * 0.2
                 anchors.verticalCenter: parent.verticalCenter
                 forwardDirection: true
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
+                running: tachometerLeft.value > 1
             }
 
             WheelDisplay {
                 id: wheelRight
                 width: height / 2
-                height: 400
+                height: Screen.height * 0.2
                 anchors.verticalCenter: parent.verticalCenter
-                forwardDirection: false
+                forwardDirection: true
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
+                running: tachometerRight.value > 1
             }
 
             RDMDisplay {

@@ -26,8 +26,6 @@ Item {
             anchors.topMargin: Math.max(parent.height, parent.width) * 0.04
             anchors.fill: parent
 
-
-
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
@@ -37,7 +35,6 @@ Item {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 font.bold: false
                 font.pointSize: 20
-
             }
 
             Image {
