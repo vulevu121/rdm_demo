@@ -25,13 +25,13 @@ Window {
         return percentage * root.height
     }
 
-    Text {
-        id: name
-        width: 33
-        height: 25
-        color: "#ffffff"
-        text: "Pixel Ratio: " + Screen.devicePixelRatio + "\nPixel Density: " + Screen.pixelDensity
-    }
+//    Text {
+//        id: name
+//        width: 33
+//        height: 25
+//        color: "#ffffff"
+//        text: "Pixel Ratio: " + Screen.devicePixelRatio + "\nPixel Density: " + Screen.pixelDensity
+//    }
 
     Item {
         id: controlContainer
@@ -443,7 +443,7 @@ Window {
                     anchors.topMargin: 30
                     anchors.fill: parent
                     source: "../videos/IMG_4597.m4v"
-                    autoPlay: true
+                    autoLoad: true
                     loops: Animation.Infinite
                     muted: true
                 }

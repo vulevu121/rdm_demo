@@ -81,15 +81,17 @@ class RDM:
         self.update_CAN_msg()
 
     #################################   RDM methods ################################
-    def set_torque(self,target_torque, target = 'Both'):                            
-        if target == 'Both':
-            self.TM1_torque_cmd = target_torque
-            self.TM2_torque_cmd = target_torque
-        elif target == 'TM1':
-            self.TM1_torque_cmd = target_torque
-        elif target == 'TM2':
-            self.TM2_torque_cmd = target_torque
-            
+    def set_torque(self,target_torque, target = 'Both'):
+        for val in range(target_torque + 1):
+            if target == 'Both':
+                    self.TM1_torque_cmd = val
+                    self.TM2_torque_cmd = val
+            elif target == 'TM1':
+                self.TM1_torque_cmd = val
+            elif target == 'TM2':
+                self.TM2_torque_cmd = val
+            time.sleep(0.1)
+
     def enable(self):
         # no commmand
         self.legacy_shutdown_cmd = 0x0
@@ -159,6 +161,9 @@ class RDM:
         elif msg.arbitration_id == TM2_FEEDBACK_ID:
             self.set_tm2_feedback(msg)
 
+    def get_torque_cmd_value(self):
+        result =  {'TM1':self.TM1_torque_cmd,'TM2': self.TM2_torque_cmd}
+        return result
         
     def set_tm1_status(self,msg):
         self.TM1_inv_temp_sens   = msg.data[0] - 40

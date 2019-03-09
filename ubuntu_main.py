@@ -24,7 +24,7 @@ from PS_Control import *
 
 # Relay board relay channel
 WUP_channel = 1
-
+pump_channel = 2
 # Flags
 TransmitFlag = True
 ReadFlag     = True
@@ -46,11 +46,11 @@ class RDMdemo(QObject):
         QObject.__init__(self)
 
         # Stage duration
-        self.stg1_duration = 10
-        self.stg2_duration = 10
-        self.stg3_duration = 3
-        self.stg4_duration = 10
-        self.stg5_duration = 3
+        self.stg1_duration = 15
+        self.stg2_duration = 15
+        self.stg3_duration = 4
+        self.stg4_duration = 15
+        self.stg5_duration = 4
 
 
         print('Demo created!')
@@ -67,7 +67,9 @@ class RDMdemo(QObject):
         self.rdm = RDM()
 
         # Relay control
-        self.relay_board = init_relay()
+        #self.relay_board = init_relay()
+        #self.relay_board.switchoff(WUP_channel)
+        #self.relay_board.switchoff(pump_channel)
 
         # Timers
         self.timers = []
@@ -189,7 +191,6 @@ class RDMdemo(QObject):
         # Enable RDM
         self.rdm.enable()
         self.rdm.set_torque(10)
-
         self.isStarted = True
 
     def transmit(self):
@@ -230,6 +231,11 @@ class RDMdemo(QObject):
                 ### Read status from INV ####
                 tm1_feedback = self.rdm.get_tm1_feedback()
                 tm2_feedback = self.rdm.get_tm2_feedback()
+                torque_cmds = self.rdm.get_torque_cmd_value()
+                # print(tm1_feedback['speed sens'])
+                # print(tm2_feedback['speed sens'])
+                # print(tm1_feedback['torque sens'])
+                # print(tm2_feedback['torque sens'])
 
 
                 ### Update GUI ####
@@ -237,9 +243,13 @@ class RDMdemo(QObject):
                 # self.leftRPM %= 500
                 self.rightRPM = tm2_feedback['speed sens']
                 # self.rightRPM %= 500
-                self.leftTorque = tm1_feedback['torque sens']
+                #self.leftTorque = tm1_feedback['torque sens']
+                self.leftTorque = torque_cmds['TM2']
+                
                 # self.leftTorque %= 15
-                self.rightTorque = tm2_feedback['torque sens']
+                #self.rightTorque = tm2_feedback['torque sens']
+                self.rightTorque = torque_cmds['TM1']
+
                 # self.rightTorque %= -15
 
             except Exception as e:
@@ -261,7 +271,10 @@ class RDMdemo(QObject):
 
         # WUP HIGH
         print ("WUP On...")
-        self.relay_board.switchon(WUP_channel)
+        #self.relay_board.switchon(WUP_channel)
+        #self.relay_board.switchon(pump_channel)
+
+        #print('WUP status: {}'.format(self.relay_board.getstatus( WUP_channel)))
 
         # Turn ON HV Power Supply Output
         power_supply_control(output = 'ON', voltage = 340, current = 5)
@@ -296,7 +309,7 @@ class RDMdemo(QObject):
 
 
     def stage1(self):
-        self.rdm.set_torque(10)
+        self.rdm.set_torque(8)
         nxt_stg = threading.Timer(self.stg1_duration,self.stage2,args=())
         nxt_stg.daemon = True
         nxt_stg.start()
@@ -307,7 +320,7 @@ class RDMdemo(QObject):
 
 
     def stage2(self):
-        self.rdm.set_torque(14,'TM1')
+        self.rdm.set_torque(12,'TM1')
 
         nxt_stg = threading.Timer(self.stg2_duration,self.stage3,args=())
         nxt_stg.daemon = True
@@ -328,8 +341,9 @@ class RDMdemo(QObject):
 
 
     def stage4(self):
-        self.rdm.set_torque(10)
         self.rdm.set_motor_direction('reverse')
+
+        self.rdm.set_torque(8)
 
         nxt_stg = threading.Timer(self.stg4_duration,self.stage5,args=())
         nxt_stg.daemon = True
@@ -391,8 +405,8 @@ def init_relay():
         rb.connect(dev)
         return rb
 
-    except:
-        pass
+    except Exception as e:
+        print('error: '+ str(e))
 
 
 
