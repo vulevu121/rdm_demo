@@ -57,7 +57,7 @@ Item {
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr("Karma战略合作伙伴开发了高速动力电机，峰值功率为200kW，最高速度为13,000 rpm。 电机设计的两种变体为豪华版提供370Nm峰值扭矩，为性能版提供420Nm峰值扭矩。")
+                text: qsTr("Karma战略合作伙伴开发的高速动力电机，200kW的峰值功率并可达13,000 rpm的最高转速。豪华版车型配备的电机可提供370Nm峰值扭矩，运动款车型配备的电机可提供420Nm峰值扭矩。")
                 verticalAlignment: Text.AlignVCenter
                 antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop

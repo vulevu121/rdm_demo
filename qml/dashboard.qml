@@ -467,7 +467,7 @@ Window {
                 width: height / 2
                 height: Screen.height * 0.2
                 anchors.verticalCenter: parent.verticalCenter
-                forwardDirection: true
+                forwardDirection: leftTorque.gaugeValue > 0 ? true : false
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
                 running: tachometerLeft.value > 1
@@ -478,7 +478,7 @@ Window {
                 width: height / 2
                 height: Screen.height * 0.2
                 anchors.verticalCenter: parent.verticalCenter
-                forwardDirection: true
+                forwardDirection: rightTorque.gaugeValue > 0 ? true : false
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
                 running: tachometerRight.value > 1

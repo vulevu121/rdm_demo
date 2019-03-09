@@ -69,7 +69,7 @@ Item {
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr("Karma Automotive推出的22英寸碳纤维轮。 22英寸的碳纤维车轮平衡了大型设计比例，复杂的造型和低滚动惯性。 带来极致奢华的性能体验。 低滚动惯性是通过两件式车轮策略实现的：中心铝制轮辐部分固定在碳纤维箍上。 两件式铝/碳策略降低了车辆的非簧载质量，从而改善了转向/操纵特性，增加了车辆加速度，无与伦比的造型复杂性以及超出结构耐久性能要求。 22英寸碳影反映了Karma Automotive 的高性能奢华愿景。")
+                text: qsTr("Karma 推出的22英寸碳纤维轮毂，该设计成功均衡了大型设计比例，复杂造型和低滚动惯量， 为用户带来极致奢华的性能体验。 两件式车轮设计方案，中心铝制轮辐部分直接固定在炭纤维轮圈上，提供了低滚动惯量， 降低了车辆的非簧载质量，从而改善了转向/操纵特性，增加了车辆加速度，保证了复杂造型的同时并满足了结构耐久性能要求。该22英寸轮毂上的碳影直接反映出了Karma Automotive 高性能和奢华的愿景。")
                 verticalAlignment: Text.AlignVCenter
                 antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop

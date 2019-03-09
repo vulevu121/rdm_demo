@@ -57,7 +57,7 @@ Item {
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr("变速箱的主要功能是有效地将扭矩传递给车轮。 变速箱由独立的驱动装置组成，可以对每个车轮进行单独控制。 每个牵引电机驱动其各自的车轮100％机械地与另一个车轮分离，并且通过轴向对齐的轴彼此对称。 这允许全扭矩矢量化能力，辅助车辆动力学和驾驶体验。 变速箱采用飞溅润滑，无需主动冷却。")
+                text: qsTr("变速箱有效地将电机产生的扭矩传递给车轮。 该变速箱具备两套独立的驱动系统，可以对左右单个车轮进行完全的单独驱动。这套系统支持完全的扭矩矢量控制，增强车辆动力学和驾驶体验。变速箱采用自溅油冷系统，无需外部冷却系统。")
                 verticalAlignment: Text.AlignVCenter
                 antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
