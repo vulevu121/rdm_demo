@@ -17,13 +17,6 @@ Window {
     width: 3840
     height: 2160
 
-    function widthPercent(percentage) {
-        return percentage * root.width
-    }
-
-    function heightPercent(percentage) {
-        return percentage * root.height
-    }
 
 //    Text {
 //        id: name
@@ -48,14 +41,14 @@ Window {
             id: karmaContainer
             width: parent.width * 0.6
             height: parent.height * 0.18
-            anchors.topMargin: parent.height * 0.02
+            anchors.topMargin: parent.height * 0.03
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
 
             Image {
                 id: karmaHeader
                 height: logoImage.height * 0.3
-                anchors.leftMargin: parent.width * 0.02
+                anchors.leftMargin: parent.width * 0.04
                 anchors.rightMargin: parent.width * 0.02
                 anchors.right: parent.right
                 anchors.bottomMargin: 0
@@ -294,7 +287,7 @@ Window {
 
                     style: TachometerStyle {
                         showValue: false
-                        gaugeName: "LEFT WHEEL"
+                        gaugeName: "LEFT MOTOR"
                     }
 
                     Behavior on value {
@@ -365,7 +358,7 @@ Window {
 
                     style: TachometerStyle {
                         showValue: false
-                        gaugeName: "RIGHT WHEEL"
+                        gaugeName: "RIGHT MOTOR"
                     }
 
                     Behavior on value {
@@ -458,19 +451,13 @@ Window {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
-            function getPixels(percent) {
-                return height * percent
-            }
-
             WheelDisplay {
                 id: wheelLeft
                 width: height / 2
                 height: Screen.height * 0.2
                 anchors.verticalCenter: parent.verticalCenter
-                forwardDirection: leftTorque.gaugeValue > 0 ? true : false
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
-                running: tachometerLeft.value > 1
             }
 
             WheelDisplay {
@@ -478,10 +465,8 @@ Window {
                 width: height / 2
                 height: Screen.height * 0.2
                 anchors.verticalCenter: parent.verticalCenter
-                forwardDirection: rightTorque.gaugeValue > 0 ? true : false
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
-                running: tachometerRight.value > 1
             }
 
             RDMDisplay {
@@ -491,6 +476,26 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 imageIndex: swipeView.currentIndex
+            }
+            
+            Connections {
+                target: RDMBench
+                
+                onLeftRPMSignal: {
+                    wheelLeft.duration = 1000 - Math.abs(RDMBench.leftRPM)
+                    wheelLeft.forwardDirection = RDMBench.leftRPM > 0 ? true : false
+                    wheelLeft.running = Math.abs(RDMBench.leftRPM) > 10
+                    wheelLeft.restartAnimation()
+                }
+                
+                onRightRPMSignal: {
+                    wheelRight.duration = 1000 - Math.abs(RDMBench.rightRPM)
+                    wheelRight.forwardDirection = RDMBench.rightRPM > 0 ? true : false
+                    wheelRight.running = Math.abs(RDMBench.rightRPM) > 10
+                    wheelRight.restartAnimation()
+                }
+                
+                
             }
         }
     }
@@ -846,7 +851,13 @@ Window {
 
 
 
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:0;height:2160;width:3840}D{i:1;invisible:true}D{i:2;anchors_width:949;anchors_x:102}
+    D{i:0;height:2160;width:3840}D{i:2;anchors_width:949;anchors_x:102}D{i:1;invisible:true}
 }
  ##^##*/

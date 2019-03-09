@@ -2,7 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
 
-guiTesting = False
+guiTesting = True
 
 if not guiTesting:
 	from ubuntu_main import *
@@ -113,8 +113,8 @@ class RDM(QObject):
 	def updateStatus(self):
 		self.leftRPM += 100
 		self.leftRPM %= 500
-		self.rightRPM += 50
-		self.rightRPM %= 500
+		self.rightRPM -= 50
+		self.rightRPM %= -500
 		self.leftTorque += 1
 		self.leftTorque %= 30
 		self.rightTorque -= 1
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
 		timer = QTimer()
 		timer.timeout.connect(RDMBench.updateStatus)
-		timer.start(200)
+		timer.start(2000)
 	else:
 		# Instantiate the class
 		RDMBench = RDMdemo()

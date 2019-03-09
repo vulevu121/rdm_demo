@@ -5,8 +5,13 @@ Item {
     height: 300
     property bool forwardDirection: true
     property real duration: 600
-    property real wheelChevronOpacity: 0.5
+    property real wheelChevronOpacity: 0.7
     property bool running: false
+    
+    function restartAnimation() {
+        wheelRow.restartAnimation()
+    }
+    
     
 //    Column {
 //        id: chevronColumn
@@ -59,11 +64,20 @@ Item {
         width: parent.width
         height: parent.height
         spacing: 1
+        
+        function restartAnimation() {
+            repeater.restartAnimation()
+        }
     
         Repeater {
+            id: repeater
             model: 5
             x: 0
             y: 0
+            
+            function restartAnimation() {
+                singleTread.restartAnimation()
+            }
     
             Rectangle {
                 id: singleTread
@@ -71,6 +85,10 @@ Item {
                 height: wheelContainer.height
                 border.width: 1
                 radius: width / 4
+                
+                function restartAnimation() {
+                    wheelStripe.restartAnimation()
+                }
     
                 gradient: Gradient {
                     GradientStop {position: 0.0 ; color: "#666666"}
@@ -85,12 +103,19 @@ Item {
                     height: width / 2
                     opacity: 0.5
                     source: "../images/chevronup.png"
-                    rotation: wheelContainer.forwardDirection? 0 : 180
+                    rotation: wheelContainer.forwardDirection ? 0 : 180
                     z: 2
                     
+                    function restartAnimation() {
+                        pAnimation.restart()
+                    }
+                    
                     ParallelAnimation {
+                        id: pAnimation
                         loops: Animation.Infinite
                         running: wheelContainer.running
+                        alwaysRunToEnd: true
+                        
                         PropertyAnimation {
                             target: wheelStripe
                             property: "y"
@@ -110,8 +135,6 @@ Item {
                         }
                         
                     }
-                   
-
                 }
             }
         }
