@@ -33,5 +33,6 @@
         <file>images/chevronup.png</file>
         <file>images/chevronupBlue.png</file>
         <file>images/chevronupOrange.png</file>
+        <file>images/chevronuptriple.png</file>
     </qresource>
 </RCC>

@@ -11,8 +11,9 @@ Item {
     Column {
         id: chevronColumn
         width: parent.width
+        height: parent.height
         visible: wheelContainer.running
-        spacing: -80
+//        spacing: -80
         z: 2
         
         
@@ -21,23 +22,20 @@ Item {
             running: wheelContainer.running
             PropertyAnimation {
                 from: 0.0
-                to: 0.3
+                to: 0.6
                 duration: wheelContainer.duration
                 easing.type: Easing.InOutSine
             }
         }
         
-        Repeater {
-            id: colRepeater
-            model: 3
-            
-            Image {
-                rotation: wheelContainer.forwardDirection ? 0 : 180
-                width: parent.width
-                source: "../images/chevronup.png"
-            }
-            
+        Image {
+            rotation: wheelContainer.forwardDirection ? 0 : 180
+            width: parent.width
+            height: parent.height
+            source: "../images/chevronuptriple.png"
         }
+        
+
 
     }
 

@@ -16,16 +16,16 @@ Window {
     title: "RDM Demo"
     width: 3840
     height: 2160
-
-
-//    Text {
-//        id: name
-//        width: 33
-//        height: 25
-//        color: "#ffffff"
-//        text: "Pixel Ratio: " + Screen.devicePixelRatio + "\nPixel Density: " + Screen.pixelDensity
-//    }
-
+    
+    
+    //    Text {
+    //        id: name
+    //        width: 33
+    //        height: 25
+    //        color: "#ffffff"
+    //        text: "Pixel Ratio: " + Screen.devicePixelRatio + "\nPixel Density: " + Screen.pixelDensity
+    //    }
+    
     Item {
         id: controlContainer
         width: root.width * 0.6
@@ -36,20 +36,19 @@ Window {
         anchors.left: parent.left
         anchors.leftMargin: 0
         z: 2
-
+        
         Item {
             id: karmaContainer
-            width: parent.width * 0.6
+            width: parent.width * 0.7
             height: parent.height * 0.18
             anchors.topMargin: parent.height * 0.03
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-
+            
             Image {
                 id: karmaHeader
                 height: logoImage.height * 0.3
-                anchors.leftMargin: parent.width * 0.04
-                anchors.rightMargin: parent.width * 0.02
+                anchors.leftMargin: parent.width * 0.08
                 anchors.right: parent.right
                 anchors.bottomMargin: 0
                 anchors.topMargin: 0
@@ -61,7 +60,7 @@ Window {
                 source: "../images/karma-logo-header.png"
                 fillMode: Image.PreserveAspectFit
             }
-
+            
             DropShadow {
                 anchors.fill: karmaHeader
                 horizontalOffset: 0
@@ -72,17 +71,16 @@ Window {
                 color: "#80000000"
                 source: karmaHeader
             }
-
-
+            
+            
             Item {
                 id: startButtonContainer
                 width: height
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: parent.width * 0.02
                 anchors.left: parent.left
                 z: 2
-
+                
                 Image {
                     id: logoImage
                     width: height
@@ -91,7 +89,7 @@ Window {
                     anchors.verticalCenter: parent.verticalCenter
                     fillMode: Image.PreserveAspectFit
                     source: "../images/Karma-logo.png"
-
+                    
                     ProgressBar {
                         id: stageProgressBar
                         width: height
@@ -111,21 +109,21 @@ Window {
                             displayValue: false
                             borderWidth: 10
                         }
-
+                        
                         Behavior on gaugeValue {
                             NumberAnimation {
                                 duration: 300
                             }
                         }
-
+                        
                         Connections {
                             target: RDMBench
-
+                            
                             onDemoStageSignal: {
                                 stageProgressBar.gaugeValue = RDMBench.demoStage
                             }
                         }
-
+                        
                         RoundButton {
                             id: startButton
                             x: 204
@@ -140,14 +138,14 @@ Window {
                             anchors.horizontalCenter: parent.horizontalCenter
                             font.pixelSize: startButtonContainer.height * 0.1
                             z: 3
-
+                            
                             background: Rectangle {
                                 radius: startButton.width / 2
                                 rotation: -30
                                 gradient: Gradient {
                                     GradientStop {
                                         position: 0.0
-
+                                        
                                         SequentialAnimation on color {
                                             loops: 1
                                             ColorAnimation {
@@ -173,7 +171,7 @@ Window {
                                             alwaysRunToEnd: true
                                         }
                                     }
-
+                                    
                                     GradientStop {
                                         position: 1.0
                                         SequentialAnimation on color {
@@ -203,12 +201,12 @@ Window {
                                     }
                                 }
                             }
-
+                            
                             onClicked: {
                                 RDMBench.startButtonPressed(true)
                                 startButton.checked ? video.play() : video.pause()
                             }
-
+                            
                             Connections {
                                 target: RDMBench
                                 onStartButtonPressedSignal: {
@@ -219,7 +217,7 @@ Window {
                         }
                     }
                 }
-
+                
                 DropShadow {
                     anchors.fill: logoImage
                     horizontalOffset: 0
@@ -232,7 +230,7 @@ Window {
                 }
             }
         }
-
+        
         Item {
             id: clusterContainer
             height: width * 0.375
@@ -242,7 +240,7 @@ Window {
             anchors.right: parent.right
             anchors.leftMargin: parent.width * 0.02
             anchors.left: parent.left
-
+            
             Image {
                 id: clusterBackground
                 anchors.fill: parent
@@ -250,7 +248,7 @@ Window {
                 fillMode: Image.PreserveAspectFit
                 z: -2
             }
-
+            
             DropShadow {
                 anchors.fill: clusterBackground
                 horizontalOffset: 0
@@ -262,7 +260,7 @@ Window {
                 cached: true
                 source: clusterBackground
             }
-
+            
             Item {
                 id: gaugeContainer
                 x: 121
@@ -274,36 +272,36 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 z: 5
-
+                
                 CircularGauge {
                     id: tachometerLeft
                     width: height
                     height: gaugeContainer.height
                     z: 0
-
+                    
                     minimumValue: 0
                     maximumValue: 500
                     anchors.verticalCenter: parent.verticalCenter
-
+                    
                     style: TachometerStyle {
                         showValue: false
                         gaugeName: "LEFT MOTOR"
                     }
-
+                    
                     Behavior on value {
                         NumberAnimation {
                             duration: 500
                         }
                     }
-
+                    
                     Connections {
                         target: RDMBench
-
+                        
                         onLeftRPMSignal: {
                             tachometerLeft.value = Math.abs(RDMBench.leftRPM)
                         }
                     }
-
+                    
                     ProgressBar {
                         id: leftTorque
                         height: tachometerLeft.height / 2
@@ -311,29 +309,29 @@ Window {
                         anchors.centerIn: parent
                         width: height
                         property real gaugeValue
-
+                        
                         maximumValue: 15
                         minimumValue: -15
                         style: CircularProgressBarStyle {
                             borderWidth: 6
                         }
-
+                        
                         Behavior on gaugeValue {
                             NumberAnimation {
                                 duration: 500
                             }
                         }
-
+                        
                         Connections {
                             target: RDMBench
-
+                            
                             onLeftTorqueSignal: {
                                 leftTorque.gaugeValue = RDMBench.leftTorque
                             }
                         }
                     }
                 }
-
+                
                 DropShadow {
                     anchors.fill: tachometerLeft
                     horizontalOffset: 0
@@ -345,7 +343,7 @@ Window {
                     cached: true
                     source: tachometerLeft
                 }
-
+                
                 CircularGauge {
                     id: tachometerRight
                     width: height
@@ -355,26 +353,26 @@ Window {
                     anchors.verticalCenter: parent.verticalCenter
                     maximumValue: 500
                     z: 0
-
+                    
                     style: TachometerStyle {
                         showValue: false
                         gaugeName: "RIGHT MOTOR"
                     }
-
+                    
                     Behavior on value {
                         NumberAnimation {
                             duration: 300
                         }
                     }
-
+                    
                     Connections {
                         target: RDMBench
-
+                        
                         onRightRPMSignal: {
                             tachometerRight.value = Math.abs(RDMBench.rightRPM)
                         }
                     }
-
+                    
                     ProgressBar {
                         id: rightTorque
                         height: tachometerRight.height / 2
@@ -389,23 +387,23 @@ Window {
                         style: CircularProgressBarStyle {
                             borderWidth: 6
                         }
-
+                        
                         Behavior on gaugeValue {
                             NumberAnimation {
                                 duration: 300
                             }
                         }
-
+                        
                         Connections {
                             target: RDMBench
-
+                            
                             onRightTorqueSignal: {
                                 rightTorque.gaugeValue = RDMBench.rightTorque
                             }
                         }
                     }
                 }
-
+                
                 DropShadow {
                     anchors.fill: tachometerRight
                     horizontalOffset: 0
@@ -418,7 +416,7 @@ Window {
                     source: tachometerRight
                 }
             }
-
+            
             Image {
                 id: videoBackground
                 width: clusterContainer.width * 0.45
@@ -427,7 +425,7 @@ Window {
                 anchors.verticalCenterOffset: 10
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-
+                
                 Video {
                     id: video
                     anchors.rightMargin: 5
@@ -442,7 +440,7 @@ Window {
                 }
             }
         }
-
+        
         Item {
             id: wheelContainer
             width: parent.width * 0.8
@@ -450,7 +448,7 @@ Window {
             anchors.bottomMargin: parent.height * 0.02
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
-
+            
             WheelDisplay {
                 id: wheelLeft
                 width: height / 2
@@ -458,10 +456,9 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
-                property real rpm
                 duration: slider1.value
             }
-
+            
             WheelDisplay {
                 id: wheelRight
                 width: height / 2
@@ -469,9 +466,9 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
-                property real rpm
+                duration: slider2.value
             }
-
+            
             RDMDisplay {
                 id: rdmFront
                 width: height * 1280 / 960
@@ -479,6 +476,32 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 imageIndex: swipeView.currentIndex
+                
+                Slider {
+                    id: slider1
+                    visible: false
+                    stepSize: 100
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    value: 500
+                    minimumValue: 500
+                    maximumValue: 2000
+                }
+                
+                Slider {
+                    id: slider2
+                    y: 0
+                    visible: false
+                    stepSize: 100
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    anchors.bottom: parent.bottom
+                    value: 500
+                    minimumValue: 500
+                    maximumValue: 2000
+
+                }
             }
             
             Connections {
@@ -487,20 +510,20 @@ Window {
                 onLeftRPMSignal: {
                     wheelLeft.forwardDirection = RDMBench.leftRPM > 0
                     wheelLeft.running = Math.abs(RDMBench.leftRPM) > 10
-                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*2
+                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*3
                 }
                 
                 onRightRPMSignal: {
                     wheelRight.forwardDirection = RDMBench.rightRPM > 0
                     wheelRight.running = Math.abs(RDMBench.rightRPM) > 10
-                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*2
+                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*3
                 }
                 
                 
             }
         }
     }
-
+    
     Item {
         id: infoContainer
         x: 974
@@ -512,7 +535,7 @@ Window {
         anchors.bottomMargin: 0
         anchors.top: parent.top
         anchors.topMargin: 0
-
+        
         SwipeView {
             id: swipeView
             anchors.rightMargin: parent.width * 0.15
@@ -525,9 +548,9 @@ Window {
             anchors.top: parent.top
             orientation: Qt.Vertical
             wheelEnabled: true
-
+            
             currentIndex: 3
-
+            
             Item {
                 id: page1
                 Loader {
@@ -564,7 +587,7 @@ Window {
                     height: parent.height
                 }
             }
-
+            
             Item {
                 id: page5
                 Loader {
@@ -575,7 +598,7 @@ Window {
                 }
             }
         }
-
+        
         PageIndicator {
             id: pageIndicator
             y: 342
@@ -585,11 +608,11 @@ Window {
             anchors.verticalCenter: parent.verticalCenter
             scale: 3
             rotation: 90
-
+            
             count: swipeView.count
             currentIndex: swipeView.currentIndex
         }
-
+        
         Timer {
             interval: slider.value * 1000
             running: true
@@ -598,7 +621,7 @@ Window {
                              swipeView.currentIndex < swipeView.count
                              - 1 ? swipeView.currentIndex + 1 : 0)
         }
-
+        
         Button {
             id: scrollUpButton
             x: 905
@@ -609,7 +632,7 @@ Window {
             anchors.topMargin: parent.height * 0.05
             anchors.top: parent.top
             visible: true
-
+            
             style: ButtonStyle {
                 background: Rectangle {
                     implicitWidth: 100
@@ -618,7 +641,7 @@ Window {
                     radius: control.width / 2
                     color: control.pressed ? "#161616" : "#262626"
                 }
-
+                
                 label: Component {
                     id: component
                     Text {
@@ -634,18 +657,18 @@ Window {
                                 to: 10
                             }
                         }
-
+                        
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         anchors.fill: parent
                     }
                 }
             }
-
+            
             onClicked: swipeView.setCurrentIndex(
                            swipeView.currentIndex > 0 ? swipeView.currentIndex - 1 : 0)
         }
-
+        
         Button {
             id: scrollDownButton
             x: 911
@@ -658,7 +681,7 @@ Window {
             z: 0
             anchors.bottom: parent.bottom
             opacity: 1
-
+            
             style: ButtonStyle {
                 background: Rectangle {
                     implicitWidth: 100
@@ -667,7 +690,7 @@ Window {
                     radius: control.width / 2
                     color: control.pressed ? "#161616" : "#262626"
                 }
-
+                
                 label: Component {
                     Text {
                         rotation: 180
@@ -683,7 +706,7 @@ Window {
                                 to: 0
                             }
                         }
-
+                        
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         anchors.fill: parent
@@ -694,7 +717,7 @@ Window {
                            swipeView.currentIndex < swipeView.count
                            - 1 ? swipeView.currentIndex + 1 : swipeView.count - 1)
         }
-
+        
         DropShadow {
             anchors.fill: scrollUpButton
             horizontalOffset: 0
@@ -706,7 +729,7 @@ Window {
             color: "#80000000"
             source: scrollUpButton
         }
-
+        
         DropShadow {
             anchors.fill: scrollDownButton
             horizontalOffset: 0
@@ -718,7 +741,7 @@ Window {
             color: "#80000000"
             source: scrollDownButton
         }
-
+        
         CustomSlider {
             id: slider
             height: parent.height * 0.2
@@ -873,3 +896,24 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:42;anchors_x:411}
+}
+ ##^##*/

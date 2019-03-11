@@ -244,11 +244,10 @@ class RDMdemo(QObject):
                 self.rightRPM = tm1_feedback['speed sens']
                 # self.rightRPM %= 500
                 #self.leftTorque = tm1_feedback['torque sens']
-                self.leftTorque = torque_cmds['TM2'] * self.leftRPM / abs(self.leftRPM)
+                self.leftTorque = torque_cmds['TM2'] * (1 if self.leftRPM>0 else -1)
                 # self.leftTorque %= 15
                 #self.rightTorque = tm2_feedback['torque sens']
-                self.rightTorque = torque_cmds['TM1'] * self.rightRPM / abs(self.rightRPM)
-
+                self.rightTorque = torque_cmds['TM1'] * (1 if self.rightRPM>0 else -1)
                 # self.rightTorque %= -15
 
             except Exception as e:
