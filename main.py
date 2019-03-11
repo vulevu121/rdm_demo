@@ -120,17 +120,17 @@ class RDM(QObject):
 		self.rightTorque -= 1
 		self.rightTorque %= -30
 
-		if self.rightRPM < 100:
+		if self.leftRPM < 100:
 			self.demoStage = 0
-		elif self.rightRPM < 150:
+		elif self.leftRPM < 150:
 			self.demoStage = 1
-		elif self.rightRPM < 200:
+		elif self.leftRPM < 200:
 			self.demoStage = 2
-		elif self.rightRPM < 350:
+		elif self.leftRPM < 350:
 			self.demoStage = 3
-		elif self.rightRPM < 400:
+		elif self.leftRPM < 400:
 			self.demoStage = 4
-		elif self.rightRPM < 500:
+		elif self.leftRPM < 500:
 			self.demoStage = 5
 
 
@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
 		timer = QTimer()
 		timer.timeout.connect(RDMBench.updateStatus)
-		timer.start(2000)
+		timer.start(10000)
 	else:
 		# Instantiate the class
 		RDMBench = RDMdemo()

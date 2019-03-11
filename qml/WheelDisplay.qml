@@ -7,57 +7,39 @@ Item {
     property real duration: 600
     property real wheelChevronOpacity: 0.7
     property bool running: false
-    
-    function restartAnimation() {
-        wheelRow.restartAnimation()
-    }
-    
-    
-//    Column {
-//        id: chevronColumn
-//        width: parent.width
-//        spacing: -80
-//        z: 2
-//        property real opacityMain: 1.0
+
+    Column {
+        id: chevronColumn
+        width: parent.width
+        visible: wheelContainer.running
+        spacing: -80
+        z: 2
         
-//        SequentialAnimation on opacityMain {
-//            loops: Animation.Infinite
-//            PropertyAnimation {
-//                to: 0.0
-//                duration: 200
-//                easing.type: Easing.InOutSine
-//            }
-//            PropertyAnimation {
-//                to: 0.8
-//                duration: 200
-//                easing.type: Easing.InOutSine
-//            }
-//            PropertyAnimation {
-//                to: 0.0
-//                duration: 200
-//                easing.type: Easing.InOutSine
-//            }
+        
+        SequentialAnimation on opacity {
+            loops: Animation.Infinite
+            running: wheelContainer.running
+            PropertyAnimation {
+                from: 0.0
+                to: 0.3
+                duration: wheelContainer.duration
+                easing.type: Easing.InOutSine
+            }
+        }
+        
+        Repeater {
+            id: colRepeater
+            model: 3
             
-//        }
-        
-//        Image {
-//            width: parent.width
-//            source: "../images/chevronup.png"
-//            opacity: chevronColumn.opacityMain
-//        }
-        
-//        Image {
-//            width: parent.width
-//            source: "../images/chevronup.png"
-//            opacity: chevronColumn.opacityMain+0.3
-//        }
-        
-//        Image {
-//            width: parent.width
-//            source: "../images/chevronup.png"
-//            opacity: chevronColumn.opacityMain+0.5
-//        }
-//    }
+            Image {
+                rotation: wheelContainer.forwardDirection ? 0 : 180
+                width: parent.width
+                source: "../images/chevronup.png"
+            }
+            
+        }
+
+    }
 
     Row {
         id: wheelRow
@@ -65,30 +47,19 @@ Item {
         height: parent.height
         spacing: 1
         
-        function restartAnimation() {
-            repeater.restartAnimation()
-        }
-    
+        
         Repeater {
-            id: repeater
+            id: rowRepeater
             model: 5
             x: 0
             y: 0
-            
-            function restartAnimation() {
-                singleTread.restartAnimation()
-            }
-    
+         
             Rectangle {
                 id: singleTread
                 width: wheelContainer.width / 5
                 height: wheelContainer.height
                 border.width: 1
                 radius: width / 4
-                
-                function restartAnimation() {
-                    wheelStripe.restartAnimation()
-                }
     
                 gradient: Gradient {
                     GradientStop {position: 0.0 ; color: "#666666"}
@@ -101,14 +72,13 @@ Item {
                     id: wheelStripe
                     width: wheelContainer.width / 5
                     height: width / 2
+                    sourceSize.height: 32
+                    sourceSize.width: 32
                     opacity: 0.5
                     source: "../images/chevronup.png"
                     rotation: wheelContainer.forwardDirection ? 0 : 180
                     z: 2
-                    
-                    function restartAnimation() {
-                        pAnimation.restart()
-                    }
+                    visible: wheelContainer.running
                     
                     ParallelAnimation {
                         id: pAnimation
@@ -128,8 +98,8 @@ Item {
                         PropertyAnimation {
                             target: wheelStripe
                             property: "opacity"
-                            from: 0
-                            to: wheelContainer.wheelChevronOpacity
+                            from: wheelContainer.wheelChevronOpacity
+                            to: 0
                             duration: wheelContainer.duration
                             easing.type: Easing.InOutSine
                         }
@@ -215,7 +185,6 @@ Item {
 
 
 
-/*##^## Designer {
-    D{i:0;height:300;width:100}
-}
- ##^##*/
+
+
+

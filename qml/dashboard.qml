@@ -458,6 +458,8 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
+                property real rpm
+                duration: slider1.value
             }
 
             WheelDisplay {
@@ -467,6 +469,7 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
+                property real rpm
             }
 
             RDMDisplay {
@@ -482,17 +485,15 @@ Window {
                 target: RDMBench
                 
                 onLeftRPMSignal: {
-                    wheelLeft.duration = 1000 - Math.abs(RDMBench.leftRPM)
-                    wheelLeft.forwardDirection = RDMBench.leftRPM > 0 ? true : false
+                    wheelLeft.forwardDirection = RDMBench.leftRPM > 0
                     wheelLeft.running = Math.abs(RDMBench.leftRPM) > 10
-                    wheelLeft.restartAnimation()
+                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*2
                 }
                 
                 onRightRPMSignal: {
-                    wheelRight.duration = 1000 - Math.abs(RDMBench.rightRPM)
-                    wheelRight.forwardDirection = RDMBench.rightRPM > 0 ? true : false
+                    wheelRight.forwardDirection = RDMBench.rightRPM > 0
                     wheelRight.running = Math.abs(RDMBench.rightRPM) > 10
-                    wheelRight.restartAnimation()
+                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*2
                 }
                 
                 
@@ -857,7 +858,18 @@ Window {
 
 
 
-/*##^## Designer {
-    D{i:0;height:2160;width:3840}D{i:2;anchors_width:949;anchors_x:102}D{i:1;invisible:true}
-}
- ##^##*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
