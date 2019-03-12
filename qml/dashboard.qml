@@ -456,7 +456,7 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
-                duration: slider1.value
+//                duration: slider1.value
             }
             
             WheelDisplay {
@@ -466,7 +466,7 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
-                duration: slider2.value
+//                duration: slider2.value
             }
             
             RDMDisplay {
@@ -484,7 +484,7 @@ Window {
                     anchors.top: parent.top
                     anchors.right: parent.right
                     anchors.left: parent.left
-                    value: 500
+                    value: 1000
                     minimumValue: 500
                     maximumValue: 2000
                 }
@@ -497,7 +497,7 @@ Window {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
-                    value: 500
+                    value: 1000
                     minimumValue: 500
                     maximumValue: 2000
 
@@ -510,13 +510,13 @@ Window {
                 onLeftRPMSignal: {
                     wheelLeft.forwardDirection = RDMBench.leftRPM > 0
                     wheelLeft.running = Math.abs(RDMBench.leftRPM) > 10
-                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*3
+//                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*3
                 }
                 
                 onRightRPMSignal: {
                     wheelRight.forwardDirection = RDMBench.rightRPM > 0
                     wheelRight.running = Math.abs(RDMBench.rightRPM) > 10
-                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*3
+//                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*3
                 }
                 
                 

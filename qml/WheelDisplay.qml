@@ -4,7 +4,7 @@ Item {
     width: 100
     height: 300
     property bool forwardDirection: true
-    property real duration: 600
+    property real duration: 2000
     property real wheelChevronOpacity: 0.7
     property bool running: false
 
@@ -21,10 +21,19 @@ Item {
             loops: Animation.Infinite
             running: wheelContainer.running
             PropertyAnimation {
-                from: 0.0
+                to: 0.0
+                duration: wheelContainer.duration / 3
+//                easing.type: Easing.InOutSine
+            }
+            PropertyAnimation {
                 to: 0.6
-                duration: wheelContainer.duration
-                easing.type: Easing.InOutSine
+                duration: wheelContainer.duration / 3
+//                easing.type: Easing.InOutSine
+            }
+            PropertyAnimation {
+                to: 0.0
+                duration: wheelContainer.duration / 3
+//                easing.type: Easing.InOutSine
             }
         }
         

@@ -67,9 +67,9 @@ class RDMdemo(QObject):
         self.rdm = RDM()
 
         # Relay control
-        #self.relay_board = init_relay()
-        #self.relay_board.switchoff(WUP_channel)
-        #self.relay_board.switchoff(pump_channel)
+        self.relay_board = init_relay()
+        self.relay_board.switchoff(WUP_channel)
+        self.relay_board.switchoff(pump_channel)
 
         # Timers
         self.timers = []
@@ -239,15 +239,15 @@ class RDMdemo(QObject):
 
 
                 ### Update GUI ####
-                self.leftRPM = tm2_feedback['speed sens']
+                self.leftRPM = tm2_feedback['speed sens'] * 1
                 # self.leftRPM %= 500
-                self.rightRPM = tm1_feedback['speed sens']
+                self.rightRPM = tm1_feedback['speed sens'] * -1
                 # self.rightRPM %= 500
                 #self.leftTorque = tm1_feedback['torque sens']
-                self.leftTorque = torque_cmds['TM2'] * (1 if self.leftRPM>0 else -1)
+                self.leftTorque = torque_cmds['TM2'] * (-1 if self.leftRPM>0 else 1)
                 # self.leftTorque %= 15
                 #self.rightTorque = tm2_feedback['torque sens']
-                self.rightTorque = torque_cmds['TM1'] * (1 if self.rightRPM>0 else -1)
+                self.rightTorque = torque_cmds['TM1'] * (-1 if self.rightRPM>0 else 1)
                 # self.rightTorque %= -15
 
             except Exception as e:
@@ -269,10 +269,10 @@ class RDMdemo(QObject):
 
         # WUP HIGH
         print ("WUP On...")
-        #self.relay_board.switchon(WUP_channel)
-        #self.relay_board.switchon(pump_channel)
+        self.relay_board.switchon(WUP_channel)
+        self.relay_board.switchon(pump_channel)
 
-        #print('WUP status: {}'.format(self.relay_board.getstatus( WUP_channel)))
+        print('WUP status: {}'.format(self.relay_board.getstatus( WUP_channel)))
 
         # Turn ON HV Power Supply Output
         power_supply_control(output = 'ON', voltage = 340, current = 5)
@@ -319,6 +319,7 @@ class RDMdemo(QObject):
 
     def stage2(self):
         self.rdm.set_torque(12,'TM1')
+        self.rdm.set_torque(5,'TM2')
 
         nxt_stg = threading.Timer(self.stg2_duration,self.stage3,args=())
         nxt_stg.daemon = True
