@@ -641,7 +641,7 @@ Window { //main window
         }
         
         Timer { // timer to cycle through each page
-            interval: slider.value * 1000
+            interval: slideshowSlider.value * 1000
             running: true
             repeat: true
             onTriggered: swipeView.setCurrentIndex(
@@ -768,7 +768,7 @@ Window { //main window
         }
         
         CustomSlider { // slider for slide show of all the pages
-            id: slidshowSlider
+            id: slideshowSlider
             height: parent.height * 0.2
             grooveThickness: 10
             tickmarksEnabled: false

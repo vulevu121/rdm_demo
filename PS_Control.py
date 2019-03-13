@@ -4,7 +4,8 @@ import visa
 #Create a resource manager
 
 # depend on PS
-current_limit = 5.1 
+current_limit = 5.1 # for 220V PS
+current_limit = 2.0 # for 110 PS
 
 #creates a write function (This is for commanding the PS to do something)
 def PSwrite(inst, mode, value =-9999):

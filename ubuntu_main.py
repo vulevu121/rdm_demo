@@ -67,9 +67,12 @@ class RDMdemo(QObject):
         self.rdm = RDM()
 
         # Relay control
-        self.relay_board = init_relay()
-        self.relay_board.switchoff(WUP_channel)
-        self.relay_board.switchoff(pump_channel)
+        try:
+            self.relay_board = init_relay()
+            self.relay_board.switchoff(WUP_channel)
+            self.relay_board.switchoff(pump_channel)
+        except:
+            pass
 
         # Timers
         self.timers = []
@@ -268,14 +271,18 @@ class RDMdemo(QObject):
         self.isStarted = True
 
         # WUP HIGH
-        print ("WUP On...")
-        self.relay_board.switchon(WUP_channel)
-        self.relay_board.switchon(pump_channel)
+        try:
+            #print ("WUP On...")
+            self.relay_board.switchon(WUP_channel)
+            self.relay_board.switchon(pump_channel)
 
-        print('WUP status: {}'.format(self.relay_board.getstatus( WUP_channel)))
+            print('WUP status: {}'.format(self.relay_board.getstatus( WUP_channel)))
+
+        except:
+            print("WUP error")
 
         # Turn ON HV Power Supply Output
-        power_supply_control(output = 'ON', voltage = 340, current = 5)
+        power_supply_control(output = 'ON', voltage = 350, current = 2)
 
 
         # separate thread to prevent gui freezing. PASS HANDLE NOT FUNCTION CALL
@@ -378,6 +385,10 @@ class RDMdemo(QObject):
         self.rdm.set_torque(0)
         self.rdm.set_motor_direction('normal')
 
+        # Turn Off PS output
+        power_supply_control(output = 'OFF', voltage = 350, current = 2)
+
+
     #######################################
     ############# Main functions ##########
     #######################################
@@ -433,8 +444,11 @@ def initCAN():
 def power_supply_control(output , voltage , current):
     try:
         rm = visa.ResourceManager('@py')
-        # PS number 1
-        inst = rm.open_resource('USB0::2391::34823::US18M7888R::0::INSTR')
+        # 220V PS number
+        #inst = rm.open_resource('USB0::2391::34823::US18M7888R::0::INSTR')
+        # 110V PS number
+        inst = rm.open_resource('USB0::2391::43271::US17N6729R::0::INSTR')
+
 
         ## Print for debug ##
         PSwrite(inst,'VSET', voltage)
@@ -442,8 +456,9 @@ def power_supply_control(output , voltage , current):
         PSwrite(inst,'ON')
 
         PSwrite(inst, output)
-    except:
-        print('Power Supply not found')
+
+    except Exception as e:
+        print('Power Supply Error: ' +str(e))
 
 
 
