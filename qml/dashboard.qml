@@ -8,7 +8,7 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls.Styles 1.4
 import QtMultimedia 5.0
 
-Window {
+Window { //main window
     id: root
     visible: true
     visibility: Window.FullScreen
@@ -26,7 +26,8 @@ Window {
     //        text: "Pixel Ratio: " + Screen.devicePixelRatio + "\nPixel Density: " + Screen.pixelDensity
     //    }
     
-    Item {
+    
+    Item { // left side container for logo, start button, and rdm display
         id: controlContainer
         width: root.width * 0.6
         anchors.bottom: parent.bottom
@@ -37,7 +38,7 @@ Window {
         anchors.leftMargin: 0
         z: 2
         
-        Item {
+        Item { // container for logo, header, and start button
             id: karmaContainer
             width: parent.width * 0.7
             height: parent.height * 0.18
@@ -73,7 +74,7 @@ Window {
             }
             
             
-            Item {
+            Item { // container for start button, logo, and circular progress bar
                 id: startButtonContainer
                 width: height
                 height: parent.height
@@ -90,19 +91,21 @@ Window {
                     fillMode: Image.PreserveAspectFit
                     source: "../images/Karma-logo.png"
                     
+                   
                     ProgressBar {
                         id: stageProgressBar
-                        width: height
                         height: parent.height * 0.7
+                        width: height
                         anchors.verticalCenterOffset: 0
                         anchors.horizontalCenterOffset: 0
                         z: 1
                         anchors.centerIn: parent
-                        property real gaugeValue
+                        property real gaugeValue // property works with negative and positive values
                         x: 100
                         y: 100
-                        maximumValue: 5
                         minimumValue: 0
+                        maximumValue: 5
+
                         style: CircularProgressBarStyle {
                             startColorPos: "black"
                             endColorPos: "red"
@@ -110,7 +113,7 @@ Window {
                             borderWidth: 10
                         }
                         
-                        Behavior on gaugeValue {
+                        Behavior on gaugeValue { // smoothing animation for the gauge
                             NumberAnimation {
                                 duration: 300
                             }
@@ -120,16 +123,14 @@ Window {
                             target: RDMBench
                             
                             onDemoStageSignal: {
-                                stageProgressBar.gaugeValue = RDMBench.demoStage
+                                stageProgressBar.gaugeValue = RDMBench.demoStage // show current demo stage on circular progress bar
                             }
                         }
                         
-                        RoundButton {
+                        RoundButton { // start stop button
                             id: startButton
-                            x: 204
-                            y: 48
-                            width: height
-                            height: parent.height - 16
+                            height: parent.height * 0.92
+                            width: parent.width * 0.92
                             text: "S T A R T"
                             checkable: true
                             font.strikeout: false
@@ -139,14 +140,16 @@ Window {
                             font.pixelSize: startButtonContainer.height * 0.1
                             z: 3
                             
-                            background: Rectangle {
+                            background: Rectangle { // background for start stop button
                                 radius: startButton.width / 2
                                 rotation: -30
+//                                border.width: 1
+//                                border.color: "#fcff00"
                                 gradient: Gradient {
-                                    GradientStop {
+                                    GradientStop { // top part of gradient
                                         position: 0.0
                                         
-                                        SequentialAnimation on color {
+                                        SequentialAnimation on color { // animation to change colors to stopped state (top)
                                             loops: 1
                                             ColorAnimation {
                                                 to: "#262626"
@@ -155,7 +158,7 @@ Window {
                                             }
                                             alwaysRunToEnd: true
                                         }
-                                        SequentialAnimation on color {
+                                        SequentialAnimation on color { // animation to change colors to started state (top)
                                             running: startButton.pressed
                                             loops: 1
                                             ColorAnimation {
@@ -172,9 +175,9 @@ Window {
                                         }
                                     }
                                     
-                                    GradientStop {
+                                    GradientStop { // bottom part of gradient
                                         position: 1.0
-                                        SequentialAnimation on color {
+                                        SequentialAnimation on color { // animation to change colors to stopped state (bottom)
                                             loops: 1
                                             ColorAnimation {
                                                 to: "#000000"
@@ -183,7 +186,7 @@ Window {
                                             }
                                             alwaysRunToEnd: true
                                         }
-                                        SequentialAnimation on color {
+                                        SequentialAnimation on color { // animation to change colors to started state (bottom)
                                             running: startButton.pressed
                                             loops: 1
                                             ColorAnimation {
@@ -202,12 +205,12 @@ Window {
                                 }
                             }
                             
-                            onClicked: {
+                            onClicked: { // send start button press signal to python
                                 RDMBench.startButtonPressed(true)
                                 startButton.checked ? video.play() : video.pause()
                             }
                             
-                            Connections {
+                            Connections { // signal comes back from python to confirm button press
                                 target: RDMBench
                                 onStartButtonPressedSignal: {
                                     startButton.text = startButtonPressed ? "S T O P" : "S T A R T"
@@ -231,7 +234,7 @@ Window {
             }
         }
         
-        Item {
+        Item { // container for instrument cluster
             id: clusterContainer
             height: width * 0.375
             anchors.topMargin: parent.height * 0.02
@@ -241,7 +244,7 @@ Window {
             anchors.leftMargin: parent.width * 0.02
             anchors.left: parent.left
             
-            Image {
+            Image { // geometric cluster background image
                 id: clusterBackground
                 anchors.fill: parent
                 source: "../images/DIS_stealth_turn_np.png"
@@ -261,7 +264,7 @@ Window {
                 source: clusterBackground
             }
             
-            Item {
+            Item { // container for gauges
                 id: gaugeContainer
                 x: 121
                 y: 84
@@ -273,7 +276,7 @@ Window {
                 anchors.verticalCenter: parent.verticalCenter
                 z: 5
                 
-                CircularGauge {
+                CircularGauge { // left tachometer
                     id: tachometerLeft
                     width: height
                     height: gaugeContainer.height
@@ -288,7 +291,7 @@ Window {
                         gaugeName: "LEFT MOTOR"
                     }
                     
-                    Behavior on value {
+                    Behavior on value { // animation to smooth out needle
                         NumberAnimation {
                             duration: 500
                         }
@@ -297,26 +300,26 @@ Window {
                     Connections {
                         target: RDMBench
                         
-                        onLeftRPMSignal: {
+                        onLeftRPMSignal: { // update tachometer value when there is a change in left rpm
                             tachometerLeft.value = Math.abs(RDMBench.leftRPM)
                         }
                     }
                     
-                    ProgressBar {
+                    ProgressBar { // left torque
                         id: leftTorque
                         height: tachometerLeft.height / 2
                         z: 1
                         anchors.centerIn: parent
                         width: height
+                        minimumValue: -15
+                        maximumValue: 15
                         property real gaugeValue
                         
-                        maximumValue: 15
-                        minimumValue: -15
                         style: CircularProgressBarStyle {
-                            borderWidth: 6
+                            borderWidth: 6 // thickness of circular gauge bar
                         }
                         
-                        Behavior on gaugeValue {
+                        Behavior on gaugeValue { // animation to smooth out circular progress bar
                             NumberAnimation {
                                 duration: 500
                             }
@@ -325,7 +328,7 @@ Window {
                         Connections {
                             target: RDMBench
                             
-                            onLeftTorqueSignal: {
+                            onLeftTorqueSignal: { // update left torque gauge when there is a change in left torque
                                 leftTorque.gaugeValue = RDMBench.leftTorque
                             }
                         }
@@ -417,7 +420,7 @@ Window {
                 }
             }
             
-            Image {
+            Image { // concave background for video
                 id: videoBackground
                 width: clusterContainer.width * 0.45
                 height: width * 700 / 1400
@@ -426,7 +429,7 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 
-                Video {
+                Video { // main energy flow video
                     id: video
                     anchors.rightMargin: 5
                     anchors.leftMargin: 5
@@ -437,11 +440,35 @@ Window {
                     autoLoad: true
                     loops: Animation.Infinite
                     muted: true
+                    z: 2
+                }
+                Video { // secondary energy flow video
+                    id: video2
+                    anchors.rightMargin: 5
+                    anchors.leftMargin: 5
+                    anchors.bottomMargin: 30
+                    anchors.topMargin: 30
+                    anchors.fill: parent
+                    source: "../videos/IMG_4597.m4v"
+                    autoLoad: true
+                    loops: Animation.Infinite
+                    muted: true
+                    z: 1
+                }
+                
+                Timer { // timer to play secondary video when main video is close to finish
+                    interval: 2000
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        video.position > 50000 ? video2.play() : video2.pause()
+                    }
+                        
                 }
             }
         }
         
-        Item {
+        Item { // container for wheel and rdm display
             id: wheelContainer
             width: parent.width * 0.8
             height: parent.height * 0.35
@@ -449,7 +476,7 @@ Window {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             
-            WheelDisplay {
+            WheelDisplay { // left wheel
                 id: wheelLeft
                 width: height / 2
                 height: Screen.height * 0.2
@@ -459,7 +486,7 @@ Window {
 //                duration: slider1.value
             }
             
-            WheelDisplay {
+            WheelDisplay { // right wheel
                 id: wheelRight
                 width: height / 2
                 height: Screen.height * 0.2
@@ -469,7 +496,7 @@ Window {
 //                duration: slider2.value
             }
             
-            RDMDisplay {
+            RDMDisplay { // center rdm rdisplay
                 id: rdmFront
                 width: height * 1280 / 960
                 height: parent.height
@@ -507,13 +534,13 @@ Window {
             Connections {
                 target: RDMBench
                 
-                onLeftRPMSignal: {
+                onLeftRPMSignal: { // update the left wheel animation based on rpm
                     wheelLeft.forwardDirection = RDMBench.leftRPM > 0
                     wheelLeft.running = Math.abs(RDMBench.leftRPM) > 10
 //                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*3
                 }
                 
-                onRightRPMSignal: {
+                onRightRPMSignal: { // update the right wheel animation based on rpm
                     wheelRight.forwardDirection = RDMBench.rightRPM > 0
                     wheelRight.running = Math.abs(RDMBench.rightRPM) > 10
 //                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*3
@@ -524,7 +551,7 @@ Window {
         }
     }
     
-    Item {
+    Item { // right hand side container for information
         id: infoContainer
         x: 974
         y: 0
@@ -599,7 +626,7 @@ Window {
             }
         }
         
-        PageIndicator {
+        PageIndicator { // dotted indicator for swipeview pages
             id: pageIndicator
             y: 342
             anchors.rightMargin: parent.width * 0.04
@@ -613,7 +640,7 @@ Window {
             currentIndex: swipeView.currentIndex
         }
         
-        Timer {
+        Timer { // timer to cycle through each page
             interval: slider.value * 1000
             running: true
             repeat: true
@@ -622,7 +649,7 @@ Window {
                              - 1 ? swipeView.currentIndex + 1 : 0)
         }
         
-        Button {
+        Button { // scroll up button for each page
             id: scrollUpButton
             x: 905
             width: root.width * 0.035
@@ -637,7 +664,6 @@ Window {
                 background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 25
-                    //                            border.color: "#888"
                     radius: control.width / 2
                     color: control.pressed ? "#161616" : "#262626"
                 }
@@ -666,10 +692,10 @@ Window {
             }
             
             onClicked: swipeView.setCurrentIndex(
-                           swipeView.currentIndex > 0 ? swipeView.currentIndex - 1 : 0)
+                           swipeView.currentIndex > 0 ? swipeView.currentIndex - 1 : 0) // limit smallest index to 0
         }
         
-        Button {
+        Button { // scroll down button for swipeview pages
             id: scrollDownButton
             x: 911
             y: 974
@@ -686,7 +712,6 @@ Window {
                 background: Rectangle {
                     implicitWidth: 100
                     implicitHeight: 25
-                    //                            border.color: "#888"
                     radius: control.width / 2
                     color: control.pressed ? "#161616" : "#262626"
                 }
@@ -715,7 +740,7 @@ Window {
             }
             onClicked: swipeView.setCurrentIndex(
                            swipeView.currentIndex < swipeView.count
-                           - 1 ? swipeView.currentIndex + 1 : swipeView.count - 1)
+                           - 1 ? swipeView.currentIndex + 1 : swipeView.count - 1) // limit largest index to number of pages
         }
         
         DropShadow {
@@ -742,8 +767,8 @@ Window {
             source: scrollDownButton
         }
         
-        CustomSlider {
-            id: slider
+        CustomSlider { // slider for slide show of all the pages
+            id: slidshowSlider
             height: parent.height * 0.2
             grooveThickness: 10
             tickmarksEnabled: false
@@ -913,7 +938,19 @@ Window {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:42;anchors_x:411}
+    D{i:43;anchors_x:411}
 }
  ##^##*/
