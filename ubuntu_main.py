@@ -282,7 +282,7 @@ class RDMdemo(QObject):
             print("WUP error")
 
         # Turn ON HV Power Supply Output
-        power_supply_control(output = 'ON', voltage = 350, current = 2)
+        #power_supply_control(output = 'ON', voltage = 350, current = 2)
 
 
         # separate thread to prevent gui freezing. PASS HANDLE NOT FUNCTION CALL
@@ -386,7 +386,7 @@ class RDMdemo(QObject):
         self.rdm.set_motor_direction('normal')
 
         # Turn Off PS output
-        power_supply_control(output = 'OFF', voltage = 350, current = 2)
+        #power_supply_control(output = 'OFF', voltage = 350, current = 2)
 
 
     #######################################
@@ -416,7 +416,7 @@ def init_relay():
         return rb
 
     except Exception as e:
-        print('error: '+ str(e))
+        print('init relay error: '+ str(e))
 
 
 

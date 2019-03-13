@@ -4,8 +4,8 @@ import visa
 #Create a resource manager
 
 # depend on PS
-current_limit = 5.1 # for 220V PS
-current_limit = 2.0 # for 110 PS
+#current_limit = 5.1 # for 220V PS
+current_limit = 2.1 # for 110 PS
 
 #creates a write function (This is for commanding the PS to do something)
 def PSwrite(inst, mode, value =-9999):
@@ -79,30 +79,20 @@ def PSquery(inst, mode):
 
     
 if __name__ == '__main__':
-###Finds the different resources connected to computer
     rm = visa.ResourceManager()
     print(rm.list_resources())
-##    #Value here may change depending upon raspberry pi's resource identification
-##    inst = rm.open_resource('USB0::0x0957::0xA907::US17M5344R::INSTR')
-##
-##
+    #Value here may change depending upon raspberry pi's resource identification
+    inst = rm.open_resource('USB0::2391::43271::US17N6729R::0::INSTR')
+
+
 ##    print(inst.query("*IDN?"))
-##    PSwrite(inst,'VSET', 400)
-##    PSwrite(inst,'CSET', 2.5)
+##    PSwrite(inst,'VSET', 350)
+##    PSwrite(inst,'CSET', 2.0)
 ##
 ##    print(PSquery(inst, 'OUTP'))
 ##    print(PSquery(inst, 'VSET'))
 ##
 ##    PSwrite(inst, 'ON')
+##
 
 
-
-##    rm = visa.ResourceManager('@py')
-##    print(rm.list_resources())
-    # ps NUMBER 1 
-##    inst = rm.open_resource('USB0::2391::43271::US17M5344R::0::INSTR')
-    # ps NUMBER 2 ON rdm CART
-##    inst = rm.open_resource('USB0::2391::43271::US17N6729R::0::INSTR')
-##    print(inst.query("*IDN?"))      
-##    PSwrite(inst,'VSET', 400)
-##    PSwrite(inst,'CSET', 2.5)
