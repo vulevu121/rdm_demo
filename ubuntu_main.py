@@ -1,5 +1,5 @@
 """
-Author: Khuong Nguyen, Vu Le
+Author: Khuong Nguyen, Vu Le and friends
 
 """
 
