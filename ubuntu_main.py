@@ -66,6 +66,11 @@ class RDMdemo(QObject):
         # Create RDM object
         self.rdm = RDM()
 
+        # set power output limit
+        power_supply_control(output = 'OFF', voltage = 350, current = 2)
+
+
+
         # Relay control
         try:
             self.relay_board = init_relay()
@@ -282,7 +287,7 @@ class RDMdemo(QObject):
             print("WUP error")
 
         # Turn ON HV Power Supply Output
-        #power_supply_control(output = 'ON', voltage = 350, current = 2)
+        power_supply_control(output = 'ON', voltage = 350, current = 2)
 
 
         # separate thread to prevent gui freezing. PASS HANDLE NOT FUNCTION CALL
@@ -307,7 +312,7 @@ class RDMdemo(QObject):
             enable.setDaemon(True)
             enable.start()
 
-        nxt_stg = threading.Timer(4.5,self.stage1,args=())
+        nxt_stg = threading.Timer(3.5,self.stage1,args=())
         nxt_stg.daemon = True
         nxt_stg.start()
 
@@ -384,9 +389,6 @@ class RDMdemo(QObject):
         # reset rdm settings
         self.rdm.set_torque(0)
         self.rdm.set_motor_direction('normal')
-
-        # Turn Off PS output
-        #power_supply_control(output = 'OFF', voltage = 350, current = 2)
 
 
     #######################################
