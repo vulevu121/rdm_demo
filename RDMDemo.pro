@@ -29,5 +29,10 @@ DISTFILES += \
     qml/VideoTest.qml \
     qml/Wheel.qml \
     qml/WheelDisplay.qml \
-    qml/CustomSlider.qml
+    qml/CustomSlider.qml \
+    qml/Gearbox_en.qml \
+    qml/Inverter_en.qml \
+    qml/Motor_en.qml \
+    qml/RDM_en.qml \
+    qml/Wheel_en.qml
 

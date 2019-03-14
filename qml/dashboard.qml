@@ -479,17 +479,16 @@ Window { //main window
             WheelDisplay { // left wheel
                 id: wheelLeft
                 width: height / 2
-                height: Screen.height * 0.2
+                height: rdmFront.height * 0.6
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
-
             }
             
             WheelDisplay { // right wheel
                 id: wheelRight
                 width: height / 2
-                height: Screen.height * 0.2
+                height: rdmFront.height * 0.6
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
