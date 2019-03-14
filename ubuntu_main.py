@@ -63,6 +63,11 @@ class RDMdemo(QObject):
         # Star Stop Flag
         self.isStarted  = False
         self.demoStage = 0    # 1 to 5
+
+
+        # initilize CAN
+        initCAN()
+
         # Create RDM object
         self.rdm = RDM()
 
@@ -82,8 +87,7 @@ class RDMdemo(QObject):
         # Timers
         self.timers = []
 
-        # start CAN
-        initCAN()
+        # Start CAN right away
         # self.start_CAN_thread()
 
     ####### GUI ############
@@ -479,6 +483,9 @@ def main():
 
     except Exception as e:
         print ('Main thread error: '+ str(e))
+    finally:
+        power_supply_control(output = 'OFF', voltage = 0, current = 0)
+
 	
 if __name__ == '__main__':
     main()

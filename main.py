@@ -165,3 +165,7 @@ if __name__ == "__main__":
 	
 	engine.quit.connect(app.quit)
 	sys.exit(app.exec_())
+
+	#turn off power supply on closing
+	power_supply_control(output='OFF', voltage=0, current=0)
+
