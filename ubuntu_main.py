@@ -273,7 +273,7 @@ class RDMdemo(QObject):
         global ReadFlag
         ReadFlag = True
 
-        # Feedback for GUI
+        # Feedback for GUI s
         self.isStarted = True
 
         # Turn on Inverter WUP
