@@ -62,7 +62,12 @@ class RDMdemo(QObject):
 
         # Star Stop Flag
         self.isStarted  = False
-        self.demoStage = 0    # 0 to 5
+        self.demoStage = 0    # 1 to 5
+
+
+        # initilize CAN
+        initCAN()
+
         # Create RDM object
         self.rdm = RDM()
 
@@ -80,8 +85,7 @@ class RDMdemo(QObject):
         # Timers
         self.timers = []
 
-        # start CAN
-        initCAN()
+        # Start CAN right away
         # self.start_CAN_thread()
 
     ####### GUI ############
@@ -269,7 +273,7 @@ class RDMdemo(QObject):
         global ReadFlag
         ReadFlag = True
 
-        # Feedback for GUI
+        # Feedback for GUI s
         self.isStarted = True
 
         # Turn on Inverter WUP
@@ -319,7 +323,7 @@ class RDMdemo(QObject):
         stage 5: Stop
     '''
 
-    def stage1(self):                       
+    def stage1(self):
         self.rdm.set_torque(8)
         nxt_stg = threading.Timer(self.stg1_duration,self.stage2,args=())
         nxt_stg.daemon = True
@@ -333,7 +337,7 @@ class RDMdemo(QObject):
     def stage2(self):
         self.rdm.set_torque(12,'TM1')
         self.rdm.set_torque(5,'TM2')
-        
+
         nxt_stg = threading.Timer(self.stg2_duration,self.stage3,args=())
         nxt_stg.daemon = True
         nxt_stg.start()
@@ -353,8 +357,9 @@ class RDMdemo(QObject):
 
 
     def stage4(self):
-        # Set direction before spining 
+        # Set direction before spining
         self.rdm.set_motor_direction('reverse')
+
         self.rdm.set_torque(8)
 
         nxt_stg = threading.Timer(self.stg4_duration,self.stage5,args=())
@@ -368,6 +373,7 @@ class RDMdemo(QObject):
         self.rdm.set_torque(0)
         # Change direction back to both wheel same direction
         self.rdm.set_motor_direction('normal')
+
 
         nxt_stg = threading.Timer(self.stg5_duration,self.stage1,args=())
         nxt_stg.daemon = True
@@ -401,7 +407,7 @@ def check_PEAK_CAN_connection():
     # 1 means no can0. prompt user for exit/retry and wait for input
     res = call("sudo ip link set can0 up", shell=True)
     PEAK_CAN_connected = not res # 1 is not connected
-    
+
 
 def init_relay():
     try:
@@ -481,6 +487,6 @@ def main():
         print ('Main thread error: '+ str(e))
     finally:
         power_supply_control(output = 'OFF', voltage = 0, current = 0)
-	
+
 if __name__ == '__main__':
     main()
