@@ -4,7 +4,7 @@ Item {
     width: 100
     height: 300
     property bool forwardDirection: true
-    property real duration: 2000
+    property real duration: 1800
     property real wheelChevronOpacity: 0.7
     property bool running: false
 
@@ -13,27 +13,22 @@ Item {
         width: parent.width
         height: parent.height
         visible: wheelContainer.running
-//        spacing: -80
         z: 2
         
-        
-        SequentialAnimation on opacity {
+        SequentialAnimation on opacity { // fading effect for triple chevrons
             loops: Animation.Infinite
             running: wheelContainer.running
             PropertyAnimation {
                 to: 0.0
                 duration: wheelContainer.duration / 3
-//                easing.type: Easing.InOutSine
             }
             PropertyAnimation {
                 to: 0.6
                 duration: wheelContainer.duration / 3
-//                easing.type: Easing.InOutSine
             }
             PropertyAnimation {
                 to: 0.0
                 duration: wheelContainer.duration / 3
-//                easing.type: Easing.InOutSine
             }
         }
         
@@ -88,19 +83,20 @@ Item {
                     visible: wheelContainer.running
                     
                     ParallelAnimation {
-                        id: pAnimation
+                        id: forwardAnimation
                         loops: Animation.Infinite
-                        running: wheelContainer.running
+                        running: wheelContainer.forwardDirection
                         alwaysRunToEnd: true
                         
                         PropertyAnimation {
                             target: wheelStripe
                             property: "y"
-                            from: wheelContainer.forwardDirection ? wheelContainer.height - wheelStripe.height : 0
-                            to: wheelContainer.forwardDirection ? 0 : wheelContainer.height - wheelStripe.height
+                            from: wheelContainer.height - wheelStripe.height
+                            to: 0
                             duration: wheelContainer.duration
                             easing.type: Easing.InOutSine
                         }
+                        
                         
                         PropertyAnimation {
                             target: wheelStripe
@@ -110,7 +106,33 @@ Item {
                             duration: wheelContainer.duration
                             easing.type: Easing.InOutSine
                         }
+                       
+                    }
+                    
+                    ParallelAnimation {
+                        id: reverseAnimation
+                        loops: Animation.Infinite
+                        running: !wheelContainer.forwardDirection
+                        alwaysRunToEnd: true
                         
+                        PropertyAnimation {
+                            target: wheelStripe
+                            property: "y"
+                            from: 0
+                            to: wheelContainer.height - wheelStripe.height
+                            duration: wheelContainer.duration
+                            easing.type: Easing.InOutSine
+                        }
+                        
+                        
+                        PropertyAnimation {
+                            target: wheelStripe
+                            property: "opacity"
+                            from: wheelContainer.wheelChevronOpacity
+                            to: 0
+                            duration: wheelContainer.duration
+                            easing.type: Easing.InOutSine
+                        }
                     }
                 }
             }

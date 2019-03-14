@@ -31,7 +31,7 @@ Item {
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
-                text: qsTr("Gearbox")
+                text: qsTr("变速箱")
                 antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -84,7 +84,7 @@ Item {
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr("Peak Input speed: 13,000 rpm\nPeak Input torque: 375 Nm\nPeak E-Motor Power: 175 kW\nArchitecture: Independent Drive – Completely Decoupled\nMass: 43 kg (dry)\nLubrication: Oil Splash Lubrication (No active cooling)")
+                text: qsTr("Peak Input speed: 13,000 rpm\nPeak Input torque: 375 Nm\nPeak E-Motor Power: 175 kW\nArchitecture: Independent Drive (Completely Decoupled)\nMass: 43 kg (dry)\nLubrication: Oil splash lubrication (Passive cooling)")
                 antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop

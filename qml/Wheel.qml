@@ -31,7 +31,7 @@ Item {
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
-                text: qsTr("Wheel")
+                text: qsTr("碳纤维轮毂")
                 Layout.fillHeight: false
                 antialiasing: false
                 font.underline: false
@@ -96,13 +96,13 @@ Item {
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr("Hoop Material: Carbon Fiber\nSpokes Material: HPC Aluminum A356-T6\nFront Wheel: 22x8.5J (11.7 kg - 34% reduction*)\nRear Wheel: 22x9.5J (12.9 kg - 35% reduction*)\nFront Rolling Inertia: 0.320 kg-m2 (43% reduction*)\nRear Rolling Inertia: 0.383 kg-m2 (38% reduction*)\n0-100 kph Improvement: Δ0.1s\n\n*As compared to a cast wheel with same size, same loading requirements, and similar styling complexity.")
+                text: qsTr("Hoop Material: Carbon Fiber (Resin Transfer Molding)\nSpokes Material: High Pressure Cast Aluminum A356-T6\nFront Wheel: 22x8.5J (11.7 kg, 34% reduction*)\nRear Wheel: 22x9.5J (12.9 kg, 35% reduction*)\nFront Rolling Inertia: 0.320 kg-m2 (43% reduction*)\nRear Rolling Inertia: 0.383 kg-m2 (38% reduction*)\n0-100 kph Improvement: Δ0.1s\n\n*As compared to a cast wheel with same size, same loading requirements, and similar styling complexity.")
                 antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                font.pointSize: 16
+                font.pointSize: 14
             }
 
 

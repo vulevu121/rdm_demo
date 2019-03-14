@@ -29,7 +29,7 @@ Item {
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
-                text: qsTr("Rear Drive Motor")
+                text: qsTr("后轮驱动系统")
                 antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -50,11 +50,10 @@ Item {
                 source: "../images/RDM.png"
             }
 
-
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr("KARMA Revero 2.0 后驱系统是由两套独立的高速永磁同步电机和逆变器，一个独立驱动齿轮箱（减速器），隔离衬套和液体冷却系统组成。该系统的主要功能是将高压直流电能转换成永磁同步电机的机械动能，并通过减速器来讲该动力传递给车轮（地面）来推动车辆。由于单独驱动单侧后轮，此后驱系统可以提供全时的扭矩矢量控制，提高和改善车辆的动态响应，操控性，以及驾驶体验，并且在刹车的过程中捕获动能来执行再生制动。")
+                text: qsTr("KARMA Revero 2.0 后驱系统是由两套独立的高速永磁同步电机和逆变器，一个独立驱动齿轮箱（减速器），隔离衬套和液体冷却系统组成。该系统的主要功能是将高压直流电能转换成永磁同步电机的机械动能，并通过减速器将该动力传递给车轮（地面）来推动车辆。由于单独驱动单侧后轮，此后驱系统可以提供全时的扭矩矢量控制，提高和改善车辆的动态响应，操控性，以及驾驶体验，并且在刹车的过程中捕获动能来执行再生制动。")
                 verticalAlignment: Text.AlignVCenter
                 antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -107,6 +106,12 @@ Item {
 
 
 }
+
+
+
+
+
+
 
 
 

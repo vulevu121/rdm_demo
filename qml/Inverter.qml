@@ -31,7 +31,7 @@ Item {
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
-                text: qsTr("Inverter")
+                text: qsTr("DC/AC 大功率逆变器")
                 antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -57,7 +57,7 @@ Item {
             Text {
                 id: body
                 color: "#d3d7cf"
-                text: qsTr("DC/AC 大功率逆变器\nKARMA 自主研发的第二代功率逆变器模块，全新的设计布局和先进的散热系统提供了极高的功率密度（Recommend：“KARMA 自主研发的第二代功率逆变器模块，拥有全新的设计布局和先进的散热系统，使其具备了极高的功率密度”），可提供200kW的峰值功率和高达130kW 的持续功率。该逆变器稳定的电子设计和软件架构保证了 Karma Revero 第二代混合动力轿跑的成功上市 ，与此同时，该模块也可以直接用于纯电电驱系统的应用。")
+                text: qsTr("KARMA 自主研发的第二代功率逆变器模块，拥有全新的设计布局和先进的散热系统，使其具备了极高的功率密度，可提供200kW的峰值功率和高达130kW 的持续功率。该逆变器稳定的电子设计和软件架构保证了 Karma Revero 第二代混合动力轿跑的成功上市 ，与此同时，该模块也可以直接用于纯电电驱系统的应用。")
                 verticalAlignment: Text.AlignVCenter
                 antialiasing: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop

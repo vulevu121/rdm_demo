@@ -1,8 +1,9 @@
 from PyQt5.QtGui import *
 from PyQt5.QtQml import *
 from PyQt5.QtCore import *
+import random
 
-guiTesting = False
+guiTesting = True
 
 if not guiTesting:
 	from ubuntu_main import *
@@ -111,14 +112,19 @@ class RDM(QObject):
 		self.demoStageSignal.emit(v)
 
 	def updateStatus(self):
-		self.leftRPM += 100
-		self.leftRPM %= 500
-		self.rightRPM -= 50
-		self.rightRPM %= -500
-		self.leftTorque += 1
-		self.leftTorque %= 30
-		self.rightTorque -= 1
-		self.rightTorque %= -30
+		# self.leftRPM += 100
+		# self.leftRPM %= 500
+		# self.rightRPM -= 50
+		# self.rightRPM %= -500
+		# self.leftTorque += 1
+		# self.leftTorque %= 30
+		# self.rightTorque -= 1
+		# self.rightTorque %= -30
+
+		self.leftRPM = random.randrange(-500, 500)
+		self.rightRPM = random.randrange(-500, 500)
+		self.leftTorque = int(self.leftRPM / 25)
+		self.rightTorque = int(self.rightRPM / 25)
 
 		if self.leftRPM < 100:
 			self.demoStage = 0
@@ -153,7 +159,7 @@ if __name__ == "__main__":
 
 		timer = QTimer()
 		timer.timeout.connect(RDMBench.updateStatus)
-		timer.start(1000)
+		timer.start(10000)
 	else:
 		# Instantiate the class
 		RDMBench = RDMdemo()

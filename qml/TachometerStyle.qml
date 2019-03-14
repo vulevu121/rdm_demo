@@ -120,7 +120,7 @@ DashboardGaugeStyle {
             color: "white"
             font.pixelSize: tachometerStyle.toPixels(0.1)
             anchors.bottom: gaugeNameText.top
-            anchors.bottomMargin: 10
+            anchors.bottomMargin: font.pixelSize * 0.2
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -130,7 +130,7 @@ DashboardGaugeStyle {
             color: "white"
             font.pixelSize: tachometerStyle.toPixels(0.1)
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 30
+            anchors.bottomMargin: font.pixelSize * 0.8
             anchors.horizontalCenter: parent.horizontalCenter
         }
     }

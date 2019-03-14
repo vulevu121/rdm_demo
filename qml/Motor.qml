@@ -31,7 +31,7 @@ Item {
             Text {
                 id: pageHeading
                 color: "#d3d7cf"
-                text: qsTr("Motor")
+                text: qsTr("交流电动机")
                 antialiasing: false
                 font.underline: false
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -84,7 +84,7 @@ Item {
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr("Peak Power: 200 kW @ 5000 rpm\nPeak Torque: 370 Nm 0-4000 rpm\nContinuous Power: 60 kW\nRated Voltage: 370 V\nMax Speed: 13,7000 rpm")
+                text: qsTr("Peak Power: 200 kW @ 5,000 rpm\nPeak Torque: 370 Nm 0-4,000 rpm\nContinuous Power: 60 kW\nRated Voltage: 370 V\nMax Speed: 13,000 rpm")
                 antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop

@@ -288,7 +288,7 @@ Window { //main window
                     
                     style: TachometerStyle {
                         showValue: false
-                        gaugeName: "LEFT MOTOR"
+                        gaugeName: langSlider.value == 1 ? "左侧驱动电机" : "LEFT MOTOR"
                     }
                     
                     Behavior on value { // animation to smooth out needle
@@ -359,7 +359,7 @@ Window { //main window
                     
                     style: TachometerStyle {
                         showValue: false
-                        gaugeName: "RIGHT MOTOR"
+                        gaugeName: langSlider.value == 1 ? "右侧驱动电机" : "RIGHT MOTOR"
                     }
                     
                     Behavior on value {
@@ -483,7 +483,7 @@ Window { //main window
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.rightMargin: parent.width * 0.01
                 anchors.right: rdmFront.left
-//                duration: slider1.value
+
             }
             
             WheelDisplay { // right wheel
@@ -493,7 +493,7 @@ Window { //main window
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: parent.width * 0.01
                 anchors.left: rdmFront.right
-//                duration: slider2.value
+
             }
             
             RDMDisplay { // center rdm rdisplay
@@ -503,32 +503,6 @@ Window { //main window
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 imageIndex: swipeView.currentIndex
-                
-                Slider {
-                    id: slider1
-                    visible: false
-                    stepSize: 100
-                    anchors.top: parent.top
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    value: 1000
-                    minimumValue: 500
-                    maximumValue: 2000
-                }
-                
-                Slider {
-                    id: slider2
-                    y: 0
-                    visible: false
-                    stepSize: 100
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    anchors.bottom: parent.bottom
-                    value: 1000
-                    minimumValue: 500
-                    maximumValue: 2000
-
-                }
             }
             
             Connections {
@@ -536,18 +510,28 @@ Window { //main window
                 
                 onLeftRPMSignal: { // update the left wheel animation based on rpm
                     wheelLeft.forwardDirection = RDMBench.leftRPM > 0
-                    wheelLeft.running = Math.abs(RDMBench.leftRPM) > 10
-//                    wheelLeft.duration = 2000 - Math.abs(RDMBench.leftRPM)*3
+                    wheelLeft.running = Math.abs(RDMBench.leftRPM) > 20
                 }
                 
                 onRightRPMSignal: { // update the right wheel animation based on rpm
                     wheelRight.forwardDirection = RDMBench.rightRPM > 0
-                    wheelRight.running = Math.abs(RDMBench.rightRPM) > 10
-//                    wheelRight.duration = 2000 - Math.abs(RDMBench.rightRPM)*3
+                    wheelRight.running = Math.abs(RDMBench.rightRPM) > 20
                 }
                 
-                
             }
+        }
+        
+        Text {
+            id: copyrightText
+            x: 1140
+            y: 2123
+            color: "#777777"
+            text: qsTr("© Karma Automotive 2019")
+            font.pointSize: 18
+            anchors.bottomMargin: 20
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
         }
     }
     
@@ -576,13 +560,16 @@ Window { //main window
             orientation: Qt.Vertical
             wheelEnabled: true
             
-            currentIndex: 3
+            currentIndex: 0
+            onCurrentIndexChanged: {
+                slideshowTimer.restart()
+            }
             
             Item {
                 id: page1
                 Loader {
                     id: pageLoader1
-                    source: "RDM.qml"
+                    source: langSlider.value == 1 ? "RDM.qml" : "RDM_en.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -591,7 +578,7 @@ Window { //main window
                 id: page2
                 Loader {
                     id: pageLoader2
-                    source: "Inverter.qml"
+                    source: langSlider.value == 1 ? "Inverter.qml" : "Inverter_en.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -600,7 +587,7 @@ Window { //main window
                 id: page3
                 Loader {
                     id: pageLoader3
-                    source: "Motor.qml"
+                    source: langSlider.value == 1 ? "Motor.qml" : "Motor_en.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -609,7 +596,7 @@ Window { //main window
                 id: page4
                 Loader {
                     id: pageLoader4
-                    source: "Gearbox.qml"
+                    source: langSlider.value == 1 ? "Gearbox.qml" : "Gearbox_en.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -619,7 +606,7 @@ Window { //main window
                 id: page5
                 Loader {
                     id: pageLoader5
-                    source: "Wheel.qml"
+                    source: langSlider.value == 1 ? "Wheel.qml" : "Wheel_en.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -641,6 +628,7 @@ Window { //main window
         }
         
         Timer { // timer to cycle through each page
+            id: slideshowTimer
             interval: slideshowSlider.value * 1000
             running: true
             repeat: true
@@ -665,7 +653,7 @@ Window { //main window
                     implicitWidth: 100
                     implicitHeight: 25
                     radius: control.width / 2
-                    color: control.pressed ? "#161616" : "#262626"
+                    color: control.pressed ? "#161616" : "#222222"
                 }
                 
                 label: Component {
@@ -713,7 +701,7 @@ Window { //main window
                     implicitWidth: 100
                     implicitHeight: 25
                     radius: control.width / 2
-                    color: control.pressed ? "#161616" : "#262626"
+                    color: control.pressed ? "#161616" : "#222222"
                 }
                 
                 label: Component {
@@ -767,22 +755,104 @@ Window { //main window
             source: scrollDownButton
         }
         
-        CustomSlider { // slider for slide show of all the pages
+        CustomSlider { // slider for slide show timer
             id: slideshowSlider
             height: parent.height * 0.2
-            grooveThickness: 10
+            grooveThickness: parent.width * 0.02
             tickmarksEnabled: false
-            handleSize: parent.width * 0.05
+            handleSize: parent.width * 0.04
             updateValueWhileDragging: true
             stepSize: 1
-            anchors.topMargin: parent.height * 0.15
+            anchors.topMargin: parent.height * 0.1
             anchors.top: pageIndicator.bottom
             anchors.horizontalCenter: pageIndicator.horizontalCenter
             minimumValue: 3
-            value: 5
+            value: 15
             maximumValue: 60
             orientation: Qt.Vertical
             z: 2
+            
+            Text {
+                text: qsTr("Page\nTimer")
+                anchors.top: parent.bottom
+                anchors.topMargin: font.pixelSize * 0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: slideshowSlider.handleSize * 0.5
+            }
+        }
+        
+        
+        Slider { // language selection slider
+            id: langSlider
+            stepSize: 1
+            minimumValue: 0
+            orientation: Qt.Vertical
+            anchors.horizontalCenter: pageIndicator.horizontalCenter
+            value: 1
+            height: parent.height * 0.05
+            anchors.bottomMargin: parent.height * 0.2
+            anchors.bottom: pageIndicator.top
+            property real handleSize: parent.width * 0.04
+            property real grooveThickness: parent.width * 0.02
+            
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    langSlider.value = langSlider.value == 1 ? 0 : 1
+                }
+            }
+            
+            Text {
+                text: qsTr("中文")
+                anchors.bottomMargin: font.pixelSize * 0.5
+                anchors.bottom: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignHCenter
+                color: "white"
+                font.pixelSize: langSlider.handleSize / 2
+            }
+            
+            Text {
+                text: qsTr("EN")
+                anchors.topMargin: font.pixelSize * 0.5
+                anchors.top: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignHCenter
+                color: "white"
+                font.pixelSize: langSlider.handleSize / 2
+            }
+            
+            style: SliderStyle {
+                handle: Item {
+                    width: control.handleSize
+                    height: control.handleSize
+        
+                    Rectangle {
+                        id: sliderHandle
+                        implicitWidth: control.handleSize
+                        implicitHeight: control.handleSize
+                        radius: implicitWidth / 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: "#555"
+                    }
+                }
+                groove: Rectangle {
+                    implicitHeight: control.grooveThickness
+                    implicitWidth: parent.width
+                    radius: implicitHeight / 2
+                    border.color: "#333"
+                    color: "#111"
+//                    Rectangle {
+//                        implicitHeight: parent.height
+//                        implicitWidth: styleData.handlePosition
+//                        radius: implicitHeight / 2
+//                        color: "#555"
+//                    }
+                }
+            }
         }
     }
 }
@@ -802,155 +872,3 @@ Window { //main window
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*##^## Designer {
-    D{i:43;anchors_x:411}
-}
- ##^##*/

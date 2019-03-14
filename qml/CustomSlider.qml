@@ -39,21 +39,27 @@ Slider {
                 horizontalAlignment: Text.AlignHCenter
             }
         }
-        groove: Rectangle {
+        groove: Rectangle { // background groove
             implicitHeight: grooveThickness
             implicitWidth: parent.width
             radius: implicitHeight / 2
             border.color: "#333"
-            color: "#222"
-            Rectangle {
-                implicitHeight: parent.height
-                implicitWidth: styleData.handlePosition
-                radius: implicitHeight / 2
-                color: "#555"
-            }
+            color: "#111"
+//            Rectangle { // active groove
+//                implicitHeight: parent.height
+//                implicitWidth: styleData.handlePosition
+//                radius: implicitHeight / 2
+//                color: "#555"
+//            }
         }
     }
 }
+
+
+
+
+
+
 
 
 
