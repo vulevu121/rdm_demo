@@ -74,8 +74,6 @@ class RDMdemo(QObject):
         # set power output limit
         power_supply_control(output = 'OFF', voltage = 350, current = 2)
 
-
-
         # Relay control
         try:
             self.relay_board = init_relay()
@@ -209,7 +207,6 @@ class RDMdemo(QObject):
         print("Start CAN transmit...\n")
         global send_thread
 
-
         # Start sending the HV Off Time signal, send 6 hours
         task = bus.send_periodic(self.rdm.HV_off_time_msg, period = 0.1)
 
@@ -279,12 +276,10 @@ class RDMdemo(QObject):
         # Feedback for GUI
         self.isStarted = True
 
-        # WUP HIGH
+        # Turn on Inverter WUP
         try:
-            #print ("WUP On...")
             self.relay_board.switchon(WUP_channel)
             self.relay_board.switchon(pump_channel)
-
             print('WUP status: {}'.format(self.relay_board.getstatus( WUP_channel)))
 
         except:
@@ -320,7 +315,13 @@ class RDMdemo(QObject):
         nxt_stg.daemon = True
         nxt_stg.start()
 
-
+    '''
+        stage 1: Same speed, same direction
+        stage 2: TM1 fast, TM2 slow, same direction
+        stage 3: Stop
+        stage 4: Same speed, opposite direction
+        stage 5: Stop
+    '''
 
     def stage1(self):
         self.rdm.set_torque(8)
@@ -356,6 +357,7 @@ class RDMdemo(QObject):
 
 
     def stage4(self):
+        # Set direction before spining
         self.rdm.set_motor_direction('reverse')
 
         self.rdm.set_torque(8)
@@ -369,6 +371,7 @@ class RDMdemo(QObject):
 
     def stage5(self):
         self.rdm.set_torque(0)
+        # Change direction back to both wheel same direction
         self.rdm.set_motor_direction('normal')
 
 
@@ -404,6 +407,7 @@ def check_PEAK_CAN_connection():
     # 1 means no can0. prompt user for exit/retry and wait for input
     res = call("sudo ip link set can0 up", shell=True)
     PEAK_CAN_connected = not res # 1 is not connected
+
 
 def init_relay():
     try:
@@ -469,8 +473,6 @@ def power_supply_control(output , voltage , current):
 
 
 
-
-
 def main():
     try:
         d = RDMdemo()
@@ -486,6 +488,5 @@ def main():
     finally:
         power_supply_control(output = 'OFF', voltage = 0, current = 0)
 
-	
 if __name__ == '__main__':
     main()
