@@ -95,8 +95,8 @@ Item {
                             to: 0
                             duration: wheelContainer.duration
                             easing.type: Easing.InOutSine
+                            
                         }
-                        
                         
                         PropertyAnimation {
                             target: wheelStripe
