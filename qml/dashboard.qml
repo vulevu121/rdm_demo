@@ -564,6 +564,15 @@ Window { //main window
                 slideshowTimer.restart()
             }
             
+//            MouseArea {
+//                width: parent.width
+//                height: parent.height
+                
+//                onClicked: {
+//                    slideshowTimer.restart()
+//                }
+//            }
+            
             Item {
                 id: page1
                 Loader {
@@ -606,6 +615,16 @@ Window { //main window
                 Loader {
                     id: pageLoader5
                     source: langSlider.value == 1 ? "Wheel.qml" : "Wheel_en.qml"
+                    width: parent.width
+                    height: parent.height
+                }
+            }
+            
+            Item {
+                id: page6
+                Loader {
+                    id: pageLoader6
+                    source: langSlider.value == 1 ? "Contact.qml" : "Contact_en.qml"
                     width: parent.width
                     height: parent.height
                 }
@@ -766,7 +785,7 @@ Window { //main window
             anchors.top: pageIndicator.bottom
             anchors.horizontalCenter: pageIndicator.horizontalCenter
             minimumValue: 3
-            value: 15
+            value: 20
             maximumValue: 60
             orientation: Qt.Vertical
             z: 2

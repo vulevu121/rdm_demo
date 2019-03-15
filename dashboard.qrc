@@ -34,5 +34,7 @@
         <file>images/chevronupBlue.png</file>
         <file>images/chevronupOrange.png</file>
         <file>images/chevronuptriple.png</file>
+        <file>images/qrcode.png</file>
+        <file>qml/Contact_en.qml</file>
     </qresource>
 </RCC>
