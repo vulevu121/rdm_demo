@@ -3,10 +3,12 @@ from PyQt5.QtQml import *
 from PyQt5.QtCore import *
 import random
 
-guiTesting = True
+guiTesting = False
 
 if not guiTesting:
-	from ubuntu_main import *
+	#from ubuntu_main import *
+	from ubuntu_main_w_PS_shutdown import *
+
 
 class RDM(QObject):
 	def __init__(self):

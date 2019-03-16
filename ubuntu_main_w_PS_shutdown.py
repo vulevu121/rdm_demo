@@ -241,11 +241,6 @@ class RDMdemo(QObject):
                 tm1_feedback = self.rdm.get_tm1_feedback()
                 tm2_feedback = self.rdm.get_tm2_feedback()
                 torque_cmds = self.rdm.get_torque_cmd_value()
-                tm1_stat = self.rdm.get_tm1_status()
-                print(tm1_stat['inv temp sens'])
-                print(tm1_stat['motor temp sens'])
-
-
                 # print(tm1_feedback['speed sens'])
                 # print(tm2_feedback['speed sens'])
                 # print(tm1_feedback['torque sens'])
@@ -400,8 +395,32 @@ class RDMdemo(QObject):
         # reset rdm settings
         self.rdm.set_torque(0)
         self.rdm.set_motor_direction('normal')
+        self.rdm.disable()
+
+        # delay for inverter to reach Power OFF mode
+        time.sleep(.2)
+
+        global TransmitFlag
+        TransmitFlag = False
+        global send_thread
+        send_thread = None
+
+        delay_off = threading.Timer(2,self.delayed_WUP_off,args=())
+        delay_off.daemon = True
+        delay_off.start()
 
 
+
+    def delayed_WUP_off(self):
+        try:
+            self.relay_board.switchoff(WUP_channel)
+            self.relay_board.switchoff(pump_channel)
+            print('WUP status: {}'.format(self.relay_board.getstatus(WUP_channel)))
+
+        except:
+            print("WUP off error")
+
+        power_supply_control(output = 'OFF', voltage = 0, current = 0)
 
     #######################################
     ############# Main functions ##########

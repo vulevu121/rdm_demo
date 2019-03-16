@@ -131,7 +131,7 @@ class RDM:
         self.shutdown_cmd = 0x2
         # not enabled
         self.legacy_enable_cmd = 0x5
-        time.sleep(0.5)
+        time.sleep(0.1)
         # Finally, reset all shutdown command to default value
         self.legacy_shutdown_cmd = 0x0
         self.shutdown_cmd = 0x0 
@@ -192,6 +192,7 @@ class RDM:
         self.TM2_status_sig      = self.decode_inv_status((msg.data[2] & 0x3F << 8) | msg.data[3])
 
     def get_tm2_status(self):
+        prio
         return {'inv temp sens': self.TM2_inv_temp_sens, 'motor temp sens': self.TM2_motor_temp_sens,
                 'pcm test fail': self.TM2_pcm_test_fail , 'status sig': self.TM2_status_sig}
     

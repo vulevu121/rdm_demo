@@ -15,21 +15,21 @@ def PSwrite(inst, mode, value =-9999):
     elif mode == 'ON':
         inst.write("OUTP ON")
     elif mode == 'VSET':
-        if value > 0 and value < 625:
+        if value >= 0 and value < 625:
             value = round(value,1)
             inst.write("VOLT " + str(value))
         else:
             print('Voltage value is not an applicable number')
             return "ERROR"
     elif mode == 'CSET':
-        if value > 0 and value < current_limit:
+        if value >= 0 and value < current_limit:
             value = round(value,3)
             inst.write("CURR:LEV " + str(value))
         else:
             print('Current value is not an applicable number')
             return "ERROR"
     elif mode == 'OVP':
-        if value > 0 and value < 625:
+        if value >= 0 and value < 625:
             inst.write("VOLT:PROT:LEV " + str(value))
         else:
             print('Voltage value is not an applicable number')
@@ -43,7 +43,7 @@ def PSwrite(inst, mode, value =-9999):
             print('OCP Value not applicable: Must be 0 or 1')
             return 'ERROR'
     elif mode == 'VLim':
-        if value > 0 and value <625:
+        if value >= 0 and value <625:
             value = round(value, 1)
             inst.write("VOLT:LIM:LOW " + str(value))
         else:
