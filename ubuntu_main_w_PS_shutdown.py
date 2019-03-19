@@ -222,6 +222,8 @@ class RDMdemo(QObject):
 
             except Exception as e:
                 print('RDM: Unable to send on CAN bus...\nError: {}'.format(e))
+            finally:
+                # Terminate thread. New thread will be started in start_CAN_thread
                 send_thread = None
                 break
 
@@ -261,6 +263,8 @@ class RDMdemo(QObject):
 
             except Exception as e:
                 print('RDM: Unable to read on CAN bus ' + str(e) )
+            finally:
+                # Terminate thread, new thread will be started in start_CAN_thread
                 read_thread = None
                 break
 
@@ -310,6 +314,7 @@ class RDMdemo(QObject):
             enable.setDaemon(True)
             enable.start()
 
+        # Transition to next stage
         nxt_stg = threading.Timer(3.5,self.stage1,args=())
         nxt_stg.daemon = True
         nxt_stg.start()
@@ -402,8 +407,9 @@ class RDMdemo(QObject):
 
         global TransmitFlag
         TransmitFlag = False
-        global send_thread
-        send_thread = None
+        # Thread handling is done within start_transmit, does not have to repeat here
+        #global send_thread
+        #send_thread = None
 
         delay_off = threading.Timer(2,self.delayed_WUP_off,args=())
         delay_off.daemon = True
