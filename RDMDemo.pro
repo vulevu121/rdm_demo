@@ -35,5 +35,6 @@ DISTFILES += \
     qml/Motor_en.qml \
     qml/RDM_en.qml \
     qml/Wheel_en.qml \
-    qml/Contact.qml
+    qml/Contact.qml \
+    qml/Contact_en.qml
 

@@ -114,19 +114,19 @@ class RDM(QObject):
 		self.demoStageSignal.emit(v)
 
 	def updateStatus(self):
-		# self.leftRPM += 100
-		# self.leftRPM %= 500
-		# self.rightRPM -= 50
-		# self.rightRPM %= -500
-		# self.leftTorque += 1
-		# self.leftTorque %= 30
-		# self.rightTorque -= 1
-		# self.rightTorque %= -30
+		self.leftRPM += 100
+		self.leftRPM %= 500
+		self.rightRPM -= 50
+		self.rightRPM %= -500
+		self.leftTorque += 1
+		self.leftTorque %= 30
+		self.rightTorque -= 1
+		self.rightTorque %= -30
 
-		self.leftRPM = random.randrange(-500, 500)
-		self.rightRPM = random.randrange(-500, 500)
-		self.leftTorque = int(self.leftRPM / 25)
-		self.rightTorque = int(self.rightRPM / 25)
+		# self.leftRPM = random.randrange(-500, 500)
+		# self.rightRPM = random.randrange(-500, 500)
+		# self.leftTorque = int(self.leftRPM / 25)
+		# self.rightTorque = int(self.rightRPM / 25)
 
 		if self.leftRPM < 100:
 			self.demoStage = 0
