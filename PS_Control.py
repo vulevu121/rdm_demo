@@ -82,7 +82,8 @@ if __name__ == '__main__':
     rm = visa.ResourceManager()
     print(rm.list_resources())
     #Value here may change depending upon raspberry pi's resource identification
-    inst = rm.open_resource('USB0::2391::43271::US17N6729R::0::INSTR')
+    inst = rm.open_resource('ASRLCOM9::INSTR')
+    print(inst)
 
 
 ##    print(inst.query("*IDN?"))
