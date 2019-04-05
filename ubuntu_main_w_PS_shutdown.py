@@ -72,16 +72,17 @@ class RDMdemo(QObject):
         self.rdm = RDM()
 
         # set power output limit
+
         power_supply_control(output = 'OFF', voltage = 350, current = 2)
 
         # Relay control
+
         try:
             self.relay_board = init_relay()
             self.relay_board.switchoff(WUP_channel)
             self.relay_board.switchoff(pump_channel)
         except:
             pass
-
         # Timers
         self.timers = []
 
@@ -203,12 +204,13 @@ class RDMdemo(QObject):
         self.rdm.set_torque(8)
         self.isStarted = True
 
+
     def transmit(self):
         print("Start CAN transmit...\n")
         global send_thread
 
         # Start sending the HV Off Time signal, send 6 hours
-        task = bus.send_periodic(self.rdm.HV_off_time_msg, period = 0.1)
+        #task = bus.send_periodic(self.rdm.HV_off_time_msg, period = 0.1)
 
         # Send CAN continously
         while(TransmitFlag):
@@ -222,7 +224,6 @@ class RDMdemo(QObject):
 
             except Exception as e:
                 print('RDM: Unable to send on CAN bus...\nError: {}'.format(e))
-            finally:
                 # Terminate thread. New thread will be started in start_CAN_thread
                 send_thread = None
                 break
@@ -263,7 +264,6 @@ class RDMdemo(QObject):
 
             except Exception as e:
                 print('RDM: Unable to read on CAN bus ' + str(e) )
-            finally:
                 # Terminate thread, new thread will be started in start_CAN_thread
                 read_thread = None
                 break
@@ -408,8 +408,8 @@ class RDMdemo(QObject):
         global TransmitFlag
         TransmitFlag = False
         # Thread handling is done within start_transmit, does not have to repeat here
-        #global send_thread
-        #send_thread = None
+        global send_thread
+        send_thread = None
 
         delay_off = threading.Timer(2,self.delayed_WUP_off,args=())
         delay_off.daemon = True

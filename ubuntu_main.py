@@ -208,7 +208,7 @@ class RDMdemo(QObject):
         global send_thread
 
         # Start sending the HV Off Time signal, send 6 hours
-        task = bus.send_periodic(self.rdm.HV_off_time_msg, period = 0.1)
+        #task = bus.send_periodic(self.rdm.HV_off_time_msg, period = 0.1)
 
         # Send CAN continously
         while(TransmitFlag):
@@ -242,8 +242,6 @@ class RDMdemo(QObject):
                 tm2_feedback = self.rdm.get_tm2_feedback()
                 torque_cmds = self.rdm.get_torque_cmd_value()
                 tm1_stat = self.rdm.get_tm1_status()
-                print(tm1_stat['inv temp sens'])
-                print(tm1_stat['motor temp sens'])
 
 
                 # print(tm1_feedback['speed sens'])

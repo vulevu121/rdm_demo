@@ -79,7 +79,7 @@ Item {
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr("E-Mail: businessdev@karmaautomotive.com\nWebsite (China): www.karmaautomotive.cn\nWebsite (US): www.karmaautomotive.com")
+                text: qsTr("E-Mail: businessdev@karmaautomotive.com\n\nWebsite (China): www.karmaautomotive.cn\n\nWebsite (US): www.karmaautomotive.com")
                 antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop

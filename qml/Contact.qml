@@ -79,7 +79,7 @@ Item {
             Text {
                 id: specsText
                 color: "#d3d7cf"
-                text: qsTr("公司电子邮箱: businessdev@karmaautomotive.com\n公司官方网站: www.karmaautomotive.cn\n公司官方网站 (US): www.karmaautomotive.com")
+                text: qsTr("公司电子邮箱: businessdev@karmaautomotive.com\n\n公司官方网站: www.karmaautomotive.cn\n\n公司官方网站 (US): www.karmaautomotive.com")
                 antialiasing: false
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
@@ -105,6 +105,8 @@ Item {
 
 
 }
+
+
 
 
 
