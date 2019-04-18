@@ -471,9 +471,14 @@ def initCAN():
     bus = Bus()
     bus.flush_tx_buffer()
     listener = can.BufferedReader()
-    notifier = can.Notifier(bus, [listener])
+
+    # Must have Bus online before starting notifier
+
     check_PEAK_CAN_connection()
     print('PEAK CAN connected: {}'.format(PEAK_CAN_connected))
+
+    notifier = can.Notifier(bus, [listener])
+
 
 
 

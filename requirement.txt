@@ -1,0 +1,4 @@
+pyvisa-py
+python-can == 3.1.1
+pyusb
+numpy
